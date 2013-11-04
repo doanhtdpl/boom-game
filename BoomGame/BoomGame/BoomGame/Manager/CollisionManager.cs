@@ -39,7 +39,7 @@ namespace BoomGame.Manager
         {
             for (int i = 0; i < Contents.Count; ++i)
             {
-                for (int j = 0; j < Contents.Count; ++i)
+                for (int j = 0; j < Contents.Count; ++j)
                 {
                     if (i != j)
                     {

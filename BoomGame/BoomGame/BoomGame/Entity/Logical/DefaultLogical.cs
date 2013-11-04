@@ -19,16 +19,14 @@ namespace BoomGame.Entity.Logical
         {
         }
 
-        protected Vector2 position;
-        public Vector2 Position
-        {
-            get { return this.position; }
-        }
-
-        private Rectangle bound;
+        protected Rectangle bound;
         public Rectangle Bound
         {
             get { return bound; }
+        }
+
+        public virtual void onInit()
+        {
         }
     }
 }

@@ -13,6 +13,9 @@ using SCSEngine.Services;
 using SCSEngine.ResourceManagement;
 using BoomGame.Interface.Manager;
 using BoomGame.Manager;
+using SCSEngine.Sprite;
+using BoomGame.Entity;
+using BoomGame.Debuger;
 
 namespace BoomGame
 {
@@ -27,6 +30,8 @@ namespace BoomGame
         SCSServices scsServices;
 
         GameManagerImpl gameManager;
+
+        BomberEntity bomberEntity;
 
         public TBBoomMission()
         {
@@ -72,8 +77,15 @@ namespace BoomGame
             IResourceManager resourceManager = new SCSResourceManager(this.Content);
             this.Services.AddService(typeof(IResourceManager), resourceManager);
 
+            StringDebuger debuger = new StringDebuger(this);
+            Components.Add(debuger);
+
             gameManager = new GameManagerImpl(this);
             Components.Add(gameManager);
+
+            bomberEntity = new BomberEntity(this);
+            bomberEntity.onInit();
+            gameManager.Add(bomberEntity);
         }
 
         /// <summary>
@@ -106,9 +118,18 @@ namespace BoomGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            spriteBatch.End();
 
             base.Draw(gameTime);
+
+            spriteBatch.End();
+        }
+
+        protected void AddSpriteData()
+        {
+            SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveLeft, FramesGenerator.Generate(55, 55, 55, 1));
+            SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveRight, FramesGenerator.Generate(55, 55, 55, 1));
+            SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveUp, FramesGenerator.Generate(55, 55, 55, 1));
+            SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveDown, FramesGenerator.Generate(55, 55, 55, 1));
         }
     }
 }
