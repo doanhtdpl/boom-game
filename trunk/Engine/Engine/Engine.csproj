@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{40024084-AF49-48C3-9626-12B735745DEE}</ProjectGuid>
+    <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Windows Phone</Platform>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Engine</RootNamespace>
+    <AssemblyName>Engine</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
+    <XnaPlatform>Windows Phone</XnaPlatform>
+    <XnaProfile>Reach</XnaProfile>
+    <XnaCrossPlatformGroupID>f2a8216d-5a84-41d3-8366-b7fbc326b161</XnaCrossPlatformGroupID>
+    <XnaOutputType>Library</XnaOutputType>
+    <XnaRefreshLevel>0</XnaRefreshLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Windows Phone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Windows Phone\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS_PHONE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <XnaCompressContent>false</XnaCompressContent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Windows Phone' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Windows Phone\Release</OutputPath>
+    <DefineConstants>TRACE;WINDOWS_PHONE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <XnaCompressContent>false</XnaCompressContent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework" />
+    <Reference Include="Microsoft.Xna.Framework.Game" />
+    <Reference Include="Microsoft.Xna.Framework.Graphics" />
+    <Reference Include="Microsoft.Xna.Framework.GamerServices" />
+    <Reference Include="Microsoft.Xna.Framework.Input.Touch" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Net" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\Sound.cs" />
+    <Compile Include="Audio\SoundResourceLoader.cs" />
+    <Compile Include="Control\Backup\Button.cs" />
+    <Compile Include="Control\Backup\IListViewItem.cs" />
+    <Compile Include="Control\Backup\ListView.cs" />
+    <Compile Include="Control\BaseUIControl.cs" />
+    <Compile Include="Control\BaseUIFactory.cs" />
+    <Compile Include="Control\Button.cs" />
+    <Compile Include="Control\Clipping\IClipRegion.cs" />
+    <Compile Include="Control\Clipping\RectangleClipping.cs" />
+    <Compile Include="Control\Hard\IRegion.cs" />
+    <Compile Include="Control\Hard\IUIContainer.cs" />
+    <Compile Include="Control\Hard\IUIControl.cs" />
+    <Compile Include="Control\Hard\IUIDrawModel.cs" />
+    <Compile Include="Control\ICanvas.cs" />
+    <Compile Include="Control\IListViewArrange.cs" />
+    <Compile Include="Control\IListViewFactory.cs" />
+    <Compile Include="Control\IListViewGestureHandler.cs" />
+    <Compile Include="Control\IListViewItem.cs" />
+    <Compile Include="Control\IUIContainer.cs" />
+    <Compile Include="Control\IUIControl.cs" />
+    <Compile Include="Control\ListView.cs" />
+    <Compile Include="Control\PictureBox.cs" />
+    <Compile Include="Control\UIControlManager.cs" />
+    <Compile Include="GestureHandling\BaseGestureHandling\BaseGestureDispatcher.cs" />
+    <Compile Include="GestureHandling\BaseGestureHandling\BaseGestureEvent.cs" />
+    <Compile Include="GestureHandling\BaseGestureHandling\BaseGestureManager.cs" />
+    <Compile Include="GestureHandling\BaseGestureHandling\Touch.cs" />
+    <Compile Include="GestureHandling\BaseGestureHandling\TouchController.cs" />
+    <Compile Include="GestureHandling\DefaultGestureHandlingFactory.cs" />
+    <Compile Include="GestureHandling\IDefaultGestureHandlingFactory.cs" />
+    <Compile Include="GestureHandling\IGestureDetector.cs" />
+    <Compile Include="GestureHandling\IGestureDispatcher.cs" />
+    <Compile Include="GestureHandling\IGestureEvent.cs" />
+    <Compile Include="GestureHandling\IGestureHandler.cs" />
+    <Compile Include="GestureHandling\IGestureHandlingFactory.cs" />
+    <Compile Include="GestureHandling\IGestureManager.cs" />
+    <Compile Include="GestureHandling\IGestureTarget.cs" />
+    <Compile Include="GestureHandling\Implements\Detectors\DoubleDragDetector.cs" />
+    <Compile Include="GestureHandling\Implements\Detectors\DoubleFlickDetector.cs" />
+    <Compile Include="GestureHandling\Implements\Detectors\FreeDragDetector.cs" />
+    <Compile Include="GestureHandling\Implements\Detectors\FreeTapDetector.cs" />
+    <Compile Include="GestureHandling\Implements\Detectors\TapDetector.cs" />
+    <Compile Include="GestureHandling\Implements\Events\DoubleDrag.cs" />
+    <Compile Include="GestureHandling\Implements\Events\DoubleFlick.cs" />
+    <Compile Include="GestureHandling\Implements\Events\FreeDrag.cs" />
+    <Compile Include="GestureHandling\Implements\Events\FreeTap.cs" />
+    <Compile Include="GestureHandling\Implements\Events\Tap.cs" />
+    <Compile Include="GestureHandling\Implements\TapGestureHandler.cs" />
+    <Compile Include="GestureHandling\ITouch.cs" />
+    <Compile Include="GestureHandling\ITouchController.cs" />
+    <Compile Include="GestureHandling\TouchPositions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceManagement\Implement\BaseResourceManager.cs" />
+    <Compile Include="ResourceManagement\Implement\ContentResourceLoader.cs" />
+    <Compile Include="ResourceManagement\IResourceLoader.cs" />
+    <Compile Include="ResourceManagement\IResourceManager.cs" />
+    <Compile Include="ResourceManagement\SCSResourceManager.cs" />
+    <Compile Include="ScreenManagement\GameScreenState.cs" />
+    <Compile Include="ScreenManagement\IGameScreen.cs" />
+    <Compile Include="ScreenManagement\IGameScreenBank.cs" />
+    <Compile Include="ScreenManagement\IGameScreenFactory.cs" />
+    <Compile Include="ScreenManagement\IGameScreenManager.cs" />
+    <Compile Include="ScreenManagement\Implement\BaseGameScreen.cs" />
+    <Compile Include="ScreenManagement\Implement\BaseGameScreenBank.cs" />
+    <Compile Include="ScreenManagement\Implement\BaseGameScreenManager.cs" />
+    <Compile Include="ScreenManagement\Implement\BaseGameScreenManagerFactory.cs" />
+    <Compile Include="ScreenManagement\Implement\IGameScreenManagerFactory.cs" />
+    <Compile Include="Serialization\IDeserializer.cs" />
+    <Compile Include="Serialization\ISerializable.cs" />
+    <Compile Include="Serialization\ISerialization.cs" />
+    <Compile Include="Serialization\ISerializer.cs" />
+    <Compile Include="Serialization\XmlSerialization\XmlDeserializer.cs" />
+    <Compile Include="Serialization\XmlSerialization\XmlSerialization.cs" />
+    <Compile Include="Serialization\XmlSerialization\XmlSerializer.cs" />
+    <Compile Include="Serialization\XNASerializationHelper\XNASerialization.cs" />
+    <Compile Include="ServiceManagement\Implement\BaseServiceCollection.cs" />
+    <Compile Include="ServiceManagement\IService.cs" />
+    <Compile Include="ServiceManagement\IServiceCollection.cs" />
+    <Compile Include="Services\Audio\AudioManager.cs" />
+    <Compile Include="Services\Input\InputHandle.cs" />
+    <Compile Include="Services\SCSServices.cs" />
+    <Compile Include="Services\Sprite\SpitePlayer.cs" />
+    <Compile Include="SkeletalTransform\ISkeletalTransform.cs" />
+    <Compile Include="SkeletalTransform\ITransformModel.cs" />
+    <Compile Include="SkeletalTransform\SkeletalTransform.cs" />
+    <Compile Include="SkeletalTransform\SkeletalTransformFactory.cs" />
+    <Compile Include="SkeletalTransform\TransformableComponent2D.cs" />
+    <Compile Include="Sprite\FramesGenerator.cs" />
+    <Compile Include="Sprite\Implements\Sprite.cs" />
+    <Compile Include="Sprite\Implements\SpriteData.cs" />
+    <Compile Include="Sprite\Implements\SpriteGraphicData.cs" />
+    <Compile Include="Sprite\Implements\SpriteMetadata.cs" />
+    <Compile Include="Sprite\ISprite.cs" />
+    <Compile Include="Sprite\ISpriteData.cs" />
+    <Compile Include="Sprite\ISpriteFramesBank.cs" />
+    <Compile Include="Sprite\SpriteFramesBank.cs" />
+    <Compile Include="Sprite\SpriteModel.cs" />
+    <Compile Include="Sprite\SpriteResourceLoader.cs" />
+    <Compile Include="Utils\Adapters\DrawableGameComponentAsSpriteModel.cs" />
+    <Compile Include="Utils\Camera2D.cs" />
+    <Compile Include="Utils\GameObject\ICompleteable.cs" />
+    <Compile Include="Utils\GameObject\MPB\IBrush.cs" />
+    <Compile Include="Utils\GameObject\MPB\IProcessor.cs" />
+    <Compile Include="Utils\GameObject\MPB\MPBObject.cs" />
+    <Compile Include="Utils\GameObject\MUD\DrawableAdapter.cs" />
+    <Compile Include="Utils\GameObject\MUD\ISpriteBatchDrawable.cs" />
+    <Compile Include="Utils\GameObject\MUD\MUD.cs" />
+    <Compile Include="Utils\Mathematics\GMath.cs" />
+    <Compile Include="Utils\Mathematics\GRandom.cs" />
+    <Compile Include="Utils\Mathematics\RectangleF.cs" />
+    <Compile Include="Utils\Patterns\IFactory.cs" />
+    <Compile Include="Utils\XMLReader.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
+  <!--
+      To modify your build process, add your task inside one of the targets below and uncomment it. 
+      Other similar extension points exist, see Microsoft.Common.targets.
+      <Target Name="BeforeBuild">
+      </Target>
+      <Target Name="AfterBuild">
+      </Target>
+    -->
+</Project>
