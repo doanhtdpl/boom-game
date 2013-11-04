@@ -1,0 +1,6 @@
+E:\Dropbox\Dropbox\Study\Mobile Game Programming\plants-vs-zombies-gameonmobile-uit-term7\Engine\Engine\obj\Windows Phone\Debug\ResolveAssemblyReference.cache
+E:\Dropbox\Dropbox\Study\Mobile Game Programming\plants-vs-zombies-gameonmobile-uit-term7\Engine\Engine\obj\Windows Phone\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+E:\Dropbox\Dropbox\Study\Mobile Game Programming\plants-vs-zombies-gameonmobile-uit-term7\Engine\Engine\bin\Windows Phone\Debug\Engine.dll
+E:\Dropbox\Dropbox\Study\Mobile Game Programming\plants-vs-zombies-gameonmobile-uit-term7\Engine\Engine\bin\Windows Phone\Debug\Engine.pdb
+E:\Dropbox\Dropbox\Study\Mobile Game Programming\plants-vs-zombies-gameonmobile-uit-term7\Engine\Engine\obj\Windows Phone\Debug\Engine.dll
+E:\Dropbox\Dropbox\Study\Mobile Game Programming\plants-vs-zombies-gameonmobile-uit-term7\Engine\Engine\obj\Windows Phone\Debug\Engine.pdb
