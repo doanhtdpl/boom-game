@@ -24,7 +24,7 @@ namespace BoomGame.Entity.Renderer.BomberStage
 
         public void ApplyStageEffect(BomberRenderer renderer)
         {
-            renderer.onChangeDirection(Shared.Constants.DIRECTION_RIGHT);
+            renderer.onInputProcess(Shared.Constants.DIRECTION_RIGHT);
         }
     }
 }

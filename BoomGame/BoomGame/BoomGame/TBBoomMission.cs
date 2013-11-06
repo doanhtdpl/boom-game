@@ -16,6 +16,7 @@ using BoomGame.Manager;
 using SCSEngine.Sprite;
 using BoomGame.Entity;
 using BoomGame.Debuger;
+using BoomGame.Layers;
 
 namespace BoomGame
 {
@@ -73,7 +74,6 @@ namespace BoomGame
             scsServices = new SCSServices(this, spriteBatch);
             Services.AddService(typeof(SCSServices), scsServices);
 
-            TouchPanel.EnabledGestures = GestureType.Tap;
             IResourceManager resourceManager = new SCSResourceManager(this.Content);
             this.Services.AddService(typeof(IResourceManager), resourceManager);
 
@@ -86,6 +86,11 @@ namespace BoomGame
             bomberEntity = new BomberEntity(this);
             bomberEntity.onInit();
             gameManager.Add(bomberEntity);
+
+            DefaultInputLayer layer = new DefaultInputLayer(this);
+            layer.Add(bomberEntity);
+            layer.onInit();
+            Components.Add(layer);
         }
 
         /// <summary>
@@ -104,8 +109,6 @@ namespace BoomGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            scsServices.InputHandle.Update();
-
             base.Update(gameTime);
         }
 

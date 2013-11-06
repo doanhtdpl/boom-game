@@ -19,9 +19,22 @@ namespace BoomGame.Entity.Renderer
         private Sprite sprMoveDown;
 
         protected IStage stgBomberStage;
+        public IStage Stage
+        {
+            set { this.stgBomberStage = value; }
+        }
 
         protected Vector2 velocity;
+
+        public int direction = Shared.Constants.DIRECTION_NONE;
+        public int oldDirection = Shared.Constants.DIRECTION_NONE;
+
         protected Vector2 accelerator;
+        public Vector2 Accelerator
+        {
+            get { return this.accelerator; }
+            set { this.accelerator = value; }
+        }
 
         public Rectangle Size
         {
@@ -56,6 +69,16 @@ namespace BoomGame.Entity.Renderer
             // Begin with idle stage
             stgBomberStage = IdleStage.getInstance();
             stgBomberStage.ApplyStageEffect(this);
+
+            velocity = new Vector2(5f, 5f);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            updateMovement();
+            refreshAccelerator();
+
+            base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -71,23 +94,67 @@ namespace BoomGame.Entity.Renderer
             stgBomberStage.ApplyStageEffect(this);
         }
 
-        public void onChangeDirection(int dir)
+        public void onInputProcess(int type)
+        {
+            onChangeDirection(type);
+        }
+
+        protected void onChangeDirection(int dir)
         {
             switch (dir)
             {
                 case Shared.Constants.DIRECTION_LEFT:
                     sprCurrent = sprMoveLeft;
+                    accelerator.X = -velocity.X;
+                    accelerator.Y = 0f;
                     break;
                 case Shared.Constants.DIRECTION_RIGHT:
                     sprCurrent = sprMoveRight;
+                    accelerator.X = velocity.X;
+                    accelerator.Y = 0f;
                     break;
                 case Shared.Constants.DIRECTION_UP:
                     sprCurrent = sprMoveUp;
+                    accelerator.X = 0f;
+                    accelerator.Y = -velocity.Y;
                     break;
                 case Shared.Constants.DIRECTION_DOWN:
                     sprCurrent = sprMoveDown;
+                    accelerator.X = 0f;
+                    accelerator.Y = velocity.Y;
                     break;
             }
+            sprCurrent.Play();
+
+            if (this.oldDirection != this.direction)
+            {
+                this.oldDirection = this.direction;
+            }
+            this.direction = dir;
+        }
+
+        public void refreshAccelerator()
+        {
+            this.accelerator.X = 0;
+            this.accelerator.Y = 0;
+        }
+
+        public void updateMovement()
+        {
+            Rectangle bound = Owner.LogicalObj.Bound;
+
+            // Out of Game Size
+            if (bound.X < Shared.Constants.GAME_SIZE_X ||
+                bound.Y < Shared.Constants.GAME_SIZE_Y ||
+                bound.X + bound.Width > Shared.Constants.GAME_SIZE_X + Shared.Constants.GAME_SIZE_WIDTH ||
+                bound.Y + bound.Height > Shared.Constants.GAME_SIZE_Y + Shared.Constants.GAME_SIZE_HEIGHT)
+            {
+                return;
+            }
+
+            this.position.X += this.Accelerator.X;
+            this.position.Y += this.Accelerator.Y;
+
         }
     }
 }

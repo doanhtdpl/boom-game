@@ -25,6 +25,7 @@ namespace BoomGame.Manager
 
         public override void Update(GameTime gameTime)
         {
+            rendererManager.Update(gameTime);
             logicManager.Update(gameTime);
             collisionManager.UpdateRealTime();
 

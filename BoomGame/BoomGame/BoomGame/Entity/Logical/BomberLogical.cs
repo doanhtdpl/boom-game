@@ -10,15 +10,13 @@ namespace BoomGame.Entity.Logical
 {
     public class BomberLogical : DefaultLogical
     {
-        protected int direction = Shared.Constants.DIRECTION_NONE;
-
         protected int team = 0;
         public int Team
         {
             get { return this.team; }
         }
 
-        public Rectangle Bound
+        public new Rectangle Bound
         {
             get
             {
@@ -54,6 +52,11 @@ namespace BoomGame.Entity.Logical
             // check input here
 
             base.Update(gameTime);
+        }
+
+        public void onDirectionChange(int dir)
+        {
+
         }
     }
 }
