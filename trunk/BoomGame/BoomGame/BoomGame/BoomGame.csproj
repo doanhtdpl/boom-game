@@ -68,10 +68,22 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Debuger\StringDebuger.cs" />
+    <Compile Include="Entity\BomberEntity.cs" />
     <Compile Include="Entity\Collide\ICollidable.cs" />
     <Compile Include="Entity\IGameEntity.cs" />
+    <Compile Include="Entity\IGesturable.cs" />
+    <Compile Include="Entity\Logical\BomberLogical.cs" />
     <Compile Include="Entity\Logical\DefaultLogical.cs" />
+    <Compile Include="Entity\Renderer\BomberRenderer.cs" />
+    <Compile Include="Entity\Renderer\BomberStage\IdleStage.cs" />
+    <Compile Include="Entity\Renderer\BomberStage\MoveDownStage.cs" />
+    <Compile Include="Entity\Renderer\BomberStage\MoveLeftStage.cs" />
+    <Compile Include="Entity\Renderer\BomberStage\MoveRightStage.cs" />
+    <Compile Include="Entity\Renderer\BomberStage\MoveUpStage.cs" />
     <Compile Include="Entity\Renderer\DefaultRenderer.cs" />
+    <Compile Include="Entity\Renderer\BomberStage\IStage.cs" />
+    <Compile Include="Layers\DefaultInputLayer.cs" />
     <Compile Include="Manager\CollisionManager.cs" />
     <Compile Include="Manager\GameManagerImpl.cs" />
     <Compile Include="Manager\Interface\IGameManager.cs" />
@@ -88,6 +100,7 @@
     </None>
     <Compile Include="Program.cs" />
     <Compile Include="Shared\Constants.cs" />
+    <Compile Include="Shared\Resources.cs" />
     <Compile Include="TBBoomMission.cs" />
   </ItemGroup>
   <ItemGroup>

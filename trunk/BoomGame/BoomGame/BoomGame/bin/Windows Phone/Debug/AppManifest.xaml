@@ -1,6 +1,0 @@
-﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="BoomGame" EntryPointType="BoomGame.TBBoomMission" RuntimeVersion="3.0">
-  <Deployment.Parts>
-    <AssemblyPart x:Name="BoomGame" Source="BoomGame.dll" />
-    <AssemblyPart x:Name="Engine" Source="Engine.dll" />
-  </Deployment.Parts>
-</Deployment>
