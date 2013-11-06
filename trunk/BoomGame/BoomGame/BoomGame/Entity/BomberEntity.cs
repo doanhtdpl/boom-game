@@ -9,7 +9,7 @@ using BoomGame.Entity.Renderer;
 
 namespace BoomGame.Entity
 {
-    public class BomberEntity : IGameEntity, ICollidable
+    public class BomberEntity : IGameEntity, ICollidable, IGesturable
     {
         protected bool isDead = false;
         protected List<ICollidable> collidableList;
@@ -64,6 +64,11 @@ namespace BoomGame.Entity
 //             {
 // 
 //             }
+        }
+
+        public void GestureAffect(int gestureEvent)
+        {
+            (RendererObj as BomberRenderer).onInputProcess(gestureEvent);
         }
     }
 }

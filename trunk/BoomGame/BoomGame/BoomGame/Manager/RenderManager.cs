@@ -41,6 +41,15 @@ namespace BoomGame.Manager
             Contents.Sort(RendererComparer.RendererComparer.getInstance());
         }
 
+        public void Update(GameTime gameTime)
+        {
+            for (int i = 0; i < Contents.Count; ++i)
+            {
+                if (Contents[i].Visible)
+                    Contents[i].Update(gameTime);
+            }
+        }
+
         public void Draw(GameTime gameTime)
         {
             for (int i = 0; i < Contents.Count; ++i)
