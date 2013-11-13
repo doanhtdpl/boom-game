@@ -14,9 +14,11 @@ using SCSEngine.ResourceManagement;
 using BoomGame.Interface.Manager;
 using BoomGame.Manager;
 using SCSEngine.Sprite;
-using BoomGame.Entity;
 using BoomGame.Debuger;
-using BoomGame.Layers;
+using SSCEngine.GestureHandling;
+using BoomGame.Shared;
+using BoomGame.Factory;
+using SCSEngine.Sprite.Implements;
 
 namespace BoomGame
 {
@@ -30,10 +32,6 @@ namespace BoomGame
 
         SCSServices scsServices;
 
-        GameManagerImpl gameManager;
-
-        BomberEntity bomberEntity;
-
         public TBBoomMission()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -45,6 +43,8 @@ namespace BoomGame
 
             // Extend battery life under lock.
             InactiveSleepTime = TimeSpan.FromSeconds(1);
+
+            this.IsFixedTimeStep = false;
         }
 
         /// <summary>
@@ -80,17 +80,15 @@ namespace BoomGame
             StringDebuger debuger = new StringDebuger(this);
             Components.Add(debuger);
 
-            gameManager = new GameManagerImpl(this);
-            Components.Add(gameManager);
+            // Global
+            Global.Initialize(this);
+            Components.Add(Global.BoomMissionManager);
 
-            bomberEntity = new BomberEntity(this);
-            bomberEntity.onInit();
-            gameManager.Add(bomberEntity);
+            Grid.Grid.game = this;
 
-            DefaultInputLayer layer = new DefaultInputLayer(this);
-            layer.Add(bomberEntity);
-            layer.onInit();
-            Components.Add(layer);
+            InitFactory();
+
+            Global.BoomMissionManager.AddExclusive(Global.BoomMissionManager.Bank.GetNewScreen("Basic"));
         }
 
         /// <summary>
@@ -133,6 +131,24 @@ namespace BoomGame
             SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveRight, FramesGenerator.Generate(55, 55, 55, 1));
             SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveUp, FramesGenerator.Generate(55, 55, 55, 1));
             SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveDown, FramesGenerator.Generate(55, 55, 55, 1));
+
+            SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveLeft, FramesGenerator.Generate(55, 55, 55, 1));
+            SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveRight, FramesGenerator.Generate(55, 55, 55, 1));
+            SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveUp, FramesGenerator.Generate(55, 55, 55, 1));
+            SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveDown, FramesGenerator.Generate(55, 55, 55, 1));
+
+            SpriteFramesBank.Instance.Add(Shared.Resources.Bomb, FramesGenerator.Generate(60, 60, 60, 1));
+
+            SpriteFramesBank.Instance.Add(Shared.Resources.Obstacle, FramesGenerator.Generate(60, 60, 60, 1));
+        }
+
+        protected void InitFactory()
+        {
+            EnemyFactory.setGame(this);
+            BombFactory.setGame(this);
+            ObstacleFactory.setGame(this);
+            ExplodeFactory.setGame(this);
+            WaterEffectFactory.setGame(this);
         }
     }
 }

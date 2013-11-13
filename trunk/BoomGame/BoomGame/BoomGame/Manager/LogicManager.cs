@@ -13,9 +13,10 @@ namespace BoomGame.Manager
         protected List<DefaultLogical> contents;
         protected IGameManager parent;
 
-        public LogicManager()
+        public LogicManager(IGameManager parent)
         {
             contents = new List<DefaultLogical>();
+            this.Parent = parent;
         }
 
         public List<DefaultLogical> Contents

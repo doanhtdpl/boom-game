@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace BoomGame.Entity.Collide
 {
@@ -18,6 +19,11 @@ namespace BoomGame.Entity.Collide
         }
 
         List<ICollidable> CollidableList
+        {
+            get;
+        }
+
+        Rectangle Bound
         {
             get;
         }

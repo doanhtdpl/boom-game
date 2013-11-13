@@ -14,9 +14,10 @@ namespace BoomGame.Manager
         protected List<DefaultRenderer> contents;
         protected IGameManager parent;
 
-        public RenderManager()
+        public RenderManager(IGameManager parent)
         {
             contents = new List<DefaultRenderer>();
+            this.Parent = parent;
         }
 
         public List<DefaultRenderer> Contents

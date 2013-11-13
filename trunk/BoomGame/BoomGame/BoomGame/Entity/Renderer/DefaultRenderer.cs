@@ -23,11 +23,13 @@ namespace BoomGame.Entity.Renderer
         public Vector2 Position
         {
             get { return this.position; }
+            set { this.position = value; }
         }
 
-        public DefaultRenderer(Game game)
+        public DefaultRenderer(Game game, IGameEntity owner)
             :base (game)
         {
+            this.owner = owner;
         }
 
         public virtual void onInit()

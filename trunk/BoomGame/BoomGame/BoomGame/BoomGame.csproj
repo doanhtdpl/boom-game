@@ -69,20 +69,60 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Debuger\StringDebuger.cs" />
+    <Compile Include="Entity\BombEntity.cs" />
     <Compile Include="Entity\BomberEntity.cs" />
     <Compile Include="Entity\Collide\ICollidable.cs" />
+    <Compile Include="Entity\EnemyEntity.cs" />
     <Compile Include="Entity\IGameEntity.cs" />
     <Compile Include="Entity\IGesturable.cs" />
-    <Compile Include="Entity\Logical\BomberLogical.cs" />
-    <Compile Include="Entity\Logical\DefaultLogical.cs" />
+    <Compile Include="Entity\Logical\BomberLogical.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\Logical\BombLogical.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\Logical\DefaultLogical.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\Logical\EnemyLogical.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\Logical\ObstacleLogical.cs" />
+    <Compile Include="Entity\Logical\WaterEffectLogical.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\ObstacleEntity.cs" />
+    <Compile Include="Entity\Renderer\BomberStage\WrapBombStage.cs" />
+    <Compile Include="Entity\Renderer\EnemyRenderer.cs" />
+    <Compile Include="Entity\Renderer\ObstacleRenderer.cs" />
+    <Compile Include="Entity\WaterEffectEntity.cs" />
     <Compile Include="Entity\Renderer\BomberRenderer.cs" />
     <Compile Include="Entity\Renderer\BomberStage\IdleStage.cs" />
     <Compile Include="Entity\Renderer\BomberStage\MoveDownStage.cs" />
     <Compile Include="Entity\Renderer\BomberStage\MoveLeftStage.cs" />
     <Compile Include="Entity\Renderer\BomberStage\MoveRightStage.cs" />
     <Compile Include="Entity\Renderer\BomberStage\MoveUpStage.cs" />
+    <Compile Include="Entity\Renderer\BombRenderer.cs" />
     <Compile Include="Entity\Renderer\DefaultRenderer.cs" />
     <Compile Include="Entity\Renderer\BomberStage\IStage.cs" />
+    <Compile Include="Entity\Renderer\WaterEffectRenderer.cs" />
+    <Compile Include="FactoryElement\BombInfo.cs" />
+    <Compile Include="FactoryElement\EnemyInfo.cs" />
+    <Compile Include="FactoryElement\ExplodeInfo.cs" />
+    <Compile Include="FactoryElement\ObstacleInfo.cs" />
+    <Compile Include="FactoryElement\WaterEffectInfo.cs" />
+    <Compile Include="Factory\BombFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Factory\EnemyFactory.cs" />
+    <Compile Include="Factory\ExplodeFactory.cs" />
+    <Compile Include="Factory\IFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Factory\ObstacleFactory.cs" />
+    <Compile Include="Factory\WaterEffectFactory.cs" />
+    <Compile Include="Grid\Cell.cs" />
+    <Compile Include="Grid\Grid.cs" />
     <Compile Include="Layers\DefaultInputLayer.cs" />
     <Compile Include="Manager\CollisionManager.cs" />
     <Compile Include="Manager\GameManagerImpl.cs" />
@@ -91,7 +131,10 @@
     <Compile Include="Manager\LogicManager.cs" />
     <Compile Include="Manager\RendererComparer\RendererComparer.cs" />
     <Compile Include="Manager\RenderManager.cs" />
+    <Compile Include="MapReader\MapReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\Localize.cs" />
+    <Compile Include="Utilities\Collision.cs" />
     <None Include="Properties\AppManifest.xml">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </None>
@@ -99,12 +142,20 @@
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </None>
     <Compile Include="Program.cs" />
+    <Compile Include="Scene\BasicGameScene.cs" />
+    <Compile Include="Scene\BasicGameSceneFactory.cs" />
+    <Compile Include="Scene\TBBoomMissionManager.cs" />
+    <Compile Include="Scene\TBGamePlayScene.cs" />
     <Compile Include="Shared\Constants.cs" />
+    <Compile Include="Shared\Global.cs" />
     <Compile Include="Shared\Resources.cs" />
     <Compile Include="TBBoomMission.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
+    <Content Include="Map_Resources\Map.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PhoneGameThumb.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
