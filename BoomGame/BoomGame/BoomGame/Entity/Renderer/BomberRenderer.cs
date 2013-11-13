@@ -7,6 +7,11 @@ using SCSEngine;
 using SCSEngine.Sprite.Implements;
 using SCSEngine.Sprite;
 using BoomGame.Entity.Renderer.BomberStage;
+using BoomGame.Entity.Logical;
+using BoomGame.Factory;
+using BoomGame.FactoryElement;
+using BoomGame.Shared;
+using BoomGame.Scene;
 
 namespace BoomGame.Entity.Renderer
 {
@@ -17,14 +22,25 @@ namespace BoomGame.Entity.Renderer
         private Sprite sprMoveRight;
         private Sprite sprMoveUp;
         private Sprite sprMoveDown;
+        private Sprite sprWrapBomb;
 
         protected IStage stgBomberStage;
         public IStage Stage
         {
-            set { this.stgBomberStage = value; }
+            get { return this.stgBomberStage; }
         }
 
         protected Vector2 velocity;
+        public float VelocityX
+        {
+            get { return this.velocity.X; }
+            set { this.velocity.X = value; }
+        }
+        public float VelocityY
+        {
+            get { return this.velocity.Y; }
+            set { this.velocity.Y = value; }
+        }
 
         public int direction = Shared.Constants.DIRECTION_NONE;
         public int oldDirection = Shared.Constants.DIRECTION_NONE;
@@ -47,10 +63,16 @@ namespace BoomGame.Entity.Renderer
             }
         }
 
-        public BomberRenderer(Game game, IGameEntity owner)
-            : base(game)
+        private double timeToDie = 0;
+        public double TimeToDie
         {
-            this.owner = owner;
+            get { return this.timeToDie; }
+            set { this.timeToDie = value; }
+        }
+
+        public BomberRenderer(Game game, IGameEntity owner)
+            : base(game, owner)
+        {
         }
 
         public override void onInit()
@@ -62,6 +84,7 @@ namespace BoomGame.Entity.Renderer
             sprMoveRight = (Sprite)resourceManagement.GetResource<ISprite>(Shared.Resources.BomberMoveRight);
             sprMoveUp = (Sprite)resourceManagement.GetResource<ISprite>(Shared.Resources.BomberMoveUp);
             sprMoveDown = (Sprite)resourceManagement.GetResource<ISprite>(Shared.Resources.BomberMoveDown);
+            sprWrapBomb = (Sprite)resourceManagement.GetResource<ISprite>(Shared.Resources.BomberWrapBomb);
 
             // Begin with move down
             sprCurrent = sprMoveDown;
@@ -70,13 +93,22 @@ namespace BoomGame.Entity.Renderer
             stgBomberStage = IdleStage.getInstance();
             stgBomberStage.ApplyStageEffect(this);
 
-            velocity = new Vector2(5f, 5f);
+            velocity = new Vector2(10f, 10f);
         }
 
         public override void Update(GameTime gameTime)
         {
             updateMovement();
             refreshAccelerator();
+
+            if (timeToDie != 0)
+            {
+                timeToDie -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (timeToDie <= 0)
+                {
+                    onMeetTimeToDie();
+                }
+            }
 
             base.Update(gameTime);
         }
@@ -88,8 +120,19 @@ namespace BoomGame.Entity.Renderer
             base.Draw(gameTime);
         }
 
+        private void onMeetTimeToDie()
+        {
+            this.timeToDie = 0;
+            (owner as BomberEntity).GonnaDie();
+        }
+
         public void onStageChange(IStage stage)
         {
+            if (stgBomberStage is WrapBombStage)
+            {
+                this.VelocityX *= (1f / Shared.Constants.BOMBER_VELOCITY_REDUCING);
+                this.VelocityY *= (1f / Shared.Constants.BOMBER_VELOCITY_REDUCING);
+            }
             stgBomberStage = stage;
             stgBomberStage.ApplyStageEffect(this);
         }
@@ -99,27 +142,45 @@ namespace BoomGame.Entity.Renderer
             onChangeDirection(type);
         }
 
+        public void wrappedBomb()
+        {
+            this.sprCurrent = sprWrapBomb;
+        }
+
+        public void onSetBomb()
+        {
+            if (!(this.stgBomberStage is WrapBombStage))
+            {
+                BombEntity bomb = (BombEntity)BombFactory.getInst().create(new BombInfo(this.Position, 3, 2000, 1));
+                if (bomb != null)
+                {
+                    bomb.onInit();
+                    (Global.BoomMissionManager.Current as TBGamePlayScene).GameManager.Add(bomb);
+                }
+            }
+        }
+
         protected void onChangeDirection(int dir)
         {
             switch (dir)
             {
                 case Shared.Constants.DIRECTION_LEFT:
-                    sprCurrent = sprMoveLeft;
+                    onChangeImage(sprMoveLeft);
                     accelerator.X = -velocity.X;
                     accelerator.Y = 0f;
                     break;
                 case Shared.Constants.DIRECTION_RIGHT:
-                    sprCurrent = sprMoveRight;
+                    onChangeImage(sprMoveRight);
                     accelerator.X = velocity.X;
                     accelerator.Y = 0f;
                     break;
                 case Shared.Constants.DIRECTION_UP:
-                    sprCurrent = sprMoveUp;
+                    onChangeImage(sprMoveUp);
                     accelerator.X = 0f;
                     accelerator.Y = -velocity.Y;
                     break;
                 case Shared.Constants.DIRECTION_DOWN:
-                    sprCurrent = sprMoveDown;
+                    onChangeImage(sprMoveDown);
                     accelerator.X = 0f;
                     accelerator.Y = velocity.Y;
                     break;
@@ -133,6 +194,14 @@ namespace BoomGame.Entity.Renderer
             this.direction = dir;
         }
 
+        protected void onChangeImage(Sprite spr)
+        {
+            if (!(this.Stage is WrapBombStage))
+            {
+                this.sprCurrent = spr;
+            }
+        }
+
         public void refreshAccelerator()
         {
             this.accelerator.X = 0;
@@ -141,19 +210,33 @@ namespace BoomGame.Entity.Renderer
 
         public void updateMovement()
         {
-            Rectangle bound = Owner.LogicalObj.Bound;
+            Rectangle bound = (Owner.LogicalObj as BomberLogical).Bound;
 
             // Out of Game Size
-            if (bound.X < Shared.Constants.GAME_SIZE_X ||
-                bound.Y < Shared.Constants.GAME_SIZE_Y ||
-                bound.X + bound.Width > Shared.Constants.GAME_SIZE_X + Shared.Constants.GAME_SIZE_WIDTH ||
-                bound.Y + bound.Height > Shared.Constants.GAME_SIZE_Y + Shared.Constants.GAME_SIZE_HEIGHT)
+            float X = bound.X + Accelerator.X;
+            float Y = bound.Y + Accelerator.Y;
+
+            float tmpAceleratorX = Accelerator.X;
+            float tmpAceleratorY = Accelerator.Y;
+            if (X < Shared.Constants.GAME_SIZE_X)
             {
-                return;
+                tmpAceleratorX = Shared.Constants.GAME_SIZE_X - bound.X;
+            }
+            else if(Y < Shared.Constants.GAME_SIZE_Y)
+            {
+                tmpAceleratorY = Shared.Constants.GAME_SIZE_Y - bound.Y;
+            }
+            else if(X + bound.Width > Shared.Constants.GAME_SIZE_X + Shared.Constants.GAME_SIZE_WIDTH)
+            {
+                tmpAceleratorX = Shared.Constants.GAME_SIZE_X + Shared.Constants.GAME_SIZE_WIDTH - bound.X - bound.Width;
+            }
+            else if (Y + bound.Height > Shared.Constants.GAME_SIZE_Y + Shared.Constants.GAME_SIZE_HEIGHT)
+            {
+                tmpAceleratorY = Shared.Constants.GAME_SIZE_Y + Shared.Constants.GAME_SIZE_HEIGHT- bound.Y - bound.Height;
             }
 
-            this.position.X += this.Accelerator.X;
-            this.position.Y += this.Accelerator.Y;
+            this.position.X += tmpAceleratorX;
+            this.position.Y += tmpAceleratorY;
 
         }
     }

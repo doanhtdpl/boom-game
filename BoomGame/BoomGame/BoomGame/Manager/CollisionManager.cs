@@ -5,6 +5,7 @@ using System.Text;
 using BoomGame.Entity.Collide;
 using BoomGame.Interface.Manager;
 using BoomGame.Entity;
+using Microsoft.Xna.Framework;
 
 namespace BoomGame.Manager
 {
@@ -13,9 +14,10 @@ namespace BoomGame.Manager
         protected List<ICollidable> contents;
         protected IGameManager parent;
 
-        public CollisionManager()
+        public CollisionManager(IGameManager parent)
         {
             contents = new List<ICollidable>();
+            this.Parent = parent;
         }
 
         public List<ICollidable> Contents
@@ -41,7 +43,7 @@ namespace BoomGame.Manager
             {
                 for (int j = 0; j < Contents.Count; ++j)
                 {
-                    if (i != j)
+                    if (i != j && Contents[i].Bound.Intersects(Contents[j].Bound))
                     {
                         Contents[i].Collision(Contents[j]);
                     }
@@ -50,10 +52,15 @@ namespace BoomGame.Manager
 
             for (int i = 0; i < Contents.Count; ++i)
             {
+                Contents[i].ApplyCollision();
+            }
+
+            for (int i = 0; i < Contents.Count; ++i)
+            {
                 if (Contents[i].IsDead)
+                {
                     this.Parent.Remove(Contents[i] as IGameEntity);
-                else
-                    Contents[i].ApplyCollision();
+                }
             }
         }
 

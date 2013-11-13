@@ -18,9 +18,9 @@ namespace BoomGame.Manager
         public GameManagerImpl(Game game)
             : base(game)
         {
-            rendererManager = new RenderManager();
-            collisionManager = new CollisionManager();
-            logicManager = new LogicManager();
+            rendererManager = new RenderManager(this);
+            collisionManager = new CollisionManager(this);
+            logicManager = new LogicManager(this);
         }
 
         public override void Update(GameTime gameTime)
@@ -50,6 +50,8 @@ namespace BoomGame.Manager
                 logicManager.Add(element.LogicalObj);
             if (element.RendererObj != null)
                 rendererManager.Add(element.RendererObj);
+
+            Grid.Grid.getInst().AddAtPosition(element, element.RendererObj.Position);
         }
 
         public void Remove(Entity.IGameEntity element)
@@ -61,6 +63,8 @@ namespace BoomGame.Manager
 
             logicManager.Remove(element.LogicalObj);
             rendererManager.Remove(element.RendererObj);
+
+            Grid.Grid.getInst().Remove(element);
         }
     }
 }

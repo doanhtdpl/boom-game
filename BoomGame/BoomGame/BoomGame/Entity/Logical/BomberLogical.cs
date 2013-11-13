@@ -36,9 +36,8 @@ namespace BoomGame.Entity.Logical
         }
 
         public BomberLogical(Game game, IGameEntity owner)
-            : base(game)
+            : base(game, owner)
         {
-            this.owner = owner;
         }
 
         public override void onInit()

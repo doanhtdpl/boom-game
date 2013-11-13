@@ -14,9 +14,10 @@ namespace BoomGame.Entity.Logical
             get { return this.owner; }
         }
 
-        public DefaultLogical(Game game)
+        public DefaultLogical(Game game, IGameEntity owner)
             : base(game)
         {
+            this.owner = owner;
         }
 
         protected Rectangle bound;
