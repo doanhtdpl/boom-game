@@ -11,12 +11,12 @@ using SCSEngine.ResourceManagement;
 using Microsoft.Xna.Framework.Graphics;
 using BoomGame.Entity;
 using System.Diagnostics;
+using BoomGame.Shared;
 
 namespace BoomGame.Layers
 {
     public class DefaultInputLayer : DrawableGameComponent
     {
-        private IGestureManager igm;
         private UIControlManager controlManager;
 
         protected SCSServices services;
@@ -34,11 +34,8 @@ namespace BoomGame.Layers
         public DefaultInputLayer(Game game)
             : base(game)
         {
-            igm = DefaultGestureHandlingFactory.Instance.CreateManager(game);
-            DefaultGestureHandlingFactory.Instance.InitDetectors(igm);
-
             controlManager = new UIControlManager(game, DefaultGestureHandlingFactory.Instance);
-            igm.AddDispatcher(controlManager);
+            Global.GestureManager.AddDispatcher(controlManager);
         }
 
         public void onInit()
@@ -77,7 +74,6 @@ namespace BoomGame.Layers
 
         public override void Update(GameTime gameTime)
         {
-            igm.Update(gameTime);
             controlManager.Update(gameTime);
 
             base.Update(gameTime);

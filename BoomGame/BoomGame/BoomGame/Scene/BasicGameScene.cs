@@ -20,10 +20,9 @@ namespace BoomGame.Scene
         public BasicGameScene(IGameScreenManager manager)
             : base(manager)
         {
-            onInit();
         }
 
-        public void onInit()
+        public void onInit(String mapPath)
         {
             Components.Add(Grid.Grid.getInst());
 
@@ -32,7 +31,7 @@ namespace BoomGame.Scene
             GameManager.Add(bomberEntity);
             InputLayer.Add(bomberEntity);
 
-            MapReader.MapReader reader = new MapReader.MapReader("Map");
+            MapReader.MapReader reader = new MapReader.MapReader(mapPath);
             reader.onInit(resourceManager);
             List<IGameEntity> entities = reader.Read();
             if (entities != null)

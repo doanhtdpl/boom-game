@@ -27,5 +27,24 @@ namespace BoomGame.Shared
         public static String Obstacle = "HD/box@2x";
 
         public static String Bomb = "HD/bomb00";
+
+        // Menu Screen
+        public static String Menu_Background = "HD/man_baby_down@2x";
+        public static String Menu_BasicGameButton = "HD/man_baby_down@2x";
+        public static String Menu_ButtonOver = "HD/man_baby_down@2x";
+        public static String Menu_MiniGameButton = "HD/man_baby_down@2x";
+        public static String Menu_OptionButton = "HD/man_baby_down@2x";
+        public static String Menu_AboutButton = "HD/man_baby_down@2x";
+        public static String Menu_HelpButton = "HD/man_baby_down@2x";
+
+        // About
+        public static String About_Background = "HD/man_baby_down@2x";
+
+        // Choose
+        public static String Choose_NextButton = "HD/man_baby_up@2x";
+        public static String Choose_PrevButton = "HD/man_baby_up@2x";
+        public static String Choose_ButtonOver = "HD/man_baby_left@2x";
+        public static String Choose_TileChoose = "HD/man_baby_down@2x";
+        public static String Choose_TileFont = "debug";
     }
 }

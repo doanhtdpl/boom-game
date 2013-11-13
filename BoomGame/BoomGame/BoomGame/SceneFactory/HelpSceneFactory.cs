@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using SCSEngine.ScreenManagement;
 
-namespace BoomGame.Scene
+namespace BoomGame.SceneFactory
 {
-    public class BasicGameSceneFactory : IGameScreenFactory
+    public class HelpSceneFactory : IGameScreenFactory
     {
         IGameScreenManager manager;
-        public BasicGameSceneFactory(IGameScreenManager manager)
+        public HelpSceneFactory(IGameScreenManager manager)
         {
             this.manager = manager;
         }
@@ -17,7 +17,7 @@ namespace BoomGame.Scene
         // Singleton
         public IGameScreen CreateGameScreen()
         {
-            return new BasicGameScene(this.manager);
+            return new Scene.HelpScene(this.manager);
         }
     }
 }

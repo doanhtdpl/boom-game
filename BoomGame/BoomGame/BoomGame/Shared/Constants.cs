@@ -33,5 +33,21 @@ namespace BoomGame.Shared
         public const int OBSTACLE_MOVE_DISTANCE = 50;
 
         public const int COLLISION_MIN = 20;
+
+
+        // Save file name
+        public const String BASIC_GAME = "Basic.txt";
+        public const String MINI_GAME = "Mini.txt";
+
+        // Choose Scene
+        public const int NUMBER_RENDER = 10;
+
+        // Game Play
+        public const String BASIC_MODE = "M_BASIC";
+        public const String MINI_MODE = "M_MINI";
+        public const String BASIC_GAME_MAP_LIST = "Map_Resources/Basic/MapList.txt";
+        public const String MINI_GAME_MAP_LIST = "Map_Resources/Mini/MapList.txt";
+        public const String BASIC_GAME_MAP_PATH = "Map_Resources/Basic/Map";
+        public const String MINI_GAME_MAP_PATH = "Map_Resources/Mini/Map";
     }
 }

@@ -84,11 +84,20 @@ namespace BoomGame
             Global.Initialize(this);
             Components.Add(Global.BoomMissionManager);
 
+            // Init Grid
             Grid.Grid.game = this;
 
+            // Init Gesture Manager and initialize detector
+            Global.GestureManager = DefaultGestureHandlingFactory.Instance.CreateManager(this);
+            DefaultGestureHandlingFactory.Instance.InitDetectors(Global.GestureManager);
+
+            // Init all game factory
             InitFactory();
 
-            Global.BoomMissionManager.AddExclusive(Global.BoomMissionManager.Bank.GetNewScreen("Basic"));
+            // Begin with Choose Scene
+            BoomGame.Scene.ChooseGame choose = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_CHOOSEGAME, true) as BoomGame.Scene.ChooseGame;
+            choose.onInit();
+            Global.BoomMissionManager.AddExclusive(choose);
         }
 
         /// <summary>
@@ -107,6 +116,7 @@ namespace BoomGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            Global.GestureManager.Update(gameTime);
             base.Update(gameTime);
         }
 
