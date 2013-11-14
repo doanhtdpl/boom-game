@@ -6,6 +6,7 @@ using BoomGame.Entity.Collide;
 using BoomGame.Interface.Manager;
 using BoomGame.Entity;
 using Microsoft.Xna.Framework;
+using BoomGame.Shared;
 
 namespace BoomGame.Manager
 {
@@ -59,6 +60,15 @@ namespace BoomGame.Manager
             {
                 if (Contents[i].IsDead)
                 {
+                    if (Contents[i] is EnemyEntity)
+                    {
+                        Global.Counter_Enemy--;
+                    }
+                    else if (Contents[i] is BomberEntity)
+                    {
+                        Global.Counter_Bomber--;
+                    }
+                    //...
                     this.Parent.Remove(Contents[i] as IGameEntity);
                 }
             }

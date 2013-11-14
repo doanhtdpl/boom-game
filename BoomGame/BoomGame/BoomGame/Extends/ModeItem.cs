@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SSCEngine.GestureHandling;
 using SSCEngine.GestureHandling.Implements.Events;
+using BoomGame.Shared;
 
 namespace BoomGame.Extends
 {
@@ -70,6 +71,10 @@ namespace BoomGame.Extends
 
         public bool ReceivedGesture(Tap gEvent)
         {
+            if (!this.IsLock)
+            {
+                Global.CreateCurrentMap(Convert.ToInt32(text));
+            }
             return false;
         }
     }

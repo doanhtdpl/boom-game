@@ -43,7 +43,6 @@ namespace BoomGame.Entity.Logical
         public override void onInit()
         {
             base.onInit();
-            StringDebuger.setString(this.Bound.ToString(), new Vector2(0, 0));
         }
 
         public override void Update(GameTime gameTime)

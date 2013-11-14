@@ -39,7 +39,7 @@ namespace BoomGame.MapReader
             {
                 List<IGameEntity> entities = new List<IGameEntity>();
 
-                using (System.IO.Stream stream = TitleContainer.OpenStream("Map_Resources/Map.txt"))
+                using (System.IO.Stream stream = TitleContainer.OpenStream(mapPath))
                 {
                     using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
                     {
@@ -94,6 +94,7 @@ namespace BoomGame.MapReader
                     break;
                 case Localize.ID_BASIC_ENEMY:
                     entity = EnemyFactory.getInst().create(new EnemyInfo(new Vector2(posX, posY), new Vector2(5f, 5f)));
+                    Global.Counter_Enemy++;
                     break;
             }
             return entity;

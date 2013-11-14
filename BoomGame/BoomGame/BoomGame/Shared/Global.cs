@@ -27,5 +27,28 @@ namespace BoomGame.Shared
 
         // Game Mode
         public static String CurrentMode = "";
+
+        public static void CreateCurrentMap(int level)
+        {
+            String tailFix = ".txt";
+            BoomGame.Scene.BasicGameScene basic = 
+                Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_BASIC, true) as BoomGame.Scene.BasicGameScene;
+
+            if (Global.CurrentMode == Shared.Constants.BASIC_MODE)
+            {
+                basic.onInit(Shared.Constants.BASIC_GAME_MAP_PATH + level.ToString() + tailFix);
+            }
+            else if (Global.CurrentMode == Shared.Constants.MINI_MODE)
+            {
+                basic.onInit(Shared.Constants.MINI_GAME_MAP_PATH + level.ToString() + tailFix);
+            }
+            Global.BoomMissionManager.AddExclusive(basic);
+        }
+
+        // Game Play
+        public static int Counter_Enemy = 0;
+        public static int Counter_Obstacle = 0;
+        public static int Counter_Item = 0;
+        public static int Counter_Bomber = 0;
     }
 }

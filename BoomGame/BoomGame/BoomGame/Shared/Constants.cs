@@ -36,8 +36,8 @@ namespace BoomGame.Shared
 
 
         // Save file name
-        public const String BASIC_GAME = "Basic.txt";
-        public const String MINI_GAME = "Mini.txt";
+        public const String BASIC_GAME_FILE = "Basic.txt";
+        public const String MINI_GAME_FILE = "Mini.txt";
 
         // Choose Scene
         public const int NUMBER_RENDER = 10;
@@ -47,7 +47,7 @@ namespace BoomGame.Shared
         public const String MINI_MODE = "M_MINI";
         public const String BASIC_GAME_MAP_LIST = "Map_Resources/Basic/MapList.txt";
         public const String MINI_GAME_MAP_LIST = "Map_Resources/Mini/MapList.txt";
-        public const String BASIC_GAME_MAP_PATH = "Map_Resources/Basic/Map";
-        public const String MINI_GAME_MAP_PATH = "Map_Resources/Mini/Map";
+        public const String BASIC_GAME_MAP_PATH = "Map_Resources/Basic/Map_";
+        public const String MINI_GAME_MAP_PATH = "Map_Resources/Mini/Map_";
     }
 }

@@ -10,6 +10,8 @@ using BoomGame.FactoryElement;
 using Microsoft.Xna.Framework;
 using SCSEngine.Sprite.Implements;
 using SCSEngine.Sprite;
+using Microsoft.Xna.Framework.Input;
+using BoomGame.Shared;
 
 namespace BoomGame.Scene
 {
@@ -30,6 +32,7 @@ namespace BoomGame.Scene
             bomberEntity.onInit();
             GameManager.Add(bomberEntity);
             InputLayer.Add(bomberEntity);
+            Global.Counter_Bomber++;
 
             MapReader.MapReader reader = new MapReader.MapReader(mapPath);
             reader.onInit(resourceManager);
@@ -45,6 +48,30 @@ namespace BoomGame.Scene
             }
 
             spr = (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.Bomb);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            {
+                onBackButton_pressed();
+            }
+
+            if(Global.Counter_Enemy == 0)
+            {
+                // Win Game
+            }
+            if (Global.Counter_Bomber == 0)
+            {
+                // Lose Game
+            }
+
+            base.Update(gameTime);
+        }
+
+        void onBackButton_pressed()
+        {
+            Global.BoomMissionManager.AddExclusive(Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_CHOOSEGAME, false));
         }
 
         public override void Draw(GameTime gameTime)
