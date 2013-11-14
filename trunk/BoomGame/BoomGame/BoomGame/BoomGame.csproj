@@ -164,10 +164,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
-    <Content Include="Map_Resources\Basic\MapList.txt" />
-    <Content Include="Map_Resources\Basic\Map_1.txt" />
-    <Content Include="Map_Resources\MiniGame\MapList.txt" />
-    <Content Include="Map_Resources\MiniGame\Map_1.txt" />
+    <Content Include="Map_Resources\Basic\MapList.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\Basic\Map_0.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\MiniGame\MapList.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\MiniGame\Map_0.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PhoneGameThumb.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>

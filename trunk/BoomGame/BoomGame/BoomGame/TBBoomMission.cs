@@ -95,9 +95,9 @@ namespace BoomGame
             InitFactory();
 
             // Begin with Choose Scene
-            BoomGame.Scene.ChooseGame choose = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_CHOOSEGAME, true) as BoomGame.Scene.ChooseGame;
-            choose.onInit();
-            Global.BoomMissionManager.AddExclusive(choose);
+            BoomGame.Scene.MenuScene menu = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_MENU, true) as BoomGame.Scene.MenuScene;
+            menu.onInit();
+            Global.BoomMissionManager.AddExclusive(menu);
         }
 
         /// <summary>

@@ -13,11 +13,14 @@ namespace BoomGame.Scene
         public TBBoomMissionManager(Game game)
             : base(game, BaseGameScreenManagerFactory.Instance)
         {
-//             BasicGameSceneFactory basicFactory = new BasicGameSceneFactory(this);
-//             this.Bank.AddScreenFactory("Basic", basicFactory);
+            MenuSceneFactory menuFactory = new MenuSceneFactory(this);
+            this.Bank.AddScreenFactory(Shared.Macros.S_MENU, menuFactory);
 
             ChooseGameFactory chooseGameFactory = new ChooseGameFactory(this);
             this.Bank.AddScreenFactory(Shared.Macros.S_CHOOSEGAME, chooseGameFactory);
+
+            BasicGameSceneFactory basicGameFactory = new BasicGameSceneFactory(this);
+            this.Bank.AddScreenFactory(Shared.Macros.S_BASIC, basicGameFactory);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace BoomGame.Scene
             resourceManager = (IResourceManager)manager.Game.Services.GetService(typeof(IResourceManager));
         }
 
-        protected void onInit()
+        public void onInit()
         {
             controlManager = new UIControlManager(Game, DefaultGestureHandlingFactory.Instance);
             Global.GestureManager.AddDispatcher(controlManager);
@@ -109,10 +109,15 @@ namespace BoomGame.Scene
 
         void btnMiniGame_OnHold(Button button)
         {
+            Global.CurrentMode = Shared.Constants.MINI_MODE;
         }
 
         void btnBasicGame_OnPressed(Button button)
         {
+            Global.CurrentMode = Shared.Constants.BASIC_MODE;
+            BoomGame.Scene.ChooseGame choose = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_CHOOSEGAME, true) as BoomGame.Scene.ChooseGame;
+            choose.onInit();
+            Global.BoomMissionManager.AddExclusive(choose);
         }
     }
 }
