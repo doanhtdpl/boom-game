@@ -79,7 +79,8 @@ namespace BoomGame.Entity.Logical
         {
             this.isExplode = true;
 
-            List<WaterEffectEntity> waterEffects = (List<WaterEffectEntity>)ExplodeFactory.getInst().create(new ExplodeInfo(Owner.RendererObj.Position, Range, Shared.Resources.Bomb, Shared.Resources.EnemyMoveDown));
+            List<WaterEffectEntity> waterEffects = (List<WaterEffectEntity>)ExplodeFactory.getInst().create(new ExplodeInfo(Owner.RendererObj.Position, Range, 
+                Shared.Resources.Effect_Center, Shared.Resources.Effect_Tail, Shared.Resources.Effect_Body));
             foreach (WaterEffectEntity wef in waterEffects)
             {
                 wef.onInit();

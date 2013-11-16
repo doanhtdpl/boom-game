@@ -47,6 +47,7 @@ namespace BoomGame.Scene
 
             BomberEntity bomberEntity = new BomberEntity(this.Game);
             bomberEntity.onInit();
+            bomberEntity.RendererObj.Position = new Vector2(Shared.Constants.GAME_SIZE_X, Shared.Constants.GAME_SIZE_Y);
             GameManager.Add(bomberEntity);
             InputLayer.Add(bomberEntity);
             Global.Counter_Bomber++;

@@ -72,11 +72,12 @@ namespace BoomGame.Shared
 
 
         // Controller
-        public static String ButtonDown = "Images/ctrl_Down";
-        public static String ButtonUp = "Images/ctrl_Up";
-        public static String ButtonLeft = "Images/ctrl_Left";
-        public static String ButtonRight = "Images/ctrl_Right";
-        public static String ButtonSpace = "Images/ctrl_Hit";
+        public static String ctrlCircle = "Images/ctrlCircle";
+        public static String ctrlButtonDown = "Images/ctrl_Down";
+        public static String ctrlButtonUp = "Images/ctrl_Up";
+        public static String ctrlButtonLeft = "Images/ctrl_Left";
+        public static String ctrlButtonRight = "Images/ctrl_Right";
+        public static String ctrlButtonSpace = "Images/ctrl_Hit";
 
         // Obstacles
         public static String box = "Images/box";

@@ -42,11 +42,14 @@ namespace BoomGame.Entity.Renderer
             get { return this.direction; }
         }
 
-        protected int state;
+        protected int state = Shared.Constants.OBSTACLE_IDLE;
         public int State
         {
-            get;
-            set;
+            get { return this.state; }
+            set
+            {
+                this.state = value;
+            }
         }
 
         public Rectangle Size
@@ -71,9 +74,6 @@ namespace BoomGame.Entity.Renderer
         {
             base.onInit();
 
-            // Get bomber resources
-            State = Shared.Constants.OBSTACLE_IDLE;
-
             velocity = new Vector2(1f, 1f);
             accelerator = Vector2.Zero;
             target = Vector2.Zero;
@@ -85,7 +85,6 @@ namespace BoomGame.Entity.Renderer
             {
                 isMeetTarget();
                 updateMovement();
-                refreshAccelerator();
             }
 
             base.Update(gameTime);
@@ -142,14 +141,14 @@ namespace BoomGame.Entity.Renderer
                     }
                 case Shared.Constants.DIRECTION_UP:
                     {
-                        this.setAccelerator(0, this.velocity.Y);
-                        this.target.Y += Shared.Constants.OBSTACLE_MOVE_DISTANCE;
+                        this.setAccelerator(0, -this.velocity.Y);
+                        this.target.Y -= Shared.Constants.OBSTACLE_MOVE_DISTANCE;
                         break;
                     }
                 case Shared.Constants.DIRECTION_DOWN:
                     {
-                        this.setAccelerator(0, -this.velocity.Y);
-                        this.target.Y -= Shared.Constants.OBSTACLE_MOVE_DISTANCE;
+                        this.setAccelerator(0, this.velocity.Y);
+                        this.target.Y += Shared.Constants.OBSTACLE_MOVE_DISTANCE;
                         break;
                     }
                 default:
@@ -182,28 +181,24 @@ namespace BoomGame.Entity.Renderer
                 if(Position.X < this.target.X)
                 {
                     this.clearMovement();
-                    //this.notifyRemove();
                 }
                 break;
             case Shared.Constants.DIRECTION_RIGHT:
                 if (Position.X > this.target.X)
                 {
                     this.clearMovement();
-                    //this.notifyRemove();
                 }
                 break;
             case Shared.Constants.DIRECTION_UP:
-                if (Position.Y > this.target.Y)
-                {
-                    this.clearMovement();
-                    //this.notifyRemove();
-                }
-                break;
-            case Shared.Constants.DIRECTION_DOWN:
                 if (Position.Y < this.target.Y)
                 {
                     this.clearMovement();
-                    //this.notifyRemove();
+                }
+                break;
+            case Shared.Constants.DIRECTION_DOWN:
+                if (Position.Y > this.target.Y)
+                {
+                    this.clearMovement();
                 }
                 break;
             }
@@ -211,11 +206,17 @@ namespace BoomGame.Entity.Renderer
             return false;
         }
 
-        protected void clearMovement()
+        public void clearMovement()
         {
             this.refreshAccelerator();
             this.direction = Shared.Constants.DIRECTION_NONE;
             this.target = this.Position;
+        }
+
+        public void roolBack()
+        {
+            this.position.X -= this.accelerator.X;
+            this.position.Y -= this.accelerator.Y;
         }
 
         protected void setAccelerator(float x, float y)

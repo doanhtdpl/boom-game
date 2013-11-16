@@ -36,6 +36,8 @@ namespace BoomGame.Scene
 
         private SpriteFont font;
 
+        private double delayBeginScene = 1000;
+
         public ChooseGame(IGameScreenManager manager)
             : base(manager)
         {
@@ -56,16 +58,16 @@ namespace BoomGame.Scene
 
             background = resourceManager.GetResource<Texture2D>(Shared.Resources.BackgroundChooseGame);
             chooseGameBar = resourceManager.GetResource<Texture2D>(Shared.Resources.BarChooseGame);
-            chooseGameBarPosition = new Vector2(177, 391);
+            chooseGameBarPosition = new Vector2(177, 410);
 
             // Init button next page and previous page
             btnNext = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnNext), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnNPOver));
-            btnNext.Canvas.Bound.Position = new Vector2(652, 394);
+            btnNext.Canvas.Bound.Position = new Vector2(652, 391);
             btnNext.FitSizeByImage();
             btnNext.Visible = true;
 
             btnPrev = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnPrev), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnNPOver));
-            btnPrev.Canvas.Bound.Position = new Vector2(114, 394);
+            btnPrev.Canvas.Bound.Position = new Vector2(78, 391);
             btnPrev.FitSizeByImage();
             btnPrev.Visible = false;
 
@@ -92,8 +94,16 @@ namespace BoomGame.Scene
                 onBackButton_pressed();
             }
 
+            if (delayBeginScene > 0)
+                delayBeginScene -= gameTime.ElapsedGameTime.TotalMilliseconds;
+
             btnNext.Update(gameTime);
             btnPrev.Update(gameTime);
+
+            for (int i = 0; i < items.Count; ++i)
+            {
+                items[i].Update(gameTime);
+            }
 
             base.Update(gameTime);
         }
@@ -101,7 +111,7 @@ namespace BoomGame.Scene
         public override void Draw(GameTime gameTime)
         {
             services.SpriteBatch.Draw(background, Vector2.Zero, Color.White);
-            services.SpriteBatch.Draw(chooseGameBar, Vector2.Zero, Color.White);
+            services.SpriteBatch.Draw(chooseGameBar, chooseGameBarPosition, Color.White);
 
             for (int i = 0; i < items.Count; ++i)
             {
@@ -130,7 +140,7 @@ namespace BoomGame.Scene
 
         void btnPrev_OnPressed(Button button)
         {
-            if ((Global.CurrentPage * Shared.Constants.NUMBER_RENDER) > 0)
+            if (delayBeginScene <= 0 && (Global.CurrentPage * Shared.Constants.NUMBER_RENDER) > 0)
             {
                 --Global.CurrentPage;
                 onChangePage();
@@ -139,7 +149,7 @@ namespace BoomGame.Scene
 
         void btnNext_OnPressed(Button button)
         {
-            if (((Global.CurrentPage+1) * Shared.Constants.NUMBER_RENDER) < Global.NumberOfMap)
+            if (delayBeginScene <= 0 && ((Global.CurrentPage + 1) * Shared.Constants.NUMBER_RENDER) < Global.NumberOfMap)
             {
                 ++Global.CurrentPage;
                 onChangePage();
@@ -156,8 +166,8 @@ namespace BoomGame.Scene
                     {
                         ModeItem item = new ModeItem(Game);
                         Vector2 ir = new Vector2();
-                        ir.X = 70 + (i % (Shared.Constants.NUMBER_RENDER / 2)) * 150;
-                        ir.Y = 80 + (int)i / (Shared.Constants.NUMBER_RENDER / 2) * 150;
+                        ir.X = 44 + (i % (Shared.Constants.NUMBER_RENDER / 2)) * 151;
+                        ir.Y = 64 + (int)i / (Shared.Constants.NUMBER_RENDER / 2) * 133;
                         item.onInit(services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.ItemChooseGame),
                                                     ir, font, (Global.CurrentPage * Shared.Constants.NUMBER_RENDER + i).ToString());
                         items.Add(item);

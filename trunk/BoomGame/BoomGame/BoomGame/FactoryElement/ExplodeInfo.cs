@@ -32,12 +32,19 @@ namespace BoomGame.FactoryElement
             set;
         }
 
-        public ExplodeInfo(Vector2 position, int range, String chopImage, String bodyImage)
+        public String CenterImage
+        {
+            get;
+            set;
+        }
+
+        public ExplodeInfo(Vector2 position, int range, String centerImage, String chopImage, String bodyImage)
         {
             this.Position = position;
             this.Range = range;
             this.ChopImage = chopImage;
             this.BodyImage = bodyImage;
+            this.CenterImage = centerImage;
         }
     }
 }

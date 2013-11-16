@@ -22,6 +22,9 @@ namespace BoomGame.Layers
         protected SCSServices services;
         protected IResourceManager resourceManager;
 
+        protected Texture2D rangeButton;
+        protected Vector2 rangeButtonPosition;
+
         protected Button btnUp;
         protected Button btnDown;
         protected Button btnLeft;
@@ -43,20 +46,24 @@ namespace BoomGame.Layers
             services = (SCSServices)Game.Services.GetService(typeof(SCSServices));
             resourceManager = (IResourceManager)Game.Services.GetService(typeof(IResourceManager));
 
-            btnUp = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.ButtonUp), resourceManager.GetResource<Texture2D>(Shared.Resources.ButtonUp));
-            btnUp.Canvas.Bound.Position = new Vector2(100, 380);
+            rangeButton = resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlCircle);
+            rangeButtonPosition = new Vector2(130, 375);
+
+            btnUp = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlButtonUp), resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlButtonUp));
+            btnUp.Canvas.Bound.Position = new Vector2(167, 382);
             btnUp.FitSizeByImage();
-            btnDown = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.ButtonDown), resourceManager.GetResource<Texture2D>(Shared.Resources.ButtonDown));
-            btnDown.Canvas.Bound.Position = new Vector2(100, 430);
+            btnDown = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlButtonDown), resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlButtonDown));
+            btnDown.Canvas.Bound.Position = new Vector2(167, 439);
             btnDown.FitSizeByImage();
-            btnLeft = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.ButtonLeft), resourceManager.GetResource<Texture2D>(Shared.Resources.ButtonLeft));
-            btnLeft.Canvas.Bound.Position = new Vector2(40, 430);
+            btnLeft = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlButtonLeft), resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlButtonLeft));
+            btnLeft.Canvas.Bound.Position = new Vector2(139, 411);
             btnLeft.FitSizeByImage();
-            btnRight = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.ButtonRight), resourceManager.GetResource<Texture2D>(Shared.Resources.ButtonRight));
-            btnRight.Canvas.Bound.Position = new Vector2(160, 430);
+            btnRight = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlButtonRight), resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlButtonRight));
+            btnRight.Canvas.Bound.Position = new Vector2(194, 411);
             btnRight.FitSizeByImage();
-            btnSpace = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.ButtonSpace), resourceManager.GetResource<Texture2D>(Shared.Resources.ButtonSpace));
-            btnSpace.Canvas.Bound.Position = new Vector2(700, 430);
+
+            btnSpace = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlButtonSpace), resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlButtonSpace));
+            btnSpace.Canvas.Bound.Position = new Vector2(622, 392);
             btnSpace.FitSizeByImage();
 
             btnUp.OnHold += new ButtonEventHandler(btnDirection_onHold);
@@ -82,6 +89,7 @@ namespace BoomGame.Layers
         public override void Draw(GameTime gameTime)
         {
             controlManager.Draw(gameTime);
+            services.SpriteBatch.Draw(rangeButton, rangeButtonPosition, Color.White);
 
             base.Draw(gameTime);
         }
