@@ -85,7 +85,7 @@ namespace BoomGame.Factory
                     }
                     else
                     {
-                        waterEffects.Add(WaterEffectFactory.getInst().create(new WaterEffectInfo(eInfo.Position, 0f, 500f, (Sprite)resourceManager.GetResource<ISprite>(eInfo.BodyImage))));
+                        waterEffects.Add(WaterEffectFactory.getInst().create(new WaterEffectInfo(eInfo.Position, 0f, 500f, (Sprite)resourceManager.GetResource<ISprite>(eInfo.CenterImage))));
                     }
                 }
             }

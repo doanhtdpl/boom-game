@@ -151,14 +151,11 @@ namespace BoomGame
             SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveUp, FramesGenerator.Generate(57, 53, 228, 32));
             SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveDown, FramesGenerator.Generate(54, 53, 216, 32));
 
-//             SpriteFramesBank.Instance.Add("HD/boxman_left@2x", FramesGenerator.Generate(55, 55, 55, 1));
-//             SpriteFramesBank.Instance.Add("HD/boxman_right@2x", FramesGenerator.Generate(55, 55, 55, 1));
-//             SpriteFramesBank.Instance.Add("HD/boxman_up@2x", FramesGenerator.Generate(55, 55, 55, 1));
-//             SpriteFramesBank.Instance.Add("HD/boxman_down@2x", FramesGenerator.Generate(55, 55, 55, 1));
-
-            SpriteFramesBank.Instance.Add(Shared.Resources.Bomb, FramesGenerator.Generate(50, 50, 50, 1));
-
             SpriteFramesBank.Instance.Add(Shared.Resources.box, FramesGenerator.Generate(50, 50, 50, 1));
+
+            SpriteFramesBank.Instance.Add(Shared.Resources.Bomb, FramesGenerator.Generate(51, 51,255, 24));
+            SpriteFramesBank.Instance.Add(Shared.Resources.Bomb_1, FramesGenerator.Generate(51, 52, 255, 25));
+            SpriteFramesBank.Instance.Add(Shared.Resources.Bomb_2, FramesGenerator.Generate(51, 52, 255, 25));
         }
 
         protected void InitFactory()
@@ -171,3 +168,4 @@ namespace BoomGame
         }
     }
 }
+    

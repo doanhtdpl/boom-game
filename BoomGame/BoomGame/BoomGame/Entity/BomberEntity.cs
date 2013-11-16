@@ -111,7 +111,8 @@ namespace BoomGame.Entity
             // Get obstacle move if it can move
             ObstacleRenderer obsRenderer = (obstacle.RendererObj as ObstacleRenderer);
             if(obsRenderer.State == Shared.Constants.OBSTACLE_CANMOVE && obsRenderer.Direction == Shared.Constants.DIRECTION_NONE
-                && (Math.Abs(renderer.Position.X - obsRenderer.Position.X) >= 20 || Math.Abs(renderer.Position.Y - obsRenderer.Position.Y) >= 20))
+                && ((Math.Abs(renderer.Position.X - obsRenderer.Position.X) <= 10 && (renderer.direction == Shared.Constants.DIRECTION_UP || renderer.direction == Shared.Constants.DIRECTION_DOWN)) 
+                || (Math.Abs(renderer.Position.Y - obsRenderer.Position.Y) <= 10 && (renderer.direction == Shared.Constants.DIRECTION_LEFT || renderer.direction == Shared.Constants.DIRECTION_RIGHT))))
             {
                 obsRenderer.Move(renderer.direction);
             }

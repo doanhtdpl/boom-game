@@ -85,6 +85,7 @@ namespace BoomGame.Entity
         private void collisionWithObstacle(ObstacleEntity obstacle)
         {
             (this.RendererObj as EnemyRenderer).ChangeNegativeDirection((this.RendererObj as EnemyRenderer).direction);
+            //(this.RendererObj as EnemyRenderer).randomDirection();
         }
 
         private void collisionWithWaterEffect(WaterEffectEntity waterEffect)

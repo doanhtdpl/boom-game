@@ -59,6 +59,7 @@ namespace BoomGame.Grid
 
         public void onInit(Vector2 position, int row, int colum, float cellWidth, float cellHeight)
         {
+            entities.Clear();
             this.size = new Vector2(row, colum);
             this.cellSize = new Vector2(cellWidth, cellHeight);
             this.position = position;
@@ -121,7 +122,7 @@ namespace BoomGame.Grid
         {
             int posY = (int)(position.X / cellSize.Y);
             int posX = (int)(position.Y / cellSize.X);
-            if (posX >= 0 && posY >= 0 && posX < size.X && posY < size.Y)
+            if (position.X >= 0 && position.Y >= 0 && posX >= 0 && posY >= 0 && posX < size.X && posY < size.Y)
             {
                 return cells[posX * (int)size.Y + posY];
             }

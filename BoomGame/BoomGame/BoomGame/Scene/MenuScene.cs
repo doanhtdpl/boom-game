@@ -47,30 +47,30 @@ namespace BoomGame.Scene
             controlManager = new UIControlManager(Game, DefaultGestureHandlingFactory.Instance);
             Global.GestureManager.AddDispatcher(controlManager);
 
-            background = resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_Background);
+            background = resourceManager.GetResource<Texture2D>(Shared.Resources.BackgroundMenu);
 
-            btnBasicGame = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_BasicGameButton), resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_ButtonOver));
-            btnBasicGame.Canvas.Bound.Position = new Vector2(100, 380);
+            btnBasicGame = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnAdventure), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnOver));
+            btnBasicGame.Canvas.Bound.Position = new Vector2(582, 32);
             btnBasicGame.FitSizeByImage();
 
-            btnChallengeTime = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_ChallengeTimeButton), resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_ButtonOver));
-            btnChallengeTime.Canvas.Bound.Position = new Vector2(200, 380);
+            btnChallengeTime = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnTimeMode), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnOver));
+            btnChallengeTime.Canvas.Bound.Position = new Vector2(668, 142);
             btnChallengeTime.FitSizeByImage();
 
-            btnChallengeLimit = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_ChallengeLimitButton), resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_ButtonOver));
-            btnChallengeLimit.Canvas.Bound.Position = new Vector2(200, 300);
+            btnChallengeLimit = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnBombMode), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnOver));
+            btnChallengeLimit.Canvas.Bound.Position = new Vector2(536, 211);
             btnChallengeLimit.FitSizeByImage();
 
-            btnOption = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_OptionButton), resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_ButtonOver));
-            btnOption.Canvas.Bound.Position = new Vector2(300, 380);
+            btnOption = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnSound), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnSound));
+            btnOption.Canvas.Bound.Position = new Vector2(216, 445);
             btnOption.FitSizeByImage();
 
-            btnAbout = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_AboutButton), resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_ButtonOver));
-            btnAbout.Canvas.Bound.Position = new Vector2(400, 380);
+            btnAbout = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnAbout), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnAbout));
+            btnAbout.Canvas.Bound.Position = new Vector2(14, 445);
             btnAbout.FitSizeByImage();
 
-            btnHelp = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_HelpButton), resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_ButtonOver));
-            btnHelp.Canvas.Bound.Position = new Vector2(500, 380);
+            btnHelp = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnHelp), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnHelp));
+            btnHelp.Canvas.Bound.Position = new Vector2(115, 445);
             btnHelp.FitSizeByImage();
 
             // Init event

@@ -68,6 +68,8 @@ namespace BoomGame.Entity
                     collidableList.Add(obj);
                 }
             }
+            else if (obj is ObstacleEntity)
+                collidableList.Add(obj);
         }
 
         public void ApplyCollision()
@@ -78,9 +80,52 @@ namespace BoomGame.Entity
                 {
                     this.isDead = true;
                 }
+                else if (collidableList[i] is ObstacleEntity)
+                {
+                    collisionWithObstacle(collidableList[i] as ObstacleEntity);
+                }
             }
 
             collidableList.Clear();
+        }
+
+        private void collisionWithObstacle(ObstacleEntity entity)
+        {
+            if ((this.RendererObj as ObstacleRenderer).State == Shared.Constants.OBSTACLE_CANMOVE)
+            {
+                ObstacleRenderer renderer = this.RendererObj as ObstacleRenderer;
+                switch (renderer.Direction)
+                {
+                    case Shared.Constants.DIRECTION_LEFT:
+                        if (entity.RendererObj.Position.X < this.RendererObj.Position.X)
+                        {
+                            renderer.roolBack();
+                            renderer.clearMovement();
+                        }
+                        break;
+                    case Shared.Constants.DIRECTION_RIGHT:
+                        if (entity.RendererObj.Position.X > this.RendererObj.Position.X)
+                        {
+                            renderer.roolBack();
+                            renderer.clearMovement();
+                        }
+                        break;
+                    case Shared.Constants.DIRECTION_UP:
+                        if (entity.RendererObj.Position.Y < this.RendererObj.Position.Y)
+                        {
+                            renderer.roolBack();
+                            renderer.clearMovement();
+                        }
+                        break;
+                    case Shared.Constants.DIRECTION_DOWN:
+                        if (entity.RendererObj.Position.Y > this.RendererObj.Position.Y)
+                        {
+                            renderer.roolBack();
+                            renderer.clearMovement();
+                        }
+                        break;
+                }
+            }
         }
     }
 }

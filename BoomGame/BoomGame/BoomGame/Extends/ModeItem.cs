@@ -29,6 +29,8 @@ namespace BoomGame.Extends
             set;
         }
 
+        private double delayBeginScene = 1000;
+
         public ModeItem(Game game)
             : base(game)
         {
@@ -44,13 +46,21 @@ namespace BoomGame.Extends
 
             bound = new Rectangle((int)position.X, (int)position.Y, background.Width, background.Height);
 
-            fontPosition = new Vector2(position.X + 15, position.Y);
+            fontPosition = new Vector2(position.X + 37, position.Y + 32);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            if (delayBeginScene > 0)
+                delayBeginScene -= gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
             sprBatch.Draw(background, position, Color.White);
-            sprBatch.DrawString(font, Text, fontPosition, Color.White);
+            sprBatch.DrawString(font, Convert.ToInt32(Text) < 10 ? "0" + Text: Text, fontPosition, Color.Black);
 
             base.Draw(gameTime);
         }
@@ -72,7 +82,7 @@ namespace BoomGame.Extends
 
         public bool ReceivedGesture(Tap gEvent)
         {
-            if (!this.IsLock)
+            if (delayBeginScene <= 0 && !this.IsLock)
             {
                 ChooseGame chooseGame = Global.BoomMissionManager.Current as ChooseGame;
                 chooseGame.Pause();

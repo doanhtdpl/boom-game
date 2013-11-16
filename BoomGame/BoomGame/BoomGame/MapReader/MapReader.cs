@@ -45,6 +45,7 @@ namespace BoomGame.MapReader
                     {
                         int row = Convert.ToInt32(reader.ReadLine());
                         int colum = Convert.ToInt32(reader.ReadLine());
+
                         Grid.Grid.getInst().onInit(Vector2.Zero, row, colum, 50f, 50f);
 
                         Shared.Constants.GAME_SIZE_X = 0;
@@ -106,7 +107,7 @@ namespace BoomGame.MapReader
                     break;
 
                 case Localize.ID_basic_box:
-                    entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.box)));
+                    entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_CANMOVE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.box)));
                     break;
 
                 case Localize.ID_basic_enemy:

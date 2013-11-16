@@ -19,8 +19,6 @@ namespace BoomGame.Scene
         private SCSServices services;
         private IResourceManager resourceManager;
 
-        private Texture2D background;
-
         private Texture2D helpBackground;
 
         public HelpScene(IGameScreenManager manager)
@@ -33,8 +31,7 @@ namespace BoomGame.Scene
 
         public void onInit()
         {
-            background = resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_Background);
-            helpBackground = resourceManager.GetResource<Texture2D>(Shared.Resources.About_Background);
+            helpBackground = resourceManager.GetResource<Texture2D>(Shared.Resources.BackgroundHelp);
         }
 
         public override void Update(GameTime gameTime)
@@ -49,7 +46,6 @@ namespace BoomGame.Scene
 
         public override void Draw(GameTime gameTime)
         {
-            services.SpriteBatch.Draw(background, Vector2.Zero, Color.White);
             services.SpriteBatch.Draw(helpBackground, Vector2.Zero, Color.White);
 
             base.Draw(gameTime);
