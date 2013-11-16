@@ -12,6 +12,7 @@ using SCSEngine.Sprite;
 using Microsoft.Xna.Framework;
 using SSCEngine.GestureHandling;
 using BoomGame.Shared;
+using Microsoft.Xna.Framework.Input;
 
 namespace BoomGame.Scene
 {
@@ -23,7 +24,8 @@ namespace BoomGame.Scene
         private Texture2D background;
 
         private Button btnBasicGame;
-        private Button btnMiniGame;
+        private Button btnChallengeTime;
+        private Button btnChallengeLimit;
         private Button btnOption;
         private Button btnAbout;
         private Button btnHelp;
@@ -40,6 +42,8 @@ namespace BoomGame.Scene
 
         public void onInit()
         {
+            this.Name = Shared.Macros.S_MENU;
+
             controlManager = new UIControlManager(Game, DefaultGestureHandlingFactory.Instance);
             Global.GestureManager.AddDispatcher(controlManager);
 
@@ -49,9 +53,13 @@ namespace BoomGame.Scene
             btnBasicGame.Canvas.Bound.Position = new Vector2(100, 380);
             btnBasicGame.FitSizeByImage();
 
-            btnMiniGame = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_MiniGameButton), resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_ButtonOver));
-            btnMiniGame.Canvas.Bound.Position = new Vector2(200, 380);
-            btnMiniGame.FitSizeByImage();
+            btnChallengeTime = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_ChallengeTimeButton), resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_ButtonOver));
+            btnChallengeTime.Canvas.Bound.Position = new Vector2(200, 380);
+            btnChallengeTime.FitSizeByImage();
+
+            btnChallengeLimit = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_ChallengeLimitButton), resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_ButtonOver));
+            btnChallengeLimit.Canvas.Bound.Position = new Vector2(200, 300);
+            btnChallengeLimit.FitSizeByImage();
 
             btnOption = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_OptionButton), resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_ButtonOver));
             btnOption.Canvas.Bound.Position = new Vector2(300, 380);
@@ -67,13 +75,15 @@ namespace BoomGame.Scene
 
             // Init event
             btnBasicGame.OnPressed += new ButtonEventHandler(btnBasicGame_OnPressed);
-            btnMiniGame.OnHold += new ButtonEventHandler(btnMiniGame_OnHold);
-            btnOption.OnHold += new ButtonEventHandler(btnOption_OnHold);
-            btnAbout.OnHold += new ButtonEventHandler(btnAbout_OnHold);
+            btnChallengeTime.OnPressed += new ButtonEventHandler(btnChallengeTime_OnPressed);
+            btnChallengeLimit.OnPressed += new ButtonEventHandler(btnChallengeLimit_OnPressed);
+            btnOption.OnPressed += new ButtonEventHandler(btnOption_OnPressed);
+            btnAbout.OnPressed += new ButtonEventHandler(btnAbout_OnPressed);
             btnHelp.OnPressed += new ButtonEventHandler(btnHelp_OnPressed);
 
             controlManager.Add(btnBasicGame);
-            controlManager.Add(btnMiniGame);
+            controlManager.Add(btnChallengeTime);
+            controlManager.Add(btnChallengeLimit);
             controlManager.Add(btnOption);
             controlManager.Add(btnAbout);
             controlManager.Add(btnHelp);
@@ -81,6 +91,11 @@ namespace BoomGame.Scene
 
         public override void Update(GameTime gameTime)
         {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            {
+                onBackButton_pressed();
+            }
+
             controlManager.Update(gameTime);
 
             base.Update(gameTime);
@@ -95,26 +110,69 @@ namespace BoomGame.Scene
             base.Draw(gameTime);
         }
 
+        public void Pause()
+        {
+            Global.GestureManager.RemoveDispatcher(this.controlManager);
+        }
+
+        public void Unpause()
+        {
+            Global.GestureManager.AddDispatcher(this.controlManager);
+        }
+
+        void onBackButton_pressed()
+        {
+            Game.Exit();
+        }
+
         void btnHelp_OnPressed(Button button)
         {
+            this.Pause();
+            Global.BoomMissionManager.RemoveCurrent();
+
+            HelpScene helpScene = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_HELP) as HelpScene;
+            helpScene.onInit();
+            Global.BoomMissionManager.AddExclusive(helpScene);
         }
 
-        void btnAbout_OnHold(Button button)
+        void btnAbout_OnPressed(Button button)
         {
+            this.Pause();
+            Global.BoomMissionManager.RemoveCurrent();
+
+            AboutScene aboutScene = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_ABOUT, true) as AboutScene;
+            aboutScene.onInit();
+            Global.BoomMissionManager.AddExclusive(aboutScene);
         }
 
-        void btnOption_OnHold(Button button)
+        void btnOption_OnPressed(Button button)
         {
+            // Stop/Resume music
         }
 
-        void btnMiniGame_OnHold(Button button)
+        void btnChallengeLimit_OnPressed(Button button)
         {
-            Global.CurrentMode = Shared.Constants.MINI_MODE;
+            Global.CurrentMode = Shared.Constants.LIMIT_MODE;
+            onChangeToNextGame();
+        }
+
+        void btnChallengeTime_OnPressed(Button button)
+        {
+            Global.CurrentMode = Shared.Constants.TIME_MODE;
+            onChangeToNextGame();
         }
 
         void btnBasicGame_OnPressed(Button button)
         {
             Global.CurrentMode = Shared.Constants.BASIC_MODE;
+            onChangeToNextGame();
+        }
+
+        void onChangeToNextGame()
+        {
+            this.Pause();
+            Global.BoomMissionManager.RemoveCurrent();
+
             BoomGame.Scene.ChooseGame choose = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_CHOOSEGAME, true) as BoomGame.Scene.ChooseGame;
             choose.onInit();
             Global.BoomMissionManager.AddExclusive(choose);

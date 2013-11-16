@@ -52,6 +52,7 @@ namespace BoomGame.Entity.Renderer
 
         public override void Draw(GameTime gameTime)
         {
+            sprite.TimeStep(gameTime);
             this.scsServices.SpritePlayer.Draw(sprite, Position, Color.White);
             base.Draw(gameTime);
         }

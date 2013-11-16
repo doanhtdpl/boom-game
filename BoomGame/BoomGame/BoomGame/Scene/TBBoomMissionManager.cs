@@ -21,6 +21,18 @@ namespace BoomGame.Scene
 
             BasicGameSceneFactory basicGameFactory = new BasicGameSceneFactory(this);
             this.Bank.AddScreenFactory(Shared.Macros.S_BASIC, basicGameFactory);
+
+            MiniGameLimitBombFactory miniLimitGameFactory = new MiniGameLimitBombFactory(this);
+            this.Bank.AddScreenFactory(Shared.Macros.S_MINI_LIMIT, miniLimitGameFactory);
+
+            MiniGameTimeFactory miniTimeGameFactory = new MiniGameTimeFactory(this);
+            this.Bank.AddScreenFactory(Shared.Macros.S_MINI_TIME, miniTimeGameFactory);
+
+            AboutSceneFactory aboutFactory = new AboutSceneFactory(this);
+            this.Bank.AddScreenFactory(Shared.Macros.S_ABOUT, aboutFactory);
+
+            HelpSceneFactory helpFactory = new HelpSceneFactory(this);
+            this.Bank.AddScreenFactory(Shared.Macros.S_HELP, helpFactory);
         }
     }
 }

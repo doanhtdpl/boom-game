@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SSCEngine.GestureHandling;
 using SSCEngine.GestureHandling.Implements.Events;
 using BoomGame.Shared;
+using BoomGame.Scene;
 
 namespace BoomGame.Extends
 {
@@ -16,7 +17,7 @@ namespace BoomGame.Extends
         private Vector2 position;
 
         private SpriteFont font;
-        private String text;
+        public String Text;
         private Vector2 fontPosition;
         private Rectangle bound;
 
@@ -39,17 +40,17 @@ namespace BoomGame.Extends
             this.background = background;
             this.position = position;
             this.font = font;
-            this.text = text;
+            this.Text = text;
 
             bound = new Rectangle((int)position.X, (int)position.Y, background.Width, background.Height);
 
-            fontPosition = new Vector2(position.X, position.Y);
+            fontPosition = new Vector2(position.X + 15, position.Y);
         }
 
         public override void Draw(GameTime gameTime)
         {
             sprBatch.Draw(background, position, Color.White);
-            sprBatch.DrawString(font, text, fontPosition, Color.Red);
+            sprBatch.DrawString(font, Text, fontPosition, Color.White);
 
             base.Draw(gameTime);
         }
@@ -73,7 +74,11 @@ namespace BoomGame.Extends
         {
             if (!this.IsLock)
             {
-                Global.CreateCurrentMap(Convert.ToInt32(text));
+                ChooseGame chooseGame = Global.BoomMissionManager.Current as ChooseGame;
+                chooseGame.Pause();
+                Global.BoomMissionManager.RemoveCurrent();
+
+                Global.CreateCurrentMap(Convert.ToInt32(Text));
             }
             return false;
         }

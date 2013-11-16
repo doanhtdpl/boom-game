@@ -72,8 +72,6 @@ namespace BoomGame.Entity.Renderer
             base.onInit();
 
             // Get bomber resources
-            sprite = (Sprite)resourceManagement.GetResource<ISprite>(Shared.Resources.Obstacle);
-
             State = Shared.Constants.OBSTACLE_IDLE;
 
             velocity = new Vector2(1f, 1f);

@@ -42,7 +42,6 @@ namespace BoomGame.Scene
 
             InputLayer = new DefaultInputLayer(manager.Game);
             InputLayer.onInit();
-            Components.Add(InputLayer);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using BoomGame.Scene;
 using Microsoft.Xna.Framework;
 using SSCEngine.GestureHandling;
+using SCSEngine.ScreenManagement;
 
 namespace BoomGame.Shared
 {
@@ -31,24 +32,33 @@ namespace BoomGame.Shared
         public static void CreateCurrentMap(int level)
         {
             String tailFix = ".txt";
-            BoomGame.Scene.BasicGameScene basic = 
-                Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_BASIC, true) as BoomGame.Scene.BasicGameScene;
+            IGameScreen basic = null;
 
             if (Global.CurrentMode == Shared.Constants.BASIC_MODE)
             {
-                basic.onInit(Shared.Constants.BASIC_GAME_MAP_PATH + level.ToString() + tailFix);
+                basic = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_BASIC, true) as BoomGame.Scene.BasicGameScene;
+                (basic as BasicGameScene).onInit(Shared.Constants.BASIC_GAME_MAP_PATH + level.ToString() + tailFix); 
             }
-            else if (Global.CurrentMode == Shared.Constants.MINI_MODE)
+            else if (Global.CurrentMode == Shared.Constants.TIME_MODE)
             {
-                basic.onInit(Shared.Constants.MINI_GAME_MAP_PATH + level.ToString() + tailFix);
+                basic = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_MINI_TIME, true) as BoomGame.Scene.MiniGameTime;
+                (basic as MiniGameTime).onInit(Shared.Constants.TIME_GAME_MAP_PATH + level.ToString() + tailFix, 90);
+            }
+            else
+            {
+                basic = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_MINI_LIMIT, true) as BoomGame.Scene.MiniGameLimitBomb;
+                (basic as MiniGameLimitBomb).onInit(Shared.Constants.LIMIT_GAME_MAP_PATH + level.ToString() + tailFix, 10);
             }
             Global.BoomMissionManager.AddExclusive(basic);
         }
 
-        // Game Play
+        // Game Play - Basic
         public static int Counter_Enemy = 0;
         public static int Counter_Obstacle = 0;
         public static int Counter_Item = 0;
         public static int Counter_Bomber = 0;
+
+        // Game Play - Mini
+        public static int Bomb_Number = 0;
     }
 }

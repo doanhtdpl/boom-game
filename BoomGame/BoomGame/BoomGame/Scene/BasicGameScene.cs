@@ -26,13 +26,9 @@ namespace BoomGame.Scene
 
         public void onInit(String mapPath)
         {
-            Components.Add(Grid.Grid.getInst());
+            this.Name = Shared.Macros.S_BASIC;
 
-            BomberEntity bomberEntity = new BomberEntity(this.Game);
-            bomberEntity.onInit();
-            GameManager.Add(bomberEntity);
-            InputLayer.Add(bomberEntity);
-            Global.Counter_Bomber++;
+            Components.Add(Grid.Grid.getInst());
 
             MapReader.MapReader reader = new MapReader.MapReader(mapPath);
             reader.onInit(resourceManager);
@@ -47,7 +43,15 @@ namespace BoomGame.Scene
                 entities.Clear();
             }
 
-            spr = (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.Bomb);
+            spr = (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.sand_green_road);
+
+            BomberEntity bomberEntity = new BomberEntity(this.Game);
+            bomberEntity.onInit();
+            GameManager.Add(bomberEntity);
+            InputLayer.Add(bomberEntity);
+            Global.Counter_Bomber++;
+
+            Components.Add(InputLayer);
         }
 
         public override void Update(GameTime gameTime)
@@ -56,6 +60,8 @@ namespace BoomGame.Scene
             {
                 onBackButton_pressed();
             }
+
+            InputLayer.Update(gameTime);
 
             if(Global.Counter_Enemy == 0)
             {
@@ -71,7 +77,13 @@ namespace BoomGame.Scene
 
         void onBackButton_pressed()
         {
-            Global.BoomMissionManager.AddExclusive(Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_CHOOSEGAME, false));
+            // Remove to menu
+            this.InputLayer.Pause();
+            Global.BoomMissionManager.RemoveCurrent();
+
+            MenuScene menu = (Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_MENU, true) as MenuScene);
+            menu.onInit();
+            Global.BoomMissionManager.AddExclusive(menu);
         }
 
         public override void Draw(GameTime gameTime)
@@ -85,10 +97,12 @@ namespace BoomGame.Scene
                 {
                     pos.X = i * 50;
                     pos.Y = j * 50;
-                    services.SpritePlayer.Draw(spr, pos, Color.Red);
+                    services.SpritePlayer.Draw(spr, pos, Color.White);
                 }
             }
             base.Draw(gameTime);
+
+            InputLayer.Draw(gameTime);
         }
     }
 }
