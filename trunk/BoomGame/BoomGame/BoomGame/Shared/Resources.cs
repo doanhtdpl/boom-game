@@ -7,44 +7,101 @@ namespace BoomGame.Shared
 {
     public class Resources
     {
-        public static String BomberMoveLeft = "HD/man_baby_left@2x";
-        public static String BomberMoveRight = "HD/man_baby_right@2x";
-        public static String BomberMoveUp = "HD/man_baby_up@2x";
-        public static String BomberMoveDown = "HD/man_baby_down@2x";
-        public static String BomberWrapBomb = "HD/bomb00";
+        // Menu
+        public static String BackgroundMenu = "Images/bgMenu";
+        public static String BtnAdventure = "Images/btnAdventure";
+        public static String BtnTimeMode = "Images/btnTimeMode";
+        public static String BtnBombMode = "Images/btnBombMode";
+        public static String BtnAbout = "Images/btnAbout";
+        public static String BtnHelp = "Images/btnHelp";
+        public static String BtnSound = "Images/btnSound";
+        public static String BtnMute = "Images/btnMute";
+        public static String BtnOver = "Images/btnOver";
 
-        public static String EnemyMoveLeft = "HD/boxman_left@2x";
-        public static String EnemyMoveRight = "HD/boxman_right@2x";
-        public static String EnemyMoveUp = "HD/boxman_up@2x";
-        public static String EnemyMoveDown = "HD/boxman_down@2x";
-
-        public static String ButtonDown = "HD/man_baby_down@2x";
-        public static String ButtonUp = "HD/man_baby_down@2x";
-        public static String ButtonLeft = "HD/man_baby_down@2x";
-        public static String ButtonRight = "HD/man_baby_down@2x";
-        public static String ButtonSpace = "HD/man_baby_down@2x";
-
-        public static String Obstacle = "HD/box@2x";
-
-        public static String Bomb = "HD/bomb00";
-
-        // Menu Screen
-        public static String Menu_Background = "HD/man_baby_down@2x";
-        public static String Menu_BasicGameButton = "HD/man_baby_down@2x";
-        public static String Menu_ButtonOver = "HD/man_baby_down@2x";
-        public static String Menu_MiniGameButton = "HD/man_baby_down@2x";
-        public static String Menu_OptionButton = "HD/man_baby_down@2x";
-        public static String Menu_AboutButton = "HD/man_baby_down@2x";
-        public static String Menu_HelpButton = "HD/man_baby_down@2x";
 
         // About
-        public static String About_Background = "HD/man_baby_down@2x";
+        public static String BackgroundAbout = "Images/bgMenu";
 
-        // Choose
-        public static String Choose_NextButton = "HD/man_baby_up@2x";
-        public static String Choose_PrevButton = "HD/man_baby_up@2x";
-        public static String Choose_ButtonOver = "HD/man_baby_left@2x";
-        public static String Choose_TileChoose = "HD/man_baby_down@2x";
+
+        // Help
+        public static String BackgroundHelp = "Images/bgMenu";
+
+
+        // Choose Game
+        public static String BackgroundChooseGame = "Images/bgMenu";
+        public static String BtnNext = "Images/btnNext";
+        public static String BtnPrev = "Images/btnPrev";
+        public static String BtnNPOver = "Images/btnNext";
+        public static String BarChooseGame = "Images/ChooseGameBar";
+        public static String ItemChooseGame = "Images/ChooseGameItem";
         public static String Choose_TileFont = "debug";
+
+
+        // Character
+        // Character---Bomber
+        public static String BomberMoveLeft = "Images/man_baby_left@2x";
+        public static String BomberMoveRight = "Images/man_baby_right@2x";
+        public static String BomberMoveUp = "Images/man_baby_up@2x";
+        public static String BomberMoveDown = "Images/man_baby_down@2x";
+        public static String BomberWrapBomb = "Images/bomb00";
+
+        // Character---Enemy
+        public static String EnemyMoveLeft = "Images/Boxman_left";
+        public static String EnemyMoveRight = "Images/Boxman_right";
+        public static String EnemyMoveUp = "Images/Boxman_up";
+        public static String EnemyMoveDown = "Images/Boxman_down";
+
+        // Character---Bomb
+        public static String Bomb = "Images/Bomb";
+        public static String Bomb_1 = "Images/Bomb_1";
+        public static String Bomb_2 = "Images/Bomb_2";
+
+        // Character---Item
+        public static String ItemBall = "Images/itemBall";
+        public static String ItemBall_1 = "Images/itemBall_1";
+        public static String ItemBall_2 = "Images/itemBall_2";
+        public static String ItemCoin_1 = "Images/itemCoin";
+        public static String ItemCoin_2 = "Images/itemCoin_1";
+        public static String ItemPower = "Images/itemPower";
+        public static String ItemWheel = "Images/itemWheel";
+
+        // Character---WaterEffect
+        public static String Effect_Center = "Images/watereffect_center";
+        public static String Effect_Body = "Images/watereffect_body";
+        public static String Effect_Tail = "Images/watereffect_tail";
+
+
+        // Controller
+        public static String ButtonDown = "Images/ctrl_Down";
+        public static String ButtonUp = "Images/ctrl_Up";
+        public static String ButtonLeft = "Images/ctrl_Left";
+        public static String ButtonRight = "Images/ctrl_Right";
+        public static String ButtonSpace = "Images/ctrl_Hit";
+
+        // Obstacles
+        public static String box = "Images/box";
+        public static String barricade_blue = "Images/barricade_blue";
+        public static String barricade_green = "Images/barricade_green";
+        public static String barricade_orange = "Images/barricade_orange";
+        public static String barricade_red = "Images/barricade_red";
+        public static String green_shrub = "Images/green_shrub";
+        public static String green_tree = "Images/green_tree";
+        public static String house_blue = "Images/house_blue";
+        public static String house_orange = "Images/house_orange";
+        public static String house_red = "Images/house_red";
+        public static String house_yellow = "Images/house_yellow";
+        public static String scenery_tree = "Images/scenery_tree";
+        public static String wall_blue = "Images/wall_blue";
+        public static String wall_orange = "Images/wall_orange";
+        public static String wall_red = "Images/wall_red";
+        public static String wall_violet = "Images/wall_violet";
+        public static String yellow_flower = "Images/yellow_flower";
+
+        // Sand
+        public static String sand_green_road = "Images/green_road";
+
+
+        // Font
+        public static String Time_Font = "debug";
     }
 }

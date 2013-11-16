@@ -32,6 +32,8 @@ namespace BoomGame
 
         SCSServices scsServices;
 
+        Sprite spr;
+
         public TBBoomMission()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -83,6 +85,7 @@ namespace BoomGame
             // Global
             Global.Initialize(this);
             Components.Add(Global.BoomMissionManager);
+            //Global.BoomMissionManager.SaveScreen = true;
 
             // Init Grid
             Grid.Grid.game = this;
@@ -93,6 +96,7 @@ namespace BoomGame
 
             // Init all game factory
             InitFactory();
+            AddSpriteData();
 
             // Begin with Choose Scene
             BoomGame.Scene.MenuScene menu = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_MENU, true) as BoomGame.Scene.MenuScene;
@@ -137,19 +141,24 @@ namespace BoomGame
 
         protected void AddSpriteData()
         {
-            SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveLeft, FramesGenerator.Generate(55, 55, 55, 1));
-            SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveRight, FramesGenerator.Generate(55, 55, 55, 1));
-            SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveUp, FramesGenerator.Generate(55, 55, 55, 1));
-            SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveDown, FramesGenerator.Generate(55, 55, 55, 1));
+            SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveLeft, FramesGenerator.Generate(50, 50, 50, 1));
+            SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveRight, FramesGenerator.Generate(50, 50, 50, 1));
+            SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveUp, FramesGenerator.Generate(50, 50, 50, 1));
+            SpriteFramesBank.Instance.Add(Shared.Resources.BomberMoveDown, FramesGenerator.Generate(50, 50, 50, 1));
 
-            SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveLeft, FramesGenerator.Generate(55, 55, 55, 1));
-            SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveRight, FramesGenerator.Generate(55, 55, 55, 1));
-            SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveUp, FramesGenerator.Generate(55, 55, 55, 1));
-            SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveDown, FramesGenerator.Generate(55, 55, 55, 1));
+            SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveLeft, FramesGenerator.Generate(52, 51, 208, 30));
+            SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveRight, FramesGenerator.Generate(52, 51, 208, 30));
+            SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveUp, FramesGenerator.Generate(57, 53, 228, 32));
+            SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveDown, FramesGenerator.Generate(54, 53, 216, 32));
 
-            SpriteFramesBank.Instance.Add(Shared.Resources.Bomb, FramesGenerator.Generate(60, 60, 60, 1));
+//             SpriteFramesBank.Instance.Add("HD/boxman_left@2x", FramesGenerator.Generate(55, 55, 55, 1));
+//             SpriteFramesBank.Instance.Add("HD/boxman_right@2x", FramesGenerator.Generate(55, 55, 55, 1));
+//             SpriteFramesBank.Instance.Add("HD/boxman_up@2x", FramesGenerator.Generate(55, 55, 55, 1));
+//             SpriteFramesBank.Instance.Add("HD/boxman_down@2x", FramesGenerator.Generate(55, 55, 55, 1));
 
-            SpriteFramesBank.Instance.Add(Shared.Resources.Obstacle, FramesGenerator.Generate(60, 60, 60, 1));
+            SpriteFramesBank.Instance.Add(Shared.Resources.Bomb, FramesGenerator.Generate(50, 50, 50, 1));
+
+            SpriteFramesBank.Instance.Add(Shared.Resources.box, FramesGenerator.Generate(50, 50, 50, 1));
         }
 
         protected void InitFactory()

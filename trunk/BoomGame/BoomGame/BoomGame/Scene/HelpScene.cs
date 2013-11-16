@@ -10,6 +10,7 @@ using SSCEngine.Control;
 using SCSEngine.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using BoomGame.Shared;
 
 namespace BoomGame.Scene
 {
@@ -30,7 +31,7 @@ namespace BoomGame.Scene
             resourceManager = (IResourceManager)manager.Game.Services.GetService(typeof(IResourceManager));
         }
 
-        protected void onInit()
+        public void onInit()
         {
             background = resourceManager.GetResource<Texture2D>(Shared.Resources.Menu_Background);
             helpBackground = resourceManager.GetResource<Texture2D>(Shared.Resources.About_Background);
@@ -57,7 +58,11 @@ namespace BoomGame.Scene
         void onBackButton_pressed()
         {
             // Call to menu
+            Global.BoomMissionManager.RemoveCurrent();
 
+            MenuScene menuScene = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_MENU) as MenuScene;
+            menuScene.onInit();
+            Global.BoomMissionManager.AddExclusive(menuScene);
         }
     }
 }

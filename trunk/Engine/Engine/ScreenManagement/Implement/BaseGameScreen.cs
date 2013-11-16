@@ -106,7 +106,7 @@ namespace SCSEngine.ScreenManagement.Implement
 
         #region IGameScreen Members
 
-        public string Name { get; internal set; }
+        public string Name { get; set; }
 
         public GameComponentCollection Components { get; protected set; }
 

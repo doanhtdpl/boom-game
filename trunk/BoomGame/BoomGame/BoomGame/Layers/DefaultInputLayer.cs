@@ -86,6 +86,16 @@ namespace BoomGame.Layers
             base.Draw(gameTime);
         }
 
+        public void Pause()
+        {
+            Global.GestureManager.RemoveDispatcher(this.controlManager);
+        }
+
+        public void UnPause()
+        {
+            Global.GestureManager.AddDispatcher(this.controlManager);
+        }
+
         public void Add(IGesturable obj)
         {
             gesturables.Add(obj);

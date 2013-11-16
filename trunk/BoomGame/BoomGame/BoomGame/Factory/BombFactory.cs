@@ -8,6 +8,7 @@ using BoomGame.FactoryElement;
 using BoomGame.Entity.Logical;
 using BoomGame.Entity.Renderer;
 using BoomGame.Grid;
+using BoomGame.Shared;
 
 namespace BoomGame.Factory
 {
@@ -70,6 +71,8 @@ namespace BoomGame.Factory
                     (bomb.RendererObj as BombRenderer).BombType = (info as BombInfo).Type;
 
                     cell.Add(bomb);
+
+                    Global.Bomb_Number--;
                 }
             }
 

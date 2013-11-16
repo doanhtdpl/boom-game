@@ -138,10 +138,14 @@
     <Compile Include="SceneFactory\ChooseGameFactory.cs" />
     <Compile Include="SceneFactory\HelpSceneFactory.cs" />
     <Compile Include="SceneFactory\MenuSceneFactory.cs" />
+    <Compile Include="SceneFactory\MiniGameLimitBombFactory.cs" />
+    <Compile Include="SceneFactory\MiniGameTimeFactory.cs" />
     <Compile Include="Scene\AboutScene.cs" />
     <Compile Include="Scene\ChooseGame.cs" />
     <Compile Include="Scene\HelpScene.cs" />
     <Compile Include="Scene\MenuScene.cs" />
+    <Compile Include="Scene\MiniGameLimitBomb.cs" />
+    <Compile Include="Scene\MiniGameTime.cs" />
     <Compile Include="Shared\Localize.cs" />
     <Compile Include="Shared\Macros.cs" />
     <Compile Include="Shared\SaveLoadGame.cs" />
@@ -170,10 +174,52 @@
     <Content Include="Map_Resources\Basic\Map_0.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Map_Resources\MiniGame\MapList.txt">
+    <Content Include="Map_Resources\Basic\Map_1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Map_Resources\MiniGame\Map_0.txt">
+    <Content Include="Map_Resources\Basic\Map_2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\Basic\Map_3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\Basic\Map_4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\ChallengeLimit\MapList.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\ChallengeLimit\Map_0.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\ChallengeLimit\Map_1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\ChallengeLimit\Map_2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\ChallengeLimit\Map_3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\ChallengeLimit\Map_4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\ChallengeTime\MapList.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\ChallengeTime\Map_0.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\ChallengeTime\Map_1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\ChallengeTime\Map_2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\ChallengeTime\Map_3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Map_Resources\ChallengeTime\Map_4.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PhoneGameThumb.png">
