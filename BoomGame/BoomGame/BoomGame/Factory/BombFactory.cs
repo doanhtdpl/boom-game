@@ -65,10 +65,14 @@ namespace BoomGame.Factory
                 if (canLocate)
                 {
                     bomb = new BombEntity(game);
-                    (bomb.LogicalObj as BombLogical).Time = (info as BombInfo).Time;
-                    (bomb.LogicalObj as BombLogical).Range = (info as BombInfo).Range;
-                    (bomb.RendererObj as BombRenderer).Position = pos;
-                    (bomb.RendererObj as BombRenderer).BombType = (info as BombInfo).Type;
+                    BombLogical logical = bomb.LogicalObj as BombLogical;
+                    BombRenderer renderer = bomb.RendererObj as BombRenderer;
+                    BombInfo bombInfo = info as BombInfo;
+
+                    logical.Time = bombInfo.Time;
+                    logical.Range = bombInfo.Range;
+                    renderer.Position = pos;
+                    renderer.BombType = bombInfo.Type;
 
                     cell.Add(bomb);
 

@@ -33,17 +33,20 @@ namespace BoomGame.Factory
         {
         }
 
-
-
         public WaterEffectEntity create(object info)
         {
-            WaterEffectEntity waterEffect = new WaterEffectEntity(game);
+            WaterEffectEntity waterEffect = null;
             if (info is WaterEffectInfo)
             {
-                (waterEffect.RendererObj as WaterEffectRenderer).Position = (info as WaterEffectInfo).Position;
-                (waterEffect.RendererObj as WaterEffectRenderer).Rotation = (info as WaterEffectInfo).Rotation;
-                (waterEffect.RendererObj as WaterEffectRenderer).Sprite = (info as WaterEffectInfo).Image;
-                (waterEffect.LogicalObj as WaterEffectLogical).Time = (info as WaterEffectInfo).Delay;
+                waterEffect = new WaterEffectEntity(game);
+                WaterEffectLogical logical = waterEffect.LogicalObj as WaterEffectLogical;
+                WaterEffectRenderer renderer = waterEffect.RendererObj as WaterEffectRenderer;
+                WaterEffectInfo wefInfo = info as WaterEffectInfo;
+
+                renderer.Position = wefInfo.Position;
+                renderer.Rotation = wefInfo.Rotation;
+                renderer.Sprite = wefInfo.Image;
+                logical.Time = wefInfo.Delay;
             }
 
             return waterEffect;

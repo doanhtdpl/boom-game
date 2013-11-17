@@ -14,6 +14,12 @@ namespace BoomGame.Entity
         protected bool isDead = false;
         protected List<ICollidable> collidableList = new List<ICollidable>();
 
+        public bool IsStatic
+        {
+            get;
+            set;
+        }
+
         public Logical.DefaultLogical LogicalObj
         {
             get;
@@ -76,7 +82,7 @@ namespace BoomGame.Entity
         {
             for (int i = 0; i < collidableList.Count; ++i)
             {
-                if (collidableList[i] is WaterEffectEntity)
+                if (!IsStatic && collidableList[i] is WaterEffectEntity)
                 {
                     this.isDead = true;
                 }

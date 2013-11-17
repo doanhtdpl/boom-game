@@ -59,7 +59,7 @@ namespace BoomGame.Entity
 
         public void Collision(ICollidable obj)
         {
-            if (obj is BomberEntity)
+            if (obj is BombEntity)
             {
                 this.collidableList.Add(obj);
             }
@@ -69,17 +69,17 @@ namespace BoomGame.Entity
         {
             for (var i = 0; i < this.collidableList.Count; ++i)
             {
-                if (this.collidableList[i] is BomberEntity)
+                if (this.collidableList[i] is BombEntity)
                 {
-                    this.collisionWithBomber((BomberEntity)this.collidableList[i]);
+                    this.collisionWithBomb(this.collidableList[i] as BombEntity);
                 }
             }
             collidableList.Clear();
         }
 
-        private void collisionWithBomber(BomberEntity bomber)
+        private void collisionWithBomb(BombEntity bomber)
         {
-            // Prevent bomber move across
+            (this.LogicalObj as BombLogical).suddenlyMeetTime();
         }
     }
 }

@@ -59,7 +59,7 @@ namespace BoomGame.Grid
 
         public void onInit(Vector2 position, int row, int colum, float cellWidth, float cellHeight)
         {
-            entities.Clear();
+            this.ClearAll();
             this.size = new Vector2(row, colum);
             this.cellSize = new Vector2(cellWidth, cellHeight);
             this.position = position;
@@ -136,6 +136,15 @@ namespace BoomGame.Grid
 
         public void Clear()
         {
+            foreach (Cell cell in cells)
+            {
+                cell.Clear();
+            }
+        }
+
+        public void ClearAll()
+        {
+            this.entities.Clear();
             foreach (Cell cell in cells)
             {
                 cell.Clear();

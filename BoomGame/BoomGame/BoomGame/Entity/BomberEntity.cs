@@ -139,28 +139,28 @@ namespace BoomGame.Entity
             #endregion
 
             #region Adjust Position
-//             if (renderer.direction == Shared.Constants.DIRECTION_DOWN || renderer.direction == Shared.Constants.DIRECTION_UP)
-//             {
-//                 if (Math.Abs(obsRenderer.Position.X - (renderer.Position.X + LogicalObj.Bound.Width)) <= Shared.Constants.COLLISION_MIN)
-//                 {
-//                     newPos.X = obsRenderer.Position.X - LogicalObj.Bound.Width;
-//                 }
-//                 else if (Math.Abs((obsRenderer.Position.X + obstacle.LogicalObj.Bound.Width) - renderer.Position.X) <= Shared.Constants.COLLISION_MIN)
-//                 {
-//                     newPos.X = obsRenderer.Position.X + obstacle.LogicalObj.Bound.Width;
-//                 }
-//             }
-//             else if (renderer.direction == Shared.Constants.DIRECTION_LEFT || renderer.direction == Shared.Constants.DIRECTION_RIGHT)
-//             {
-//                 if (Math.Abs(obsRenderer.Position.Y - (renderer.Position.Y + LogicalObj.Bound.Height)) <= Shared.Constants.COLLISION_MIN)
-//                 {
-//                     newPos.Y = obsRenderer.Position.Y - LogicalObj.Bound.Height;
-//                 }
-//                 else if (Math.Abs((obsRenderer.Position.Y + obstacle.LogicalObj.Bound.Height) - renderer.Position.Y) <= Shared.Constants.COLLISION_MIN)
-//                 {
-//                     newPos.Y = obsRenderer.Position.Y + obstacle.LogicalObj.Bound.Height;
-//                 }
-//             }
+            if (renderer.direction == Shared.Constants.DIRECTION_DOWN || renderer.direction == Shared.Constants.DIRECTION_UP)
+            {
+                if (Math.Abs(obsRenderer.Position.X - (renderer.Position.X + LogicalObj.Bound.Width)) <= Shared.Constants.COLLISION_MIN)
+                {
+                    newPos.X = obsRenderer.Position.X - LogicalObj.Bound.Width;
+                }
+                else if (Math.Abs((obsRenderer.Position.X + obstacle.LogicalObj.Bound.Width) - renderer.Position.X) <= Shared.Constants.COLLISION_MIN)
+                {
+                    newPos.X = obsRenderer.Position.X + obstacle.LogicalObj.Bound.Width;
+                }
+            }
+            else if (renderer.direction == Shared.Constants.DIRECTION_LEFT || renderer.direction == Shared.Constants.DIRECTION_RIGHT)
+            {
+                if (Math.Abs(obsRenderer.Position.Y - (renderer.Position.Y + LogicalObj.Bound.Height)) <= Shared.Constants.COLLISION_MIN)
+                {
+                    newPos.Y = obsRenderer.Position.Y - LogicalObj.Bound.Height;
+                }
+                else if (Math.Abs((obsRenderer.Position.Y + obstacle.LogicalObj.Bound.Height) - renderer.Position.Y) <= Shared.Constants.COLLISION_MIN)
+                {
+                    newPos.Y = obsRenderer.Position.Y + obstacle.LogicalObj.Bound.Height;
+                }
+            }
             #endregion
 
             renderer.Position = newPos;

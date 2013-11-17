@@ -45,6 +45,9 @@ namespace BoomGame.Factory
                 Vector2 position = new Vector2(pos.X + cellSize.X / 2, pos.Y + cellSize.Y / 2);
                 Cell cell = Grid.Grid.getInst().GetCellAtPosition(position);
 
+                position.X = cell.Location.Y * cellSize.X;
+                position.Y = cell.Location.X * cellSize.Y;
+
                 bool canLocate = true;
                 for (int i = 0; cell != null && canLocate && i < cell.Contents.Count; ++i)
                 {
@@ -56,7 +59,11 @@ namespace BoomGame.Factory
                 if (canLocate)
                 {
                     enemy = new EnemyEntity(game);
-                    (enemy.RendererObj as EnemyRenderer).Position = (info as EnemyInfo).Position;
+                    (enemy.RendererObj as EnemyRenderer).Position = position;
+                    if (position.Y <= 10)
+                    {
+                        int a = 0;
+                    }
                     (enemy.RendererObj as EnemyRenderer).Velocity = (info as EnemyInfo).Velocity;
                 }
             }

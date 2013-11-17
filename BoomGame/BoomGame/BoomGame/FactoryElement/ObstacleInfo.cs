@@ -28,11 +28,18 @@ namespace BoomGame.FactoryElement
             set;
         }
 
-        public ObstacleInfo(Vector2 position, int type, Sprite image)
+        public bool IsStatic
+        {
+            get;
+            set;
+        }
+
+        public ObstacleInfo(Vector2 position, int type, Sprite image, bool isStatic)
         {
             this.Type = type;
             this.Image = image;
             this.Position = position;
+            this.IsStatic = isStatic;
         }
     }
 }
