@@ -1,5 +1,4 @@
 Content\Background.xnb
-Content\debug.xnb
 Content\Images\bomb00.xnb
 Content\Images\box.xnb
 Content\Images\man_baby_down@2x.xnb
@@ -59,6 +58,7 @@ Content\Images\bgMenu.xnb
 Content\Images\watereffect_body.xnb
 Content\Images\watereffect_center.xnb
 Content\Images\watereffect_tail.xnb
+Content\debug.xnb
 Map_Resources\Basic\MapList.txt
 Map_Resources\Basic\Map_0.txt
 Map_Resources\Basic\Map_1.txt

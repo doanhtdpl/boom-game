@@ -75,6 +75,11 @@ namespace BoomGame.Entity.Logical
             base.Update(gameTime);
         }
 
+        public void suddenlyMeetTime()
+        {
+            this.onMeetTime();
+        }
+
         private void onMeetTime()
         {
             this.isExplode = true;

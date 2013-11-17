@@ -35,12 +35,17 @@ namespace BoomGame.Factory
 
         public ObstacleEntity create(object info)
         {
-            ObstacleEntity bomb = new ObstacleEntity(game);
+            ObstacleEntity bomb = null;
             if (info is ObstacleInfo)
             {
-                (bomb.RendererObj as ObstacleRenderer).Position = (info as ObstacleInfo).Position;
-                (bomb.RendererObj as ObstacleRenderer).State = (info as ObstacleInfo).Type;
-                (bomb.RendererObj as ObstacleRenderer).Sprite = (info as ObstacleInfo).Image;
+                bomb = new ObstacleEntity(game);
+                ObstacleInfo obsInfo = (info as ObstacleInfo);
+                ObstacleRenderer renderer = bomb.RendererObj as ObstacleRenderer;
+
+                renderer.Position = obsInfo.Position;
+                renderer.State = obsInfo.Type;
+                renderer.Sprite = obsInfo.Image;
+                bomb.IsStatic = obsInfo.IsStatic;
             }
 
             return bomb;
