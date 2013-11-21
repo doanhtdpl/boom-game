@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using BoomGame.FactoryElement;
 using BoomGame.Entity.Logical;
 using BoomGame.Entity.Renderer;
+using BoomGame.Grid;
 
 namespace BoomGame.Factory
 {
@@ -35,20 +36,37 @@ namespace BoomGame.Factory
 
         public ObstacleEntity create(object info)
         {
-            ObstacleEntity bomb = null;
+            ObstacleEntity obstacle = null;
             if (info is ObstacleInfo)
             {
-                bomb = new ObstacleEntity(game);
+                Vector2 pos = (info as ObstacleInfo).Position;
+
+                Vector2 cellSize = Grid.Grid.getInst().CellSize;
+                Vector2 position = new Vector2(pos.X + cellSize.X / 2, pos.Y + cellSize.Y / 2);
+                Cell cell = Grid.Grid.getInst().GetCellAtPosition(position);
+
+                position = cell.Position;
+
+                bool canLocate = true;
+                for (int i = 0; cell != null && canLocate && i < cell.Contents.Count; ++i)
+                {
+                    if (cell.Contents[i] is ObstacleEntity)
+                    {
+                        canLocate = false;
+                    }
+                }
+
+                obstacle = new ObstacleEntity(game);
                 ObstacleInfo obsInfo = (info as ObstacleInfo);
-                ObstacleRenderer renderer = bomb.RendererObj as ObstacleRenderer;
+                ObstacleRenderer renderer = obstacle.RendererObj as ObstacleRenderer;
 
                 renderer.Position = obsInfo.Position;
                 renderer.State = obsInfo.Type;
                 renderer.Sprite = obsInfo.Image;
-                bomb.IsStatic = obsInfo.IsStatic;
+                obstacle.IsStatic = obsInfo.IsStatic;
             }
 
-            return bomb;
+            return obstacle;
         }
     }
 }

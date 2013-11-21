@@ -33,6 +33,9 @@ namespace BoomGame.Scene
 
             HelpSceneFactory helpFactory = new HelpSceneFactory(this);
             this.Bank.AddScreenFactory(Shared.Macros.S_HELP, helpFactory);
+
+            PauseSceneFactory pauseFactory = new PauseSceneFactory(this);
+            this.Bank.AddScreenFactory(Shared.Macros.S_PAUSE, pauseFactory);
         }
     }
 }

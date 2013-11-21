@@ -9,6 +9,7 @@ using SCSEngine.ResourceManagement;
 using SCSEngine.Sprite;
 using SCSEngine.Sprite.Implements;
 using BoomGame.Grid;
+using BoomGame.Shared;
 
 namespace BoomGame.Factory
 {
@@ -64,7 +65,7 @@ namespace BoomGame.Factory
                             bool canCurrentLocate = true;
                             canLeft = isAvailable(ref leftPos, ref canCurrentLocate);
                             if(canCurrentLocate)
-                                waterEffects.Add(WaterEffectFactory.getInst().create(new WaterEffectInfo(leftPos, (float)-Math.PI, 500f, (Sprite)resourceManager.GetResource<ISprite>(path))));
+                                waterEffects.Add(WaterEffectFactory.getInst().create(new WaterEffectInfo(leftPos, (float)-Math.PI, Shared.Constants.WATEREFFECT_TIME_TO_LIVE, (Sprite)resourceManager.GetResource<ISprite>(path))));
                         }
                         if (canRight)
                         {
@@ -72,7 +73,7 @@ namespace BoomGame.Factory
                             bool canCurrentLocate = true;
                             canRight = isAvailable(ref rightPos, ref canCurrentLocate);
                             if (canCurrentLocate)
-                                waterEffects.Add(WaterEffectFactory.getInst().create(new WaterEffectInfo(rightPos, 0f, 500f, (Sprite)resourceManager.GetResource<ISprite>(path))));
+                                waterEffects.Add(WaterEffectFactory.getInst().create(new WaterEffectInfo(rightPos, 0f, Shared.Constants.WATEREFFECT_TIME_TO_LIVE, (Sprite)resourceManager.GetResource<ISprite>(path))));
                         }
                         if (canTop)
                         {
@@ -80,7 +81,7 @@ namespace BoomGame.Factory
                             bool canCurrentLocate = true;
                             canTop = isAvailable(ref topPos, ref canCurrentLocate);
                             if (canCurrentLocate)
-                                waterEffects.Add(WaterEffectFactory.getInst().create(new WaterEffectInfo(topPos, (float)(-Math.PI / 2), 500f, (Sprite)resourceManager.GetResource<ISprite>(path))));
+                                waterEffects.Add(WaterEffectFactory.getInst().create(new WaterEffectInfo(topPos, (float)(-Math.PI / 2), Shared.Constants.WATEREFFECT_TIME_TO_LIVE, (Sprite)resourceManager.GetResource<ISprite>(path))));
                         }
                         if (canBottom)
                         {
@@ -88,15 +89,20 @@ namespace BoomGame.Factory
                             bool canCurrentLocate = true;
                             canBottom = isAvailable(ref downPos, ref canCurrentLocate);
                             if (canCurrentLocate)
-                                waterEffects.Add(WaterEffectFactory.getInst().create(new WaterEffectInfo(downPos, (float)(Math.PI / 2), 500f, (Sprite)resourceManager.GetResource<ISprite>(path))));
+                                waterEffects.Add(WaterEffectFactory.getInst().create(new WaterEffectInfo(downPos, (float)(Math.PI / 2), Shared.Constants.WATEREFFECT_TIME_TO_LIVE, (Sprite)resourceManager.GetResource<ISprite>(path))));
                         }
                     }
                     else
                     {
-                        waterEffects.Add(WaterEffectFactory.getInst().create(new WaterEffectInfo(eInfo.Position, 0f, 500f, (Sprite)resourceManager.GetResource<ISprite>(eInfo.CenterImage))));
+                        waterEffects.Add(WaterEffectFactory.getInst().create(new WaterEffectInfo(eInfo.Position, 0f, Shared.Constants.WATEREFFECT_TIME_TO_LIVE, (Sprite)resourceManager.GetResource<ISprite>(eInfo.CenterImage))));
                     }
                 }
             }
+            if (waterEffects.Count != 0)
+            {
+                Global.PlaySoundEffect(Shared.Resources.Sound_Explode);
+            }
+
             return waterEffects;
         }
 
@@ -110,8 +116,7 @@ namespace BoomGame.Factory
             currentLocate = true;
             if(cell != null)
             {
-                position.X = cell.Location.Y * cell.Width;
-                position.Y = cell.Location.X * cell.Height;
+                position = cell.Position;
                 for (int i = 0; canLocate && i < cell.Contents.Count; ++i)
                 {
                     if (cell.Contents[i] is ObstacleEntity)
@@ -126,7 +131,6 @@ namespace BoomGame.Factory
             }
             else
                 canLocate = false;
-
 
             return canLocate;
         }

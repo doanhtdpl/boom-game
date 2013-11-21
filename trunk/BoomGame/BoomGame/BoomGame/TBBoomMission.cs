@@ -46,7 +46,7 @@ namespace BoomGame
             // Extend battery life under lock.
             InactiveSleepTime = TimeSpan.FromSeconds(1);
 
-            this.IsFixedTimeStep = false;
+            this.IsFixedTimeStep = true;
         }
 
         /// <summary>
@@ -165,6 +165,7 @@ namespace BoomGame
             ObstacleFactory.setGame(this);
             ExplodeFactory.setGame(this);
             WaterEffectFactory.setGame(this);
+            ItemFactory.setGame(this);
         }
     }
 }

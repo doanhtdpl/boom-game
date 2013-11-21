@@ -9,6 +9,6 @@ namespace SCSEngine.ResourceManagement
     {
         object Load(string resourceName);
         Type ResourceType { get; }
-        bool IsResourceResuable { get; }
+        bool IsResourceReuseable { get; }
     }
 }

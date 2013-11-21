@@ -6,6 +6,7 @@ using BoomGame.Entity.Collide;
 using Microsoft.Xna.Framework;
 using BoomGame.Entity.Logical;
 using BoomGame.Entity.Renderer;
+using BoomGame.Shared;
 
 namespace BoomGame.Entity
 {
@@ -51,7 +52,7 @@ namespace BoomGame.Entity
 
         public bool IsDead
         {
-            get { return isDead; }
+            get { return (isDead && (LogicalObj as ObstacleLogical).TimeToDie <= 0); }
         }
 
         public List<ICollidable> CollidableList
@@ -84,7 +85,7 @@ namespace BoomGame.Entity
             {
                 if (!IsStatic && collidableList[i] is WaterEffectEntity)
                 {
-                    this.isDead = true;
+                    collisionWithWaterEffect(collidableList[i] as WaterEffectEntity);
                 }
                 else if (collidableList[i] is ObstacleEntity)
                 {
@@ -93,6 +94,18 @@ namespace BoomGame.Entity
             }
 
             collidableList.Clear();
+        }
+
+        private void collisionWithWaterEffect(WaterEffectEntity wef)
+        {
+            if (!this.isDead)
+            {
+                (LogicalObj as ObstacleLogical).TimeToDie = Shared.Constants.OBSTACLE_TIME_TO_DIE;
+                this.isDead = true;
+
+                // Play sound break obstacle
+                //Global.PlaySoundEffect(Shared.Resources.Sound_Obstacle_Break);
+            }
         }
 
         private void collisionWithObstacle(ObstacleEntity entity)

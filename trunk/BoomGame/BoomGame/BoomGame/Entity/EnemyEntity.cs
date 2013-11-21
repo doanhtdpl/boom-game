@@ -6,6 +6,7 @@ using BoomGame.Entity.Collide;
 using Microsoft.Xna.Framework;
 using BoomGame.Entity.Logical;
 using BoomGame.Entity.Renderer;
+using System.Diagnostics;
 
 namespace BoomGame.Entity
 {
@@ -60,7 +61,7 @@ namespace BoomGame.Entity
 
         public void Collision(ICollidable obj)
         {
-            if (obj is ObstacleEntity || obj is WaterEffectEntity)
+            if (obj is ObstacleEntity || obj is WaterEffectEntity || obj is BombEntity)
             {
                 this.collidableList.Add(obj);
             }
@@ -74,6 +75,10 @@ namespace BoomGame.Entity
                 {
                     this.collisionWithObstacle(this.collidableList[i] as ObstacleEntity);
                 }
+                else if (this.collidableList[i] is BombEntity)
+                {
+                    this.collisionWithBomb(this.collidableList[i] as BombEntity);
+                }
                 else if (this.collidableList[i] is WaterEffectEntity)
                 {
                     this.collisionWithWaterEffect(collidableList[i] as WaterEffectEntity);
@@ -85,7 +90,11 @@ namespace BoomGame.Entity
         private void collisionWithObstacle(ObstacleEntity obstacle)
         {
             (this.RendererObj as EnemyRenderer).ChangeNegativeDirection((this.RendererObj as EnemyRenderer).direction);
-            //(this.RendererObj as EnemyRenderer).randomDirection();
+        }
+
+        private void collisionWithBomb(BombEntity bomb)
+        {
+            (this.RendererObj as EnemyRenderer).ChangeNegativeDirection((this.RendererObj as EnemyRenderer).direction);
         }
 
         private void collisionWithWaterEffect(WaterEffectEntity waterEffect)

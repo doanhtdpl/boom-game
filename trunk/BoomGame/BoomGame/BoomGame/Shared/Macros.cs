@@ -14,5 +14,6 @@ namespace BoomGame.Shared
         public const String S_MINI_TIME     = "S_MiniTime";
         public const String S_MINI_LIMIT    = "S_MiniLimit";
         public const String S_CHOOSEGAME    = "S_ChooseGame";
+        public const String S_PAUSE         = "S_Pause";
     }
 }

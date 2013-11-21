@@ -39,7 +39,7 @@ namespace SCSEngine.Sprite
             get { return typeof(ISprite); }
         }
 
-        public bool IsResourceResuable
+        public bool IsResourceReuseable
         {
             get { return false; }
         }

@@ -25,5 +25,12 @@ namespace BoomGame.Shared
         public const int ID_wall_red = 16;
         public const int ID_wall_violet = 17;
         public const int ID_yellow_flower = 18;
+
+        public const int ID_item_Ball = 19;
+        public const int ID_item_Coin = 20;
+        public const int ID_item_Bottle = 21;
+        public const int ID_item_Wheel = 22;
+
+        public const int ID_bomber = 23;
     }
 }

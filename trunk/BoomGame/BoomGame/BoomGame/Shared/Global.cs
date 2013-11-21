@@ -6,6 +6,10 @@ using BoomGame.Scene;
 using Microsoft.Xna.Framework;
 using SSCEngine.GestureHandling;
 using SCSEngine.ScreenManagement;
+using SCSEngine.Services.Audio;
+using SCSEngine.Services;
+using SCSEngine.ResourceManagement;
+using SCSEngine.Mathematics;
 
 namespace BoomGame.Shared
 {
@@ -14,11 +18,58 @@ namespace BoomGame.Shared
         public static void Initialize(Game game)
         {
             BoomMissionManager = new TBBoomMissionManager(game);
+            Game = game;
+            Services = (SCSServices)game.Services.GetService(typeof(SCSServices));
+            ResourceManager = (IResourceManager)game.Services.GetService(typeof(IResourceManager));
         }
+
+        // Game instances
+        public static Game Game;
+        public static SCSServices Services;
+        public static IResourceManager ResourceManager;
 
         public static TBBoomMissionManager BoomMissionManager;
         public static IGestureManager GestureManager;
 
+        // Sound
+        public static bool isMusicOff = false;
+        public static bool isMusicZuneOff = true;
+        public static void PlaySound_Button_Effect()
+        {
+            SCSEngine.Audio.Sound button_hit = ResourceManager.GetResource<SCSEngine.Audio.Sound>(Shared.Resources.Sound_Hard_Hit);
+            Services.AudioManager.PlaySound(button_hit, Shared.Global.isMusicOff, Shared.Global.isMusicZuneOff);
+        }
+        public static void PlaySoundEffect(String soundName)
+        {
+            SCSEngine.Audio.Sound sound = ResourceManager.GetResource<SCSEngine.Audio.Sound>(soundName);
+            Services.AudioManager.PlaySound(sound, Shared.Global.isMusicOff, Shared.Global.isMusicZuneOff);
+        }
+        public static String RandomBackgroundSong()
+        {
+            int index = GRandom.RandomInt(2, 7);
+            String result = Shared.Resources.Sound_Background_2;
+            switch (index)
+            {
+                case 2:
+                    result = Shared.Resources.Sound_Background_2;
+                    break;
+                case 3:
+                    result = Shared.Resources.Sound_Background_3;
+                    break;
+                case 4:
+                    result = Shared.Resources.Sound_Background_4;
+                    break;
+                case 5:
+                    result = Shared.Resources.Sound_Background_5;
+                    break;
+                case 6:
+                    result = Shared.Resources.Sound_Background_6;
+                    break;
+            }
+            return result;
+        }
+
+        // Game logic
         public static int Basic_Level = 0;
         public static int Mini_Level = 0;
 
@@ -27,8 +78,13 @@ namespace BoomGame.Shared
         public static int NumberOfMap = 100;
 
         // Game Mode
+        public static float Bomber_Start_Position_X = 0;
+        public static float Bomber_Start_Position_Y = 0;
+
+        public static int TotalCoin = 0;
         public static String CurrentMode = "";
 
+        public static String CurrentMap = "";
         public static void CreateCurrentMap(int level)
         {
             String tailFix = ".txt";
@@ -57,8 +113,11 @@ namespace BoomGame.Shared
         public static int Counter_Obstacle = 0;
         public static int Counter_Item = 0;
         public static int Counter_Bomber = 0;
+        public static int Counter_BombCanLocated = 1;
+        public static int Counter_Scores = 0;
 
         // Game Play - Mini
         public static int Bomb_Number = 0;
+
     }
 }

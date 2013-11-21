@@ -20,6 +20,11 @@ namespace BoomGame.Grid
     public class Grid : Microsoft.Xna.Framework.GameComponent
     {
         protected Vector2 position;
+        public Vector2 Position
+        {
+            get { return this.position; }
+        }
+
         protected Vector2 size;
         public Vector2 Size
         {
@@ -68,7 +73,7 @@ namespace BoomGame.Grid
             {
                 Vector2 cellLocation = new Vector2(i/colum, i%colum);
                 Cell cell = new Cell();
-                cell.onInit(cellWidth, cellHeight, cellLocation);
+                cell.onInit(cellWidth, cellHeight, cellLocation, new Vector2(position.X + cellLocation.Y * cellSize.X, position.Y + cellLocation.X * cellSize.Y));
 
                 cells.Add(cell);
                 Debug.WriteLine(cellLocation.X + ", " + cellLocation.Y);
@@ -120,8 +125,8 @@ namespace BoomGame.Grid
 
         public Cell GetCellAtPosition(Vector2 position)
         {
-            int posY = (int)(position.X / cellSize.Y);
-            int posX = (int)(position.Y / cellSize.X);
+            int posY = (int)((position.X - this.position.X) / cellSize.Y);
+            int posX = (int)((position.Y - this.position.Y) / cellSize.X);
             if (position.X >= 0 && position.Y >= 0 && posX >= 0 && posY >= 0 && posX < size.X && posY < size.Y)
             {
                 return cells[posX * (int)size.Y + posY];
@@ -131,7 +136,14 @@ namespace BoomGame.Grid
 
         public Cell GetCellAtLocation(Vector2 location)
         {
-            return cells[(int)(location.X * (int)size.Y + location.Y)];
+            try
+            {
+                return cells[(int)(location.X * (int)size.Y + location.Y)];
+            }
+            catch (System.Exception ex)
+            {
+                return null;
+            }
         }
 
         public void Clear()

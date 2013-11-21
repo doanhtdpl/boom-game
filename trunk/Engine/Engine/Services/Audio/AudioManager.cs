@@ -30,23 +30,23 @@ namespace SCSEngine.Services.Audio
         #endregion
 
         #region Loading Methodes
-        ///// <summary>
-        ///// Loads a sounds and organizes them for future usage
-        ///// </summary>
-        //public void LoadSounds(string[,] soundNames)
-        //{
-        //    string soundLocation = "Sounds/";
-        //    soundNames = soundNames;
-
-        //    soundBank = new Dictionary<string, Sound>();
-
-        //    for (int i = 0; i < soundNames.GetLength(0); i++)
-        //    {
-        //        SoundEffect se = this.Game.Content.Load<SoundEffect>(
-        //            soundLocation + soundNames[i, 0]);
-        //        soundBank.Add(soundNames[i, 1], new Sound(se));
-        //    }
-        //}
+        /// <summary>
+        /// Loads a sounds and organizes them for future usage
+        /// </summary>
+//         public void LoadSounds(string[,] soundNames)
+//         {
+//             string soundLocation = "Sounds/";
+//             soundNames = soundNames;
+// 
+//             soundBank = new Dictionary<string, Sound>();
+// 
+//             for (int i = 0; i < soundNames.GetLength(0); i++)
+//             {
+//                 SoundEffect se = this.Game.Content.Load<SoundEffect>(
+//                     soundLocation + soundNames[i, 0]);
+//                 soundBank.Add(soundNames[i, 1], new Sound(se));
+//             }
+//         }
         #endregion
 
         #region Sound Methods

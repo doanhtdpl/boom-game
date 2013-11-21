@@ -10,6 +10,7 @@ namespace BoomGame.Shared
     {
         // Bomber attributed
         public const float BOMBER_VELOCITY_REDUCING = 0.05f;
+        public const float BOMBER_VELOCITY_INCREASING = 0.9f;
         public const float BOMBER_TIME_TO_DIE = 5000;
 
         // Bomber direction
@@ -18,6 +19,12 @@ namespace BoomGame.Shared
         public const int DIRECTION_RIGHT = 2;
         public const int DIRECTION_UP = 3;
         public const int DIRECTION_DOWN = 4;
+
+        // Obstacle 
+        public const float OBSTACLE_TIME_TO_DIE = 300f;
+
+        // Water Effect
+        public const float WATEREFFECT_TIME_TO_LIVE = 200f;
 
         // Button event
         public const int BUTTON_EVENT_LEFT = 1;
@@ -38,7 +45,7 @@ namespace BoomGame.Shared
         public const int OBSTACLE_MOVE_DISTANCE = 50;
 
         // Game collision
-        public const int COLLISION_MIN = 20;
+        public const int COLLISION_MIN = 25;
 
         // Save file name
         public const String BASIC_GAME_FILE = "Basic.txt";

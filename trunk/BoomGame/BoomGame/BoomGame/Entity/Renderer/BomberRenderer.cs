@@ -12,6 +12,7 @@ using BoomGame.Factory;
 using BoomGame.FactoryElement;
 using BoomGame.Shared;
 using BoomGame.Scene;
+using System.Diagnostics;
 
 namespace BoomGame.Entity.Renderer
 {
@@ -57,10 +58,16 @@ namespace BoomGame.Entity.Renderer
             get 
             {
                 if (sprCurrent != null)
-                    return sprCurrent.SpriteData.Metadata.Frames[0];
+                    return sprCurrent.CurrentFrame;
                 else 
                     return new Rectangle();
             }
+        }
+
+        public int Range
+        {
+            get;
+            set;
         }
 
         private double timeToDie = 0;
@@ -93,7 +100,10 @@ namespace BoomGame.Entity.Renderer
             stgBomberStage = IdleStage.getInstance();
             stgBomberStage.ApplyStageEffect(this);
 
-            velocity = new Vector2(10f, 10f);
+            velocity = new Vector2(5f, 5f);
+
+            Range = 2;
+            Shared.Global.Counter_BombCanLocated = 1;
         }
 
         public override void Update(GameTime gameTime)
@@ -150,13 +160,14 @@ namespace BoomGame.Entity.Renderer
 
         public void onSetBomb()
         {
-            if (!(this.stgBomberStage is WrapBombStage))
+            if (!(this.stgBomberStage is WrapBombStage) && Shared.Global.Counter_BombCanLocated > 0)
             {
-                BombEntity bomb = (BombEntity)BombFactory.getInst().create(new BombInfo(this.Position, 3, 2000, 1));
+                BombEntity bomb = (BombEntity)BombFactory.getInst().create(new BombInfo(this.Position, Range, 2000, 1));
                 if (bomb != null)
                 {
                     bomb.onInit();
                     (Global.BoomMissionManager.Current as TBGamePlayScene).GameManager.Add(bomb);
+                    --Shared.Global.Counter_BombCanLocated;
                 }
             }
         }
@@ -188,11 +199,17 @@ namespace BoomGame.Entity.Renderer
             }
             sprCurrent.Play();
 
-            if (this.oldDirection != this.direction)
+            if (this.direction != dir)
             {
                 this.oldDirection = this.direction;
+                this.direction = dir;
             }
-            this.direction = dir;
+        }
+
+        public void MoveImmediately(Vector2 velo)
+        {
+            accelerator.X = velo.X;
+            accelerator.Y = velo.Y;
         }
 
         protected void onChangeImage(Sprite spr)
@@ -238,7 +255,6 @@ namespace BoomGame.Entity.Renderer
 
             this.position.X += tmpAceleratorX;
             this.position.Y += tmpAceleratorY;
-
         }
     }
 }

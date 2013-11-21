@@ -16,14 +16,14 @@ namespace SCSEngine.ResourceManagement.Implement
         {
             if (this.resources.ContainsKey(typeof(E)))
             {
-                if (this.loaders[typeof(E)].IsResourceResuable && this.resources[typeof(E)].ContainsKey(resourceName))
+                if (this.loaders[typeof(E)].IsResourceReuseable && this.resources[typeof(E)].ContainsKey(resourceName))
                     return (E)resources[typeof(E)][resourceName];
 
                 if (this.loaders.ContainsKey(typeof(E)))
                 {
                     var resource = this.loaders[typeof(E)].Load(resourceName);
 
-                    if (this.loaders[typeof(E)].IsResourceResuable &&  resource != null)
+                    if (this.loaders[typeof(E)].IsResourceReuseable &&  resource != null)
                     {
                         this.resources[typeof(E)].Add(resourceName, resource);
                     }
@@ -50,7 +50,7 @@ namespace SCSEngine.ResourceManagement.Implement
         {
             this.loaders.Add(resourceLoader.ResourceType, resourceLoader);
             Dictionary<string, object> resDict = null;
-            if (resourceLoader.IsResourceResuable)
+            if (resourceLoader.IsResourceReuseable)
             {
                 resDict = new Dictionary<string, object>();
             }

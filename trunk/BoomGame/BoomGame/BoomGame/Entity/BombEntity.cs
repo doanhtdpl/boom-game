@@ -13,6 +13,8 @@ namespace BoomGame.Entity
     {
         protected List<ICollidable> collidableList = new List<ICollidable>();
 
+        protected Dictionary<BomberEntity, Boolean> bomberEntities = new Dictionary<BomberEntity, Boolean>();
+
         public Logical.DefaultLogical LogicalObj
         {
             get;
@@ -54,12 +56,12 @@ namespace BoomGame.Entity
 
         public Rectangle Bound
         {
-            get { return LogicalObj.Bound; }
+            get { return (LogicalObj as BombLogical).Bound; }
         }
 
         public void Collision(ICollidable obj)
         {
-            if (obj is BombEntity)
+            if (obj is BombEntity || obj is BomberEntity)
             {
                 this.collidableList.Add(obj);
             }
@@ -73,13 +75,43 @@ namespace BoomGame.Entity
                 {
                     this.collisionWithBomb(this.collidableList[i] as BombEntity);
                 }
+                else if (this.collidableList[i] is BomberEntity)
+                {
+                    this.collisionWithBomber(this.collidableList[i] as BomberEntity);
+                }
             }
             collidableList.Clear();
+
+            List<BomberEntity> bombers = bomberEntities.Keys.ToList<BomberEntity>();
+            for (int i = 0; i < bombers.Count; ++i)
+            {
+                if (!bombers[i].Bound.Intersects(this.Bound))
+                {
+                    bomberEntities[bombers[i]] = true;
+                }
+            }
         }
 
         private void collisionWithBomb(BombEntity bomber)
         {
             (this.LogicalObj as BombLogical).suddenlyMeetTime();
+        }
+
+        private void collisionWithBomber(BomberEntity bomber)
+        {
+            if (!bomberEntities.ContainsKey(bomber))
+            {
+                bomberEntities.Add(bomber, false);
+            }
+        }
+
+        public bool IsBomberCollide(BomberEntity bomber)
+        {
+            if (bomberEntities.ContainsKey(bomber))
+            {
+                return bomberEntities[bomber];
+            }
+            return false;
         }
     }
 }

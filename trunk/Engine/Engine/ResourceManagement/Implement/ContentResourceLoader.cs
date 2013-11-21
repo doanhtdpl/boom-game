@@ -28,7 +28,7 @@ namespace SCSEngine.ResourceManagement.Implement
             get { return typeof(E); }
         }
 
-        public bool IsResourceResuable
+        public bool IsResourceReuseable
         {
             get { return true; }
         }

@@ -6,6 +6,7 @@ using BoomGame.Interface.Manager;
 using Microsoft.Xna.Framework;
 using BoomGame.Manager.Interface;
 using BoomGame.Entity.Collide;
+using System.Diagnostics;
 
 namespace BoomGame.Manager
 {
@@ -25,8 +26,8 @@ namespace BoomGame.Manager
 
         public override void Update(GameTime gameTime)
         {
-            rendererManager.Update(gameTime);
             logicManager.Update(gameTime);
+            rendererManager.Update(gameTime);
             collisionManager.UpdateRealTime();
 
             base.Update(gameTime);
@@ -35,7 +36,6 @@ namespace BoomGame.Manager
         public override void Draw(GameTime gameTime)
         {
             rendererManager.Draw(gameTime);
-
             base.Draw(gameTime);
         }
 

@@ -30,6 +30,8 @@ namespace BoomGame.Scene
         private Button btnAbout;
         private Button btnHelp;
 
+        public static SCSEngine.Audio.Sound s_background;
+
         private UIControlManager controlManager;
 
         public MenuScene(IGameScreenManager manager)
@@ -87,6 +89,9 @@ namespace BoomGame.Scene
             controlManager.Add(btnOption);
             controlManager.Add(btnAbout);
             controlManager.Add(btnHelp);
+
+            s_background = (SCSEngine.Audio.Sound)resourceManager.GetResource<SCSEngine.Audio.Sound>(Shared.Resources.Sound_Background_1);
+            services.AudioManager.PlaySound(s_background, true, Shared.Global.isMusicOff, Shared.Global.isMusicZuneOff);
         }
 
         public override void Update(GameTime gameTime)
@@ -122,6 +127,7 @@ namespace BoomGame.Scene
 
         void onBackButton_pressed()
         {
+            Global.PlaySound_Button_Effect();
             Game.Exit();
         }
 
@@ -133,6 +139,8 @@ namespace BoomGame.Scene
             HelpScene helpScene = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_HELP) as HelpScene;
             helpScene.onInit();
             Global.BoomMissionManager.AddExclusive(helpScene);
+
+            Global.PlaySound_Button_Effect();
         }
 
         void btnAbout_OnPressed(Button button)
@@ -143,11 +151,14 @@ namespace BoomGame.Scene
             AboutScene aboutScene = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_ABOUT, true) as AboutScene;
             aboutScene.onInit();
             Global.BoomMissionManager.AddExclusive(aboutScene);
+
+            Global.PlaySound_Button_Effect();
         }
 
         void btnOption_OnPressed(Button button)
         {
             // Stop/Resume music
+            Global.PlaySound_Button_Effect();
         }
 
         void btnChallengeLimit_OnPressed(Button button)
@@ -176,6 +187,9 @@ namespace BoomGame.Scene
             BoomGame.Scene.ChooseGame choose = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_CHOOSEGAME, true) as BoomGame.Scene.ChooseGame;
             choose.onInit();
             Global.BoomMissionManager.AddExclusive(choose);
+
+            // Stop current sound
+            Global.PlaySound_Button_Effect();
         }
     }
 }

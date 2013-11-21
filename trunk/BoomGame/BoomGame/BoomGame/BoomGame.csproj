@@ -75,6 +75,12 @@
     <Compile Include="Entity\EnemyEntity.cs" />
     <Compile Include="Entity\IGameEntity.cs" />
     <Compile Include="Entity\IGesturable.cs" />
+    <Compile Include="Entity\ItemEntity.cs" />
+    <Compile Include="Entity\Item\IItem.cs" />
+    <Compile Include="Entity\Item\ItemBomb.cs" />
+    <Compile Include="Entity\Item\ItemBottle.cs" />
+    <Compile Include="Entity\Item\ItemCoin.cs" />
+    <Compile Include="Entity\Item\ItemWheel.cs" />
     <Compile Include="Entity\Logical\BomberLogical.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -87,6 +93,7 @@
     <Compile Include="Entity\Logical\EnemyLogical.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Entity\Logical\ItemLogical.cs" />
     <Compile Include="Entity\Logical\ObstacleLogical.cs" />
     <Compile Include="Entity\Logical\WaterEffectLogical.cs">
       <SubType>Code</SubType>
@@ -94,6 +101,7 @@
     <Compile Include="Entity\ObstacleEntity.cs" />
     <Compile Include="Entity\Renderer\BomberStage\WrapBombStage.cs" />
     <Compile Include="Entity\Renderer\EnemyRenderer.cs" />
+    <Compile Include="Entity\Renderer\ItemRenderer.cs" />
     <Compile Include="Entity\Renderer\ObstacleRenderer.cs" />
     <Compile Include="Entity\WaterEffectEntity.cs" />
     <Compile Include="Entity\Renderer\BomberRenderer.cs" />
@@ -106,10 +114,12 @@
     <Compile Include="Entity\Renderer\DefaultRenderer.cs" />
     <Compile Include="Entity\Renderer\BomberStage\IStage.cs" />
     <Compile Include="Entity\Renderer\WaterEffectRenderer.cs" />
+    <Compile Include="Extends\Controller.cs" />
     <Compile Include="Extends\ModeItem.cs" />
     <Compile Include="FactoryElement\BombInfo.cs" />
     <Compile Include="FactoryElement\EnemyInfo.cs" />
     <Compile Include="FactoryElement\ExplodeInfo.cs" />
+    <Compile Include="FactoryElement\ItemInfo.cs" />
     <Compile Include="FactoryElement\ObstacleInfo.cs" />
     <Compile Include="FactoryElement\WaterEffectInfo.cs" />
     <Compile Include="Factory\BombFactory.cs">
@@ -120,6 +130,7 @@
     <Compile Include="Factory\IFactory.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Factory\ItemFactory.cs" />
     <Compile Include="Factory\ObstacleFactory.cs" />
     <Compile Include="Factory\WaterEffectFactory.cs" />
     <Compile Include="Grid\Cell.cs" />
@@ -140,12 +151,14 @@
     <Compile Include="SceneFactory\MenuSceneFactory.cs" />
     <Compile Include="SceneFactory\MiniGameLimitBombFactory.cs" />
     <Compile Include="SceneFactory\MiniGameTimeFactory.cs" />
+    <Compile Include="SceneFactory\PauseSceneFactory.cs" />
     <Compile Include="Scene\AboutScene.cs" />
     <Compile Include="Scene\ChooseGame.cs" />
     <Compile Include="Scene\HelpScene.cs" />
     <Compile Include="Scene\MenuScene.cs" />
     <Compile Include="Scene\MiniGameLimitBomb.cs" />
     <Compile Include="Scene\MiniGameTime.cs" />
+    <Compile Include="Scene\PauseScene.cs" />
     <Compile Include="Shared\Localize.cs" />
     <Compile Include="Shared\Macros.cs" />
     <Compile Include="Shared\SaveLoadGame.cs" />
@@ -169,22 +182,22 @@
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="Map_Resources\Basic\MapList.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Map_Resources\Basic\Map_0.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Map_Resources\Basic\Map_1.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Map_Resources\Basic\Map_2.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Map_Resources\Basic\Map_3.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Map_Resources\Basic\Map_4.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Map_Resources\ChallengeLimit\MapList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
