@@ -30,6 +30,12 @@ namespace BoomGame.Grid
             get { return this.location; }
         }
 
+        protected Vector2 position;
+        public Vector2 Position
+        {
+            get { return this.position; }
+        }
+
         protected List<IGameEntity> contents;
         public List<IGameEntity> Contents
         {
@@ -40,12 +46,14 @@ namespace BoomGame.Grid
         {
         }
 
-        public void onInit(float width, float height, Vector2 location)
+        public void onInit(float width, float height, Vector2 location, Vector2 position)
         {
             contents = new List<IGameEntity>();
             this.width = width;
             this.height = height;
             this.location = location;
+
+            this.position = position;
         }
 
         public void Add(IGameEntity entity)

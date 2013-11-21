@@ -50,8 +50,7 @@ namespace BoomGame.Factory
                 bool canLocate = true;
                 if (cell != null)
                 {
-                    pos.X = cell.Location.Y * cell.Width;
-                    pos.Y = cell.Location.X * cell.Height;
+                    pos = cell.Position;
                     for (int i = 0; canLocate && i < cell.Contents.Count; ++i)
                     {
                         if (cell.Contents[i] is BombEntity || cell.Contents[i] is ObstacleEntity)
@@ -77,6 +76,8 @@ namespace BoomGame.Factory
                     cell.Add(bomb);
 
                     Global.Bomb_Number--;
+
+                    Global.PlaySoundEffect(Shared.Resources.Sound_Set_Bomb);
                 }
             }
 

@@ -29,7 +29,7 @@ namespace SCSEngine.Audio
             get { return typeof(Sound); }
         }
 
-        public bool IsResourceResuable
+        public bool IsResourceReuseable
         {
             get { return false; }
         }

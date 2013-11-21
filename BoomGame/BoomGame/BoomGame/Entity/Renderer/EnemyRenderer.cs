@@ -75,8 +75,6 @@ namespace BoomGame.Entity.Renderer
             // Begin with move down
             sprCurrent = sprMoveDown;
 
-            velocity = new Vector2(5f, 5f);
-
             onChangeDirection(Shared.Constants.DIRECTION_RIGHT);
         }
 

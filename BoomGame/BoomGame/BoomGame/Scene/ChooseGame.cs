@@ -130,6 +130,8 @@ namespace BoomGame.Scene
         {
             Global.GestureManager.RemoveDispatcher(this.controlManager);
             Global.GestureManager.RemoveDispatcher(this.dispatcher);
+
+            services.AudioManager.StopSound(MenuScene.s_background);
         }
 
         public void Unpause()
@@ -144,6 +146,8 @@ namespace BoomGame.Scene
             {
                 --Global.CurrentPage;
                 onChangePage();
+
+                Global.PlaySound_Button_Effect();
             }
         }
 
@@ -153,6 +157,8 @@ namespace BoomGame.Scene
             {
                 ++Global.CurrentPage;
                 onChangePage();
+
+                Global.PlaySound_Button_Effect();
             }
         }
 

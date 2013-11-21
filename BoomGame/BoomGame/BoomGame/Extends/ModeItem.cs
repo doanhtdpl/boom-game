@@ -29,7 +29,7 @@ namespace BoomGame.Extends
             set;
         }
 
-        private double delayBeginScene = 1000;
+        private double delayBeginScene = 500;
 
         public ModeItem(Game game)
             : base(game)
@@ -84,10 +84,13 @@ namespace BoomGame.Extends
         {
             if (delayBeginScene <= 0 && !this.IsLock)
             {
+                // Play sound effect
+                Global.PlaySound_Button_Effect();
+
                 ChooseGame chooseGame = Global.BoomMissionManager.Current as ChooseGame;
                 chooseGame.Pause();
                 Global.BoomMissionManager.RemoveCurrent();
-
+                Global.CurrentMap = Text;
                 Global.CreateCurrentMap(Convert.ToInt32(Text));
             }
             return false;

@@ -33,7 +33,7 @@ namespace BoomGame.Entity.Logical
                 Vector2 position = this.Owner.RendererObj.Position;
                 if (bound.Width == 0 && bound.Height == 0)
                 {
-                    Rectangle size = (this.Owner.RendererObj as BomberRenderer).Size;
+                    Rectangle size = (this.Owner.RendererObj as BombRenderer).Size;
                     bound = new Rectangle((int)position.X, (int)position.Y, size.Width, size.Height);
                 }
                 else
@@ -91,6 +91,8 @@ namespace BoomGame.Entity.Logical
                 wef.onInit();
                 (Global.BoomMissionManager.Current as TBGamePlayScene).GameManager.Add(wef);
             }
+
+            Shared.Global.Counter_BombCanLocated++;
         }
     }
 }
