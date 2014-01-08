@@ -32,8 +32,6 @@ namespace BoomGame
 
         SCSServices scsServices;
 
-        Sprite spr;
-
         public TBBoomMission()
         {
             graphics = new GraphicsDeviceManager(this);

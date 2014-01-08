@@ -60,7 +60,7 @@ namespace BoomGame.MapReader
                         float posX = 0f, posY = 0f;
                         int itemType = 0;
 
-                        for (int i = 0; i < numberObj; ++i)
+                        for (int i = 0; i <= numberObj; ++i)
                         {
                             String line = reader.ReadLine();
                             String[] arr = line.Split(',');
@@ -176,25 +176,24 @@ namespace BoomGame.MapReader
                         break;
                     // Item
                     case Localize.ID_item_Ball:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.yellow_flower), true));
+                        entity = ItemFactory.getInst().create(new ItemInfo(new Vector2(posX, posY), Shared.Localize.ID_item_Ball));
                         break;
 
                     case Localize.ID_item_Wheel:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.yellow_flower), true));
+                        entity = ItemFactory.getInst().create(new ItemInfo(new Vector2(posX, posY), Shared.Localize.ID_item_Wheel));
                         break;
 
                     case Localize.ID_item_Bottle:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.yellow_flower), true));
+                        entity = ItemFactory.getInst().create(new ItemInfo(new Vector2(posX, posY), Shared.Localize.ID_item_Bottle));
                         break;
 
                     case Localize.ID_item_Coin:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.yellow_flower), true));
+                        entity = ItemFactory.getInst().create(new ItemInfo(new Vector2(posX, posY), Shared.Localize.ID_item_Coin));
                         break;
                 }
             }
             catch (System.Exception ex)
             {
-                int a = 0;
                 throw ex;
             }
             

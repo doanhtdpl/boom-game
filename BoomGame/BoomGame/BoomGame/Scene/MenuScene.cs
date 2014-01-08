@@ -23,10 +23,9 @@ namespace BoomGame.Scene
 
         private Texture2D background;
 
-        private Button btnBasicGame;
-        private Button btnChallengeTime;
-        private Button btnChallengeLimit;
-        private Button btnOption;
+        private Button btnPlay;
+        private Button btnSoundOn;
+        private Button btnSoundOff;
         private Button btnAbout;
         private Button btnHelp;
 
@@ -51,42 +50,36 @@ namespace BoomGame.Scene
 
             background = resourceManager.GetResource<Texture2D>(Shared.Resources.BackgroundMenu);
 
-            btnBasicGame = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnAdventure), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnOver));
-            btnBasicGame.Canvas.Bound.Position = new Vector2(582, 32);
-            btnBasicGame.FitSizeByImage();
+            btnPlay = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnPlay), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnPlayOver));
+            btnPlay.Canvas.Bound.Position = new Vector2(662.0f, 68.0f);
+            btnPlay.FitSizeByImage();
 
-            btnChallengeTime = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnTimeMode), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnOver));
-            btnChallengeTime.Canvas.Bound.Position = new Vector2(668, 142);
-            btnChallengeTime.FitSizeByImage();
+            btnSoundOn = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnSound), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnSoundOver));
+            btnSoundOn.Canvas.Bound.Position = new Vector2(512.0f, 129.0f);
+            btnSoundOn.FitSizeByImage();
 
-            btnChallengeLimit = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnBombMode), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnOver));
-            btnChallengeLimit.Canvas.Bound.Position = new Vector2(536, 211);
-            btnChallengeLimit.FitSizeByImage();
-
-            btnOption = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnSound), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnSound));
-            btnOption.Canvas.Bound.Position = new Vector2(216, 445);
-            btnOption.FitSizeByImage();
+            btnSoundOff = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnMute), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnMuteOver));
+            btnSoundOff.Canvas.Bound.Position = new Vector2(512.0f, 129.0f);
+            btnSoundOff.FitSizeByImage();
 
             btnAbout = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnAbout), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnAbout));
-            btnAbout.Canvas.Bound.Position = new Vector2(14, 445);
+            btnAbout.Canvas.Bound.Position = new Vector2(627.0f, 185.0f);
             btnAbout.FitSizeByImage();
 
             btnHelp = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnHelp), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnHelp));
-            btnHelp.Canvas.Bound.Position = new Vector2(115, 445);
+            btnHelp.Canvas.Bound.Position = new Vector2(666.0f, 244.0f);
             btnHelp.FitSizeByImage();
 
             // Init event
-            btnBasicGame.OnPressed += new ButtonEventHandler(btnBasicGame_OnPressed);
-            btnChallengeTime.OnPressed += new ButtonEventHandler(btnChallengeTime_OnPressed);
-            btnChallengeLimit.OnPressed += new ButtonEventHandler(btnChallengeLimit_OnPressed);
-            btnOption.OnPressed += new ButtonEventHandler(btnOption_OnPressed);
+            btnPlay.OnPressed += new ButtonEventHandler(btnPlay_OnPressed);
+            btnSoundOn.OnPressed += new ButtonEventHandler(btnOption_OnPressed);
+            btnSoundOff.OnPressed += new ButtonEventHandler(btnOption_OnPressed);
             btnAbout.OnPressed += new ButtonEventHandler(btnAbout_OnPressed);
             btnHelp.OnPressed += new ButtonEventHandler(btnHelp_OnPressed);
 
-            controlManager.Add(btnBasicGame);
-            controlManager.Add(btnChallengeTime);
-            controlManager.Add(btnChallengeLimit);
-            controlManager.Add(btnOption);
+            controlManager.Add(btnPlay);
+            controlManager.Add(btnSoundOn);
+            controlManager.Add(btnSoundOff);
             controlManager.Add(btnAbout);
             controlManager.Add(btnHelp);
 
@@ -161,34 +154,15 @@ namespace BoomGame.Scene
             Global.PlaySound_Button_Effect();
         }
 
-        void btnChallengeLimit_OnPressed(Button button)
-        {
-            Global.CurrentMode = Shared.Constants.LIMIT_MODE;
-            onChangeToNextGame();
-        }
-
-        void btnChallengeTime_OnPressed(Button button)
-        {
-            Global.CurrentMode = Shared.Constants.TIME_MODE;
-            onChangeToNextGame();
-        }
-
-        void btnBasicGame_OnPressed(Button button)
-        {
-            Global.CurrentMode = Shared.Constants.BASIC_MODE;
-            onChangeToNextGame();
-        }
-
-        void onChangeToNextGame()
+        void btnPlay_OnPressed(Button button)
         {
             this.Pause();
             Global.BoomMissionManager.RemoveCurrent();
 
-            BoomGame.Scene.ChooseGame choose = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_CHOOSEGAME, true) as BoomGame.Scene.ChooseGame;
-            choose.onInit();
-            Global.BoomMissionManager.AddExclusive(choose);
+            GameModeScene gameModeScene = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_MODE, true) as GameModeScene;
+            gameModeScene.onInit();
+            Global.BoomMissionManager.AddExclusive(gameModeScene);
 
-            // Stop current sound
             Global.PlaySound_Button_Effect();
         }
     }

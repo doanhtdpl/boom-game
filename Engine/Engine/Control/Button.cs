@@ -40,6 +40,7 @@ namespace SSCEngine.Control
                 this.OnPressed(this);
             }
         }
+
         private void uiOnTouched()
         {
             if (this.OnTouched != null)
@@ -47,6 +48,7 @@ namespace SSCEngine.Control
                 this.OnTouched(this);
             }
         }
+
         private void uiOnHold()
         {
             if (this.OnHold != null)

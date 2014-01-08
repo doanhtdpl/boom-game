@@ -47,15 +47,15 @@ namespace BoomGame.Scene
             Global.GestureManager.AddDispatcher(controlManager);
 
             btnReplay = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnReplay), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnOver));
-            btnReplay.Canvas.Bound.Position = new Vector2(516, 252);
+            btnReplay.Canvas.Bound.Position = new Vector2(199.0f, 229.0f);
             btnReplay.FitSizeByImage();
 
             btnResume = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnResume), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnOver));
-            btnResume.Canvas.Bound.Position = new Vector2(223, 252);
+            btnResume.Canvas.Bound.Position = new Vector2(348.0f, 229.0f);
             btnResume.FitSizeByImage();
 
             btnMenu = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnMenu), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnOver));
-            btnMenu.Canvas.Bound.Position = new Vector2(370, 252);
+            btnMenu.Canvas.Bound.Position = new Vector2(505.0f, 229.0f);
             btnMenu.FitSizeByImage();
 
             btnReplay.OnPressed += new ButtonEventHandler(btnReplay_OnPressed);
@@ -69,6 +69,11 @@ namespace BoomGame.Scene
 
         void btnMenu_OnPressed(Button button)
         {
+            if (this.parent is TBGamePlayScene)
+            {
+                (this.parent as TBGamePlayScene).Clear();
+            }
+
             Global.PlaySound_Button_Effect();
             // Call to menu
             Global.GestureManager.RemoveDispatcher(controlManager);
@@ -92,9 +97,9 @@ namespace BoomGame.Scene
             Global.GestureManager.RemoveDispatcher(controlManager);
             Global.BoomMissionManager.RemoveCurrent();
 
-            if (this.parent is BasicGameScene)
+            if (this.parent is TBGamePlayScene)
             {
-                (this.parent as BasicGameScene).Clear();
+                (this.parent as TBGamePlayScene).Clear();
             }
 
             Global.CreateCurrentMap(Convert.ToInt32(Global.CurrentMap));
@@ -113,16 +118,6 @@ namespace BoomGame.Scene
             controlManager.Draw(gameTime);
 
             base.Draw(gameTime);
-        }
-
-        void onBackButton_pressed()
-        {
-            // Call to menu
-            Global.BoomMissionManager.RemoveCurrent();
-
-            MenuScene menuScene = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_MENU) as MenuScene;
-            menuScene.onInit();
-            Global.BoomMissionManager.AddExclusive(menuScene);
         }
     }
 }

@@ -8,6 +8,7 @@ using SSCEngine.GestureHandling.Implements.Events;
 using Microsoft.Xna.Framework.Graphics;
 using SCSEngine.Mathematics;
 using SCSEngine.Services;
+using SCSEngine.ResourceManagement;
 
 namespace BoomGame.Extends
 {
@@ -17,6 +18,9 @@ namespace BoomGame.Extends
     {
         private Rectangle bound;
 
+        protected SCSServices services;
+        protected IResourceManager resourceManager;
+
         private double delayBeginScene = 500;
 
         public event ControlEventHandler OnLeftFreeTap;
@@ -24,16 +28,25 @@ namespace BoomGame.Extends
         public event ControlEventHandler OnUpFreeTap;
         public event ControlEventHandler OnDownFreeTap;
 
-        private bool breakTime = false;
+        private bool isTap = false;
+        protected Texture2D rangeButton;
+        protected Vector2 rangeButtonPosition;
+
 
         public Controller(Game game)
             : base(game)
         {
         }
 
-        public void onInit(Rectangle bound)
+        public void onInit()
         {
-            this.bound = bound;
+            this.bound = new Rectangle(0, 0, 400, 480);
+
+            services = (SCSServices)Game.Services.GetService(typeof(SCSServices));
+            resourceManager = (IResourceManager)Game.Services.GetService(typeof(IResourceManager));
+
+            rangeButton = resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlCircle);
+            rangeButtonPosition = new Vector2(130, 375);
         }
 
         public override void Update(GameTime gameTime)
@@ -46,6 +59,9 @@ namespace BoomGame.Extends
 
         public override void Draw(GameTime gameTime)
         {
+            if(isTap)
+                services.SpriteBatch.Draw(rangeButton, rangeButtonPosition, Color.White);
+
             base.Draw(gameTime);
         }
 

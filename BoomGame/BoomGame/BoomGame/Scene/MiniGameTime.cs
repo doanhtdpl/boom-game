@@ -110,17 +110,19 @@ namespace BoomGame.Scene
                 onMeetTime();
             }
 
-            if (Global.Counter_Enemy == 0)
+            if (Global.Counter_Enemy <= 0)
             {
                 // Win Game
                 Global.Counter_Enemy = -1;
                 Global.PlaySoundEffect(Shared.Resources.Sound_Win);
+                onWinGame();
             }
             if (Global.Counter_Bomber == 0)
             {
                 // Lose Game
                 Global.Counter_Bomber = -1;
                 Global.PlaySoundEffect(Shared.Resources.Sound_Lose);
+                onLoseGame();
             }
 
             base.Update(gameTime);
@@ -129,19 +131,27 @@ namespace BoomGame.Scene
         void onMeetTime()
         {
             // Game finish
-            if (Global.Counter_Enemy == 0)
+            if (Global.Counter_Enemy <= 0)
             {
                 // Win Game
+                onWinGame();
             }
             else
             {
                 // Lose Game
+                onLoseGame();
             }
         }
 
-        public void Clear()
+        public override void Clear()
         {
-            this.InputLayer.Pause();
+        
+            Global.Counter_Bomber = 0;
+            Global.Counter_Enemy = 0;
+            Global.Counter_Item = 0;
+            Global.Counter_Scores = 0;
+
+            this.InputLayer.Stop();
             services.AudioManager.StopSound(s_background);
         }
 
@@ -156,18 +166,19 @@ namespace BoomGame.Scene
 
         public override void Draw(GameTime gameTime)
         {
-            Vector2 cellSize = new Vector2(30, 30);
+            Vector2 cellSize = Grid.Grid.getInst().CellSize;
 
             Vector2 pos = new Vector2(0, 0);
             for (int i = 0; i < Grid.Grid.getInst().Size.Y; ++i)
             {
                 for (int j = 0; j < Grid.Grid.getInst().Size.X; ++j)
                 {
-                    pos.X = i * 50;
-                    pos.Y = j * 50;
-                    services.SpritePlayer.Draw(spr, pos, Color.Red);
+                    pos.X = Grid.Grid.getInst().Position.X + i * cellSize.X;
+                    pos.Y = Grid.Grid.getInst().Position.Y + j * cellSize.Y;
+                    services.SpritePlayer.Draw(spr, pos, Color.White);
                 }
             }
+
             base.Draw(gameTime);
 
             services.SpriteBatch.Draw(backgroundLine, Vector2.Zero, Color.White);
@@ -179,6 +190,24 @@ namespace BoomGame.Scene
             services.SpriteBatch.DrawString(infoFont, Global.Counter_Scores.ToString(), scores, Color.Black);
 
             InputLayer.Draw(gameTime);
+        }
+
+        void onWinGame()
+        {
+            this.Enabled = false;
+
+            WinScene win = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_WIN, true) as WinScene;
+            win.onInit(this);
+            Global.BoomMissionManager.AddExclusive(win);
+        }
+
+        void onLoseGame()
+        {
+            this.Enabled = false;
+
+            LoseGame lose = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_LOSE, true) as LoseGame;
+            lose.onInit(this);
+            Global.BoomMissionManager.AddExclusive(lose);
         }
     }
 }

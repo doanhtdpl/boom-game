@@ -65,6 +65,8 @@ namespace BoomGame.Entity.Renderer
 
         protected Vector2 target;
 
+        protected Vector2 lastestPosition = new Vector2();
+
         public ObstacleRenderer(Game game, ObstacleEntity owner)
             : base(game, owner)
         {
@@ -171,6 +173,10 @@ namespace BoomGame.Entity.Renderer
             {
                 clearMovement();
             }
+            else
+            {
+                this.lastestPosition = this.position;
+            }
         }
 
         protected bool isMeetTarget()
@@ -213,10 +219,9 @@ namespace BoomGame.Entity.Renderer
             this.target = this.Position;
         }
 
-        public void roolBack()
+        public void rollBack()
         {
-            this.position.X -= this.accelerator.X;
-            this.position.Y -= this.accelerator.Y;
+            this.position = lastestPosition;
         }
 
         protected void setAccelerator(float x, float y)

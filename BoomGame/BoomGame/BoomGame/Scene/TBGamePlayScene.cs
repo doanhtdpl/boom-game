@@ -43,5 +43,9 @@ namespace BoomGame.Scene
             InputLayer = new DefaultInputLayer(manager.Game);
             InputLayer.onInit();
         }
+
+        public virtual void Clear()
+        {
+        }
     }
 }

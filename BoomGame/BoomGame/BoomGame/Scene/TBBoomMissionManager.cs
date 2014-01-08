@@ -16,6 +16,9 @@ namespace BoomGame.Scene
             MenuSceneFactory menuFactory = new MenuSceneFactory(this);
             this.Bank.AddScreenFactory(Shared.Macros.S_MENU, menuFactory);
 
+            GameModeSceneFactory gameModeFactory = new GameModeSceneFactory(this);
+            this.Bank.AddScreenFactory(Shared.Macros.S_MODE, gameModeFactory);
+
             ChooseGameFactory chooseGameFactory = new ChooseGameFactory(this);
             this.Bank.AddScreenFactory(Shared.Macros.S_CHOOSEGAME, chooseGameFactory);
 
@@ -36,6 +39,12 @@ namespace BoomGame.Scene
 
             PauseSceneFactory pauseFactory = new PauseSceneFactory(this);
             this.Bank.AddScreenFactory(Shared.Macros.S_PAUSE, pauseFactory);
+
+            WinSceneFactory winFactory = new WinSceneFactory(this);
+            this.Bank.AddScreenFactory(Shared.Macros.S_WIN, winFactory);
+
+            LoseGameFactory loseFactory = new LoseGameFactory(this);
+            this.Bank.AddScreenFactory(Shared.Macros.S_LOSE, loseFactory);
         }
     }
 }
