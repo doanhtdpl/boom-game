@@ -66,6 +66,7 @@ namespace BoomGame.Entity.Logical
 
         public void onMeetTimeToDie()
         {
+            (this.owner as ObstacleEntity).GonnaDie();
             // Create Item
             if (ItemTypeContained > 0)
             {

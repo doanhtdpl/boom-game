@@ -59,10 +59,6 @@ namespace BoomGame.Factory
                 {
                     enemy = new EnemyEntity(game);
                     (enemy.RendererObj as EnemyRenderer).Position = position;
-                    if (position.Y <= 10)
-                    {
-                        int a = 0;
-                    }
                     (enemy.RendererObj as EnemyRenderer).Velocity = (info as EnemyInfo).Velocity;
                 }
             }

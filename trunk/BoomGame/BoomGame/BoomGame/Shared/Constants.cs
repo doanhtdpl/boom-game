@@ -21,7 +21,7 @@ namespace BoomGame.Shared
         public const int DIRECTION_DOWN = 4;
 
         // Obstacle 
-        public const float OBSTACLE_TIME_TO_DIE = 300f;
+        public const float OBSTACLE_TIME_TO_DIE = 100f;
 
         // Water Effect
         public const float WATEREFFECT_TIME_TO_LIVE = 200f;

@@ -25,9 +25,6 @@ namespace BoomGame.Layers
         protected SCSServices services;
         protected IResourceManager resourceManager;
 
-        protected Texture2D rangeButton;
-        protected Vector2 rangeButtonPosition;
-
         protected Controller controller;
 
         protected Button btnSpace;
@@ -49,11 +46,8 @@ namespace BoomGame.Layers
             services = (SCSServices)Game.Services.GetService(typeof(SCSServices));
             resourceManager = (IResourceManager)Game.Services.GetService(typeof(IResourceManager));
 
-            rangeButton = resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlCircle);
-            rangeButtonPosition = new Vector2(130, 375);
-
             controller = new Controller(Game);
-            controller.onInit(new Rectangle((int)rangeButtonPosition.X - 100, (int)rangeButtonPosition.Y - 100, rangeButton.Width + 200, rangeButton.Height + 200));
+            controller.onInit();
 
             btnSpace = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlButtonSpace), resourceManager.GetResource<Texture2D>(Shared.Resources.ctrlButtonSpace));
             btnSpace.Canvas.Bound.Position = new Vector2(622, 392);
@@ -81,19 +75,19 @@ namespace BoomGame.Layers
         public override void Draw(GameTime gameTime)
         {
             controlManager.Draw(gameTime);
-            services.SpriteBatch.Draw(rangeButton, rangeButtonPosition, Color.White);
+
             controller.Draw(gameTime);
 
             base.Draw(gameTime);
         }
 
-        public void Pause()
+        public void Stop()
         {
             Global.GestureManager.RemoveDispatcher(this.controlManager);
             Global.GestureManager.RemoveDispatcher(dispatcher);
         }
 
-        public void UnPause()
+        public void Resume()
         {
             Global.GestureManager.AddDispatcher(this.controlManager);
             Global.GestureManager.AddDispatcher(dispatcher);

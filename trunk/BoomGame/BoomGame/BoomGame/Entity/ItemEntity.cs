@@ -98,8 +98,8 @@ namespace BoomGame.Entity
             ItemRenderer obsRenderer = (this.RendererObj as ItemRenderer);
             ItemLogical obsLogical = (this.LogicalObj as ItemLogical);
 
-            if (((Math.Abs(renderer.Position.X - obsRenderer.Position.X) <= 10 && (renderer.direction == Shared.Constants.DIRECTION_UP || renderer.direction == Shared.Constants.DIRECTION_DOWN))
-                || (Math.Abs(renderer.Position.Y - obsRenderer.Position.Y) <= 10 && (renderer.direction == Shared.Constants.DIRECTION_LEFT || renderer.direction == Shared.Constants.DIRECTION_RIGHT))))
+            if (((Math.Abs(renderer.Position.X - obsRenderer.Position.X) <= 30 && (renderer.direction == Shared.Constants.DIRECTION_UP || renderer.direction == Shared.Constants.DIRECTION_DOWN))
+                || (Math.Abs(renderer.Position.Y - obsRenderer.Position.Y) <= 30 && (renderer.direction == Shared.Constants.DIRECTION_LEFT || renderer.direction == Shared.Constants.DIRECTION_RIGHT))))
             {
                 itemType.affect(bomber);
                 this.isDead = true;

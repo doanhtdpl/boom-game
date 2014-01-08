@@ -142,6 +142,7 @@ namespace BoomGame.Grid
             }
             catch (System.Exception ex)
             {
+                Debug.WriteLine(ex);
                 return null;
             }
         }

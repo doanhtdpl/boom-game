@@ -9,14 +9,16 @@ namespace BoomGame.Shared
     {
         // Menu
         public static String BackgroundMenu = "Images/bgMenu";
-        public static String BtnAdventure = "Images/btnAdventure";
-        public static String BtnTimeMode = "Images/btnTimeMode";
-        public static String BtnBombMode = "Images/btnBombMode";
+        public static String BtnPlay = "Images/btnPlay";
+        public static String BtnPlayOver = "Images/btnPlayOver";
         public static String BtnAbout = "Images/btnAbout";
+        public static String BtnAboutOver = "Images/btnAboutOver";
         public static String BtnHelp = "Images/btnHelp";
+        public static String BtnHelpOver = "Images/btnHelpOver";
         public static String BtnSound = "Images/btnSound";
+        public static String BtnSoundOver = "Images/btnSoundOver";
         public static String BtnMute = "Images/btnMute";
-        public static String BtnOver = "Images/btnOver";
+        public static String BtnMuteOver = "Images/btnMuteOver";
 
 
         // About
@@ -27,12 +29,21 @@ namespace BoomGame.Shared
         public static String BackgroundHelp = "Images/bgHelp";
 
 
+        // Game Mode
+        public static String BackgroundMode = "Images/bgMode";
+        public static String BtnAdventure = "Images/btnAdventure";
+        public static String BtnAdventureOver = "Images/btnAdventureOver";
+        public static String BtnBomb = "Images/btnBomb";
+        public static String BtnBombOver = "Images/btnBombOver";
+        public static String BtnTime = "Images/btnTime";
+        public static String BtnTimeOver = "Images/btnTimeOver";
+
+
         // Choose Game
-        public static String BackgroundChooseGame = "Images/bgMenu";
+        public static String BackgroundChooseGame = "Images/bgChoose";
         public static String BtnNext = "Images/btnNext";
         public static String BtnPrev = "Images/btnPrev";
         public static String BtnNPOver = "Images/btnNext";
-        public static String BarChooseGame = "Images/ChooseGameBar";
         public static String ItemChooseGame = "Images/ChooseGameItem";
         public static String Choose_TileFont = "debug";
 
@@ -139,5 +150,6 @@ namespace BoomGame.Shared
         public static String BtnResume = "Images/btnResume";
         public static String BtnReplay = "Images/btnReplay";
         public static String BtnMenu = "Images/btnMenu";
+        public static String BtnOver = "Images/btnOver";
     }
 }

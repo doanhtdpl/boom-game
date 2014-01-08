@@ -101,10 +101,9 @@ namespace BoomGame.Entity
             if (!this.isDead)
             {
                 (LogicalObj as ObstacleLogical).TimeToDie = Shared.Constants.OBSTACLE_TIME_TO_DIE;
-                this.isDead = true;
 
                 // Play sound break obstacle
-                //Global.PlaySoundEffect(Shared.Resources.Sound_Obstacle_Break);
+                Global.PlaySoundEffect(Shared.Resources.Sound_Obstacle_Break);
             }
         }
 
@@ -118,33 +117,38 @@ namespace BoomGame.Entity
                     case Shared.Constants.DIRECTION_LEFT:
                         if (entity.RendererObj.Position.X < this.RendererObj.Position.X)
                         {
-                            renderer.roolBack();
+                            renderer.rollBack();
                             renderer.clearMovement();
                         }
                         break;
                     case Shared.Constants.DIRECTION_RIGHT:
                         if (entity.RendererObj.Position.X > this.RendererObj.Position.X)
                         {
-                            renderer.roolBack();
+                            renderer.rollBack();
                             renderer.clearMovement();
                         }
                         break;
                     case Shared.Constants.DIRECTION_UP:
                         if (entity.RendererObj.Position.Y < this.RendererObj.Position.Y)
                         {
-                            renderer.roolBack();
+                            renderer.rollBack();
                             renderer.clearMovement();
                         }
                         break;
                     case Shared.Constants.DIRECTION_DOWN:
                         if (entity.RendererObj.Position.Y > this.RendererObj.Position.Y)
                         {
-                            renderer.roolBack();
+                            renderer.rollBack();
                             renderer.clearMovement();
                         }
                         break;
                 }
             }
+        }
+
+        public void GonnaDie()
+        {
+            this.isDead = true;
         }
     }
 }

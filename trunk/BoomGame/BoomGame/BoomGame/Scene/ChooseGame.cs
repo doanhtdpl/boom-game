@@ -23,8 +23,6 @@ namespace BoomGame.Scene
         private IResourceManager resourceManager;
 
         private Texture2D background;
-        private Texture2D chooseGameBar;
-        private Vector2 chooseGameBarPosition;
 
         private Button btnNext;
         private Button btnPrev;
@@ -48,26 +46,31 @@ namespace BoomGame.Scene
 
         public void onInit()
         {
+            // Get the number of map for initialize menu choose level
+            Global.GetNumberOfMap();
+
+            // Save this name
             this.Name = Shared.Macros.S_CHOOSEGAME;
 
+            // Loading background
+            background = resourceManager.GetResource<Texture2D>(Shared.Resources.BackgroundChooseGame);
+
+            // Create UI manager for button next & previous
             controlManager = new UIControlManager(Game, DefaultGestureHandlingFactory.Instance);
             Global.GestureManager.AddDispatcher(controlManager);
 
+            // Dispatcher for menu item
             dispatcher = DefaultGestureHandlingFactory.Instance.CreateDispatcher();
             Global.GestureManager.AddDispatcher(dispatcher);
 
-            background = resourceManager.GetResource<Texture2D>(Shared.Resources.BackgroundChooseGame);
-            chooseGameBar = resourceManager.GetResource<Texture2D>(Shared.Resources.BarChooseGame);
-            chooseGameBarPosition = new Vector2(177, 410);
-
             // Init button next page and previous page
             btnNext = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnNext), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnNPOver));
-            btnNext.Canvas.Bound.Position = new Vector2(652, 391);
+            btnNext.Canvas.Bound.Position = new Vector2(708.0f, 110.0f);
             btnNext.FitSizeByImage();
             btnNext.Visible = true;
 
             btnPrev = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnPrev), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnNPOver));
-            btnPrev.Canvas.Bound.Position = new Vector2(78, 391);
+            btnPrev.Canvas.Bound.Position = new Vector2(-8.0f, 110.0f);
             btnPrev.FitSizeByImage();
             btnPrev.Visible = false;
 
@@ -111,7 +114,6 @@ namespace BoomGame.Scene
         public override void Draw(GameTime gameTime)
         {
             services.SpriteBatch.Draw(background, Vector2.Zero, Color.White);
-            services.SpriteBatch.Draw(chooseGameBar, chooseGameBarPosition, Color.White);
 
             for (int i = 0; i < items.Count; ++i)
             {
@@ -172,8 +174,8 @@ namespace BoomGame.Scene
                     {
                         ModeItem item = new ModeItem(Game);
                         Vector2 ir = new Vector2();
-                        ir.X = 44 + (i % (Shared.Constants.NUMBER_RENDER / 2)) * 151;
-                        ir.Y = 64 + (int)i / (Shared.Constants.NUMBER_RENDER / 2) * 133;
+                        ir.X = 106 + (i % (Shared.Constants.NUMBER_RENDER / 2)) * 123;
+                        ir.Y = 38 + (int)i / (Shared.Constants.NUMBER_RENDER / 2) * 146;
                         item.onInit(services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.ItemChooseGame),
                                                     ir, font, (Global.CurrentPage * Shared.Constants.NUMBER_RENDER + i).ToString());
                         items.Add(item);

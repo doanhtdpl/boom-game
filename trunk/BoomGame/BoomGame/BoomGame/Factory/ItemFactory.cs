@@ -75,6 +75,7 @@ namespace BoomGame.Factory
                 if (itemType != null)
                 {
                     item = new ItemEntity(game);
+                    item.ItemType = itemType;
                     (item.RendererObj as ItemRenderer).Sprite = sprite;
                     (item.RendererObj as ItemRenderer).Position = itemInfo.Position;
                 }

@@ -8,6 +8,7 @@ namespace BoomGame.Shared
     public static class Macros
     {
         public const String S_MENU          = "S_Menu";
+        public const String S_MODE          = "S_Mode";
         public const String S_ABOUT         = "S_About";
         public const String S_HELP          = "S_Help";
         public const String S_BASIC         = "S_Basic";
@@ -15,5 +16,7 @@ namespace BoomGame.Shared
         public const String S_MINI_LIMIT    = "S_MiniLimit";
         public const String S_CHOOSEGAME    = "S_ChooseGame";
         public const String S_PAUSE         = "S_Pause";
+        public const String S_WIN           = "S_Win";
+        public const String S_LOSE          = "S_Lose";
     }
 }

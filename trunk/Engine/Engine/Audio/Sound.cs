@@ -57,13 +57,15 @@ namespace SCSEngine.Audio
 
         public void Play()
         {
-            state = SoundEffectState.PLAYING;
-            SoundEffectInstance newInstance = soundEffect.CreateInstance();
-            instances.Add(newInstance);
-
-            foreach (SoundEffectInstance sei in instances)
+            if (instances.Count < 8)
             {
-                sei.Play();
+                state = SoundEffectState.PLAYING;
+                SoundEffectInstance newInstance = soundEffect.CreateInstance();
+                instances.Add(newInstance);
+                foreach (SoundEffectInstance sei in instances)
+                {
+                    sei.Play();
+                }
             }
         }
 

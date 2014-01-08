@@ -98,36 +98,21 @@ namespace BoomGame.Scene
 
                 InputLayer.Update(gameTime);
 
-                if (Global.Counter_Enemy == 0)
-                {
-                    // Win Game
-                    Global.Counter_Enemy = -1;
-                    Global.PlaySoundEffect(Shared.Resources.Sound_Win);
-                }
+//                 if (Global.Counter_Enemy == 0)
+//                 {
+//                     // Win Game
+//                     Global.PlaySoundEffect(Shared.Resources.Sound_Win);
+//                     onWinGame();
+//                 }
                 if (Global.Counter_Bomber == 0)
                 {
                     // Lose Game
-                    Global.Counter_Bomber = -1;
                     Global.PlaySoundEffect(Shared.Resources.Sound_Lose);
+                    onLoseGame();
                 }
 
                 base.Update(gameTime);
             }
-        }
-
-        public void Clear()
-        {
-            this.InputLayer.Pause();
-            services.AudioManager.StopSound(s_background);
-        }
-
-        void onBackButton_pressed()
-        {
-            this.Enabled = false;
-
-            PauseScene pause = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_PAUSE, true) as PauseScene;
-            pause.onInit(this);
-            Global.BoomMissionManager.AddExclusive(pause);
         }
 
         public override void Draw(GameTime gameTime)
@@ -159,6 +144,45 @@ namespace BoomGame.Scene
 
                 InputLayer.Draw(gameTime);
             }
+        }
+
+        public override void Clear()
+        {
+            // Clear something to default
+            Global.Counter_Bomber = 0;
+            Global.Counter_Enemy = 0;
+            Global.Counter_Item = 0;
+            Global.Counter_Scores = 0;
+
+            this.InputLayer.Stop();
+            services.AudioManager.StopSound(s_background);
+        }
+
+        void onBackButton_pressed()
+        {
+            this.Enabled = false;
+
+            PauseScene pause = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_PAUSE, true) as PauseScene;
+            pause.onInit(this);
+            Global.BoomMissionManager.AddExclusive(pause);
+        }
+
+        void onWinGame()
+        {
+            this.Enabled = false;
+
+            WinScene win = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_WIN, true) as WinScene;
+            win.onInit(this);
+            Global.BoomMissionManager.AddExclusive(win);
+        }
+
+        void onLoseGame()
+        {
+            this.Enabled = false;
+
+            LoseGame lose = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_LOSE, true) as LoseGame;
+            lose.onInit(this);
+            Global.BoomMissionManager.AddExclusive(lose);
         }
     }
 }

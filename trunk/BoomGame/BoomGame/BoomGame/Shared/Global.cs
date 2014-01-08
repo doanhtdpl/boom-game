@@ -10,6 +10,7 @@ using SCSEngine.Services.Audio;
 using SCSEngine.Services;
 using SCSEngine.ResourceManagement;
 using SCSEngine.Mathematics;
+using System.Diagnostics;
 
 namespace BoomGame.Shared
 {
@@ -75,7 +76,7 @@ namespace BoomGame.Shared
 
         // Choose Scene
         public static int CurrentPage = 0;
-        public static int NumberOfMap = 100;
+        public static int NumberOfMap = 0;
 
         // Game Mode
         public static float Bomber_Start_Position_X = 0;
@@ -90,23 +91,59 @@ namespace BoomGame.Shared
             String tailFix = ".txt";
             IGameScreen basic = null;
 
-            if (Global.CurrentMode == Shared.Constants.BASIC_MODE)
+            switch (Global.CurrentMode)
             {
-                basic = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_BASIC, true) as BoomGame.Scene.BasicGameScene;
-                (basic as BasicGameScene).onInit(Shared.Constants.BASIC_GAME_MAP_PATH + level.ToString() + tailFix); 
-            }
-            else if (Global.CurrentMode == Shared.Constants.TIME_MODE)
-            {
-                basic = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_MINI_TIME, true) as BoomGame.Scene.MiniGameTime;
-                (basic as MiniGameTime).onInit(Shared.Constants.TIME_GAME_MAP_PATH + level.ToString() + tailFix, 90);
-            }
-            else
-            {
-                basic = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_MINI_LIMIT, true) as BoomGame.Scene.MiniGameLimitBomb;
-                (basic as MiniGameLimitBomb).onInit(Shared.Constants.LIMIT_GAME_MAP_PATH + level.ToString() + tailFix, 10);
+                case Shared.Constants.BASIC_MODE:
+                    basic = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_BASIC, true) as BoomGame.Scene.BasicGameScene;
+                    (basic as BasicGameScene).onInit(Shared.Constants.BASIC_GAME_MAP_PATH + level.ToString() + tailFix); 
+                    break;
+
+                case Shared.Constants.TIME_MODE:
+                    basic = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_MINI_TIME, true) as BoomGame.Scene.MiniGameTime;
+                    (basic as MiniGameTime).onInit(Shared.Constants.TIME_GAME_MAP_PATH + level.ToString() + tailFix, 90);
+                    break;
+
+                case Shared.Constants.LIMIT_MODE:
+                    basic = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_MINI_LIMIT, true) as BoomGame.Scene.MiniGameLimitBomb;
+                    (basic as MiniGameLimitBomb).onInit(Shared.Constants.LIMIT_GAME_MAP_PATH + level.ToString() + tailFix, 10);
+                    break;
             }
             Global.BoomMissionManager.AddExclusive(basic);
         }
+        public static void GetNumberOfMap()
+        {
+            String path = "";
+            switch (Global.CurrentMode)
+            {
+                case Shared.Constants.BASIC_MODE:
+                    path = Shared.Constants.BASIC_GAME_MAP_LIST;
+                    break;
+
+                case Shared.Constants.TIME_MODE:
+                    path = Shared.Constants.TIME_GAME_MAP_LIST;
+                    break;
+
+                case Shared.Constants.LIMIT_MODE:
+                    path = Shared.Constants.LIMIT_GAME_MAP_LIST;
+                    break;
+            }
+            try
+            {
+                using (System.IO.Stream stream = TitleContainer.OpenStream(path))
+                {
+                    using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
+                    {
+                        Global.NumberOfMap = Convert.ToInt32(reader.ReadLine());
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Global.NumberOfMap = 0;
+                Debug.WriteLine("File not found" + ex);
+            }
+        }
+
 
         // Game Play - Basic
         public static int Counter_Enemy = 0;
