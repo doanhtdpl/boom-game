@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using BoomGame.Entity.Renderer;
+using BoomGame.Shared;
 
 namespace BoomGame.Entity
 {
@@ -33,8 +34,11 @@ namespace BoomGame.Entity
         protected override void collisionWithWaterEffect(WaterEffectEntity waterEffect)
         {
             --blood;
-            if(blood <= 0)
+            if (blood <= 0)
+            {
                 base.collisionWithWaterEffect(waterEffect);
+                Global.Counter_Scores += 100;
+            }
         }
     }
 }

@@ -146,6 +146,7 @@ namespace BoomGame.Shared
 
 
         // Game Play - Basic
+        public static double Counter_Time = 0;
         public static int Counter_Enemy = 0;
         public static int Counter_Obstacle = 0;
         public static int Counter_Item = 0;

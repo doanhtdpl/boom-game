@@ -87,15 +87,15 @@ namespace BoomGame.Entity.Renderer
 
         public override void Update(GameTime gameTime)
         {
-            if (isAutoRandom)
-            {
-                timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
-                if (timeCounter > 5)
-                {
-                    randomDirection();
-                    timeCounter = 0;
-                }
-            }
+//             if (isAutoRandom)
+//             {
+//                 timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
+//                 if (timeCounter > 5)
+//                 {
+//                     randomDirection();
+//                     timeCounter = 0;
+//                 }
+//             }
 
             updateMovement();
 

@@ -96,6 +96,7 @@ namespace BoomGame.Scene
             onChangePage();
 
             s_background = (SCSEngine.Audio.Sound)resourceManager.GetResource<SCSEngine.Audio.Sound>(Shared.Resources.Sound_Background_5);
+            s_background.IsLooped = true;
             services.AudioManager.PlaySound(s_background, Global.isMusicOff, Global.isMusicZuneOff);
         }
 
@@ -126,7 +127,8 @@ namespace BoomGame.Scene
 
             for (int i = 0; i < items.Count; ++i)
             {
-                items[i].Draw(gameTime);
+                if(items[i].Visible)
+                    items[i].Draw(gameTime);
             }
 
             if(btnNext.Visible)
@@ -197,8 +199,16 @@ namespace BoomGame.Scene
             {
                 for (int i = 0; i < Shared.Constants.NUMBER_RENDER; i++)
                 {
-                    items[i].Text = (Global.CurrentPage * Shared.Constants.NUMBER_RENDER + i).ToString();
-                    items[i].IsLock = (Global.CurrentPage * Shared.Constants.NUMBER_RENDER) + i > currentLevel;
+                    if ((Global.CurrentPage * Shared.Constants.NUMBER_RENDER) + i < Global.NumberOfMap)
+                    {
+                        items[i].Text = (Global.CurrentPage * Shared.Constants.NUMBER_RENDER + i).ToString();
+                        items[i].IsLock = (Global.CurrentPage * Shared.Constants.NUMBER_RENDER) + i > currentLevel;
+                        items[i].Visible = true;
+                    }
+                    else
+                    {
+                        items[i].Visible = false;
+                    }
                 }
             }
 

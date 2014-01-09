@@ -84,7 +84,11 @@ namespace BoomGame.Scene
             controlManager.Add(btnAbout);
             controlManager.Add(btnHelp);
 
-            s_background = (SCSEngine.Audio.Sound)resourceManager.GetResource<SCSEngine.Audio.Sound>(Shared.Resources.Sound_Background_1);
+            if (s_background == null)
+            {
+                s_background = (SCSEngine.Audio.Sound)resourceManager.GetResource<SCSEngine.Audio.Sound>(Shared.Resources.Sound_Background_1);
+                services.AudioManager.StopSound(s_background);
+            }
             updateButtonSound(Global.isMusicOff);
         }
 
@@ -176,7 +180,8 @@ namespace BoomGame.Scene
                 btnSoundOn.Visible = false;
                 btnSoundOff.Visible = true;
 
-                services.AudioManager.PlaySound(s_background, true, Shared.Global.isMusicOff, Shared.Global.isMusicZuneOff);
+                if(s_background.State != Microsoft.Xna.Framework.Audio.SoundState.Playing)
+                    services.AudioManager.PlaySound(s_background, true, Shared.Global.isMusicOff, Shared.Global.isMusicZuneOff);
             }
         }
 

@@ -28,6 +28,11 @@ namespace BoomGame.Scene
         private Button btnNext;
         private Button btnMenu;
 
+        private SpriteFont scoreFont;
+        private Vector2 scorePos;
+        double currentScore = 0;
+        double lastScore = 0;
+
         private BaseGameScreen parent;
 
         private UIControlManager controlManager;
@@ -50,11 +55,11 @@ namespace BoomGame.Scene
             Global.GestureManager.AddDispatcher(controlManager);
 
             btnReplay = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnReplay), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnOver));
-            btnReplay.Canvas.Bound.Position = new Vector2(516f, 252f);
+            btnReplay.Canvas.Bound.Position = new Vector2(516f, 352f);
             btnReplay.FitSizeByImage();
 
             btnMenu = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnMenu), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnOver));
-            btnMenu.Canvas.Bound.Position = new Vector2(223f, 252f);
+            btnMenu.Canvas.Bound.Position = new Vector2(223f, 352f);
             btnMenu.FitSizeByImage();
 
             btnReplay.OnPressed += new ButtonEventHandler(btnReplay_OnPressed);
@@ -67,7 +72,7 @@ namespace BoomGame.Scene
             if (Convert.ToInt32(Global.CurrentMap) + 1 < Global.NumberOfMap)
             {
                 btnNext = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnNextGame), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnOver));
-                btnNext.Canvas.Bound.Position = new Vector2(370f, 252f);
+                btnNext.Canvas.Bound.Position = new Vector2(370f, 352f);
                 btnNext.FitSizeByImage();
 
                 btnNext.OnPressed += new ButtonEventHandler(btnNext_OnPressed);
@@ -78,24 +83,29 @@ namespace BoomGame.Scene
             if (parent is BasicGameScene)
             {
                 gameType = SaveLoadGame.GAME_SCORE_BASIC;
+                currentScore = Global.Counter_Scores + Global.TotalCoin * 50 + (1000 - (long)Global.Counter_Time);
             }
             else if(parent is MiniGameLimitBomb)
             {
                 gameType = SaveLoadGame.GAME_SCORE_BOMB;
+                currentScore = Global.Bomb_Number;
             }
             else
             {
                 gameType = SaveLoadGame.GAME_SCORE_TIME;
+                currentScore = Global.Counter_Time;
             }
 
-            int lastScore;
             SaveLoadGame.LoadGameScore(gameType, Convert.ToInt32(Global.CurrentMap), out lastScore);
 
-            if (lastScore <= Global.Counter_Scores)
+            if (lastScore <= currentScore)
             {
-                SaveLoadGame.SaveGameScore(gameType, Convert.ToInt32(Global.CurrentMap), Global.Counter_Scores);
+                SaveLoadGame.SaveGameScore(gameType, Convert.ToInt32(Global.CurrentMap), currentScore);
                 newHighScore = resourceManager.GetResource<Texture2D>(Shared.Resources.NewHighScore);
                 newHighScorePos = new Vector2(486f, 24f);
+
+                scoreFont = resourceManager.GetResource<SpriteFont>("Score");
+                scorePos = new Vector2(300f, 210f);
             }
 
             SaveLoadGame.SaveLevel(Global.CurrentMode, Convert.ToInt32(Global.CurrentMap) + 1);
@@ -161,6 +171,9 @@ namespace BoomGame.Scene
                 services.SpriteBatch.Draw(newHighScore, newHighScorePos, Color.White);
 
             controlManager.Draw(gameTime);
+
+            if (scoreFont != null)
+                services.SpriteBatch.DrawString(scoreFont, currentScore.ToString(), scorePos, Color.White);
 
             base.Draw(gameTime);
         }

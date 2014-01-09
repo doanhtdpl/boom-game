@@ -92,15 +92,16 @@ namespace BoomGame.Scene
 
             s_background = resourceManager.GetResource<SCSEngine.Audio.Sound>(Global.RandomBackgroundSong());
             services.AudioManager.PlaySound(s_background, true, Global.isMusicOff, Global.isMusicZuneOff);
+            s_background.IsLooped = true;
 
-            Time = 0;
+            Global.Counter_Time = 0;
         }
 
         public override void Update(GameTime gameTime)
         {
             if (Enabled)
             {
-                Time += gameTime.ElapsedGameTime.TotalSeconds;
+                Global.Counter_Time += gameTime.ElapsedGameTime.TotalSeconds;
 
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 {
@@ -149,7 +150,7 @@ namespace BoomGame.Scene
 
                 services.SpriteBatch.DrawString(infoFont, "x" + Global.Counter_Bomber.ToString(), numberBomber, Color.Black);
                 services.SpriteBatch.DrawString(infoFont, "x" + Global.Counter_Enemy.ToString(), numberEnemy, Color.Black);
-                services.SpriteBatch.DrawString(infoFont, ((int)Time / 60).ToString() + ":" + ((int)Time % 60).ToString(), clock, Color.Black);
+                services.SpriteBatch.DrawString(infoFont, ((int)Global.Counter_Time / 60).ToString() + ":" + ((int)Global.Counter_Time % 60).ToString(), clock, Color.Black);
                 services.SpriteBatch.DrawString(infoFont, Global.TotalCoin.ToString(), gold, Color.Black);
                 services.SpriteBatch.DrawString(infoFont, Global.Counter_Scores.ToString(), scores, Color.Black);
 

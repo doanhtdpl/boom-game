@@ -56,6 +56,8 @@ namespace BoomGame.Scene
             // Call to menu
             Global.BoomMissionManager.RemoveCurrent();
 
+            //services.AudioManager.StopSound(MenuScene.s_background);
+
             MenuScene menuScene = Global.BoomMissionManager.Bank.GetScreen(Shared.Macros.S_MENU) as MenuScene;
             menuScene.onInit();
             Global.BoomMissionManager.AddExclusive(menuScene);

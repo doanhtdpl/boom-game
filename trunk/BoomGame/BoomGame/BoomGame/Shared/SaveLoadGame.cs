@@ -73,7 +73,7 @@ namespace BoomGame.Shared
             return false;
         }
 
-        static public void SaveGameScore(String gameType, int map, int score)
+        static public void SaveGameScore(String gameType, int map, double score)
         {
             string currentMap = "Map_" + map;
             string allText = "";
@@ -126,7 +126,7 @@ namespace BoomGame.Shared
             }
         }
 
-        static public void LoadGameScore(String gameType, int map, out int score)
+        static public void LoadGameScore(String gameType, int map, out double score)
         {
             score = 0;
 
@@ -151,7 +151,7 @@ namespace BoomGame.Shared
                                     {
                                         string[] arr = line.Split(':');
                                         if(arr.Length >= 2)
-                                        score = Convert.ToInt32(arr[1]);
+                                            score = Convert.ToInt32(arr[1]);
                                     }
                                 }
                             }
@@ -163,7 +163,7 @@ namespace BoomGame.Shared
 
         public static void LoadLevel(String gameType, out int result)
         {
-            result = 100;
+            result = 0;
             using (IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForApplication())
             {
                 if (savegameStorage.FileExists(GAME_LEVEL))
@@ -184,8 +184,6 @@ namespace BoomGame.Shared
                                             result = Convert.ToInt32(arr[1]);
                                     }
                                 }
-
-                                result = 100;
                                 reader.Close();
                                 fs.Close();
                             }

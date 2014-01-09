@@ -153,6 +153,7 @@ namespace BoomGame.Entity
         public void GonnaDie()
         {
             this.isDead = true;
+            Global.Counter_Scores += 50;
         }
     }
 }
