@@ -70,12 +70,12 @@ namespace BoomGame.Scene
             Global.GestureManager.AddDispatcher(dispatcher);
 
             // Init button next page and previous page
-            btnNext = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnNext), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnNPOver));
+            btnNext = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnNext), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnNext));
             btnNext.Canvas.Bound.Position = new Vector2(708.0f, 110.0f);
             btnNext.FitSizeByImage();
             btnNext.Visible = true;
 
-            btnPrev = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnPrev), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnNPOver));
+            btnPrev = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnPrev), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnPrev));
             btnPrev.Canvas.Bound.Position = new Vector2(-8.0f, 110.0f);
             btnPrev.FitSizeByImage();
             btnPrev.Visible = false;
