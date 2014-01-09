@@ -64,6 +64,7 @@ namespace SCSEngine.Audio
                 instances.Add(newInstance);
                 foreach (SoundEffectInstance sei in instances)
                 {
+                    sei.IsLooped = IsLooped;
                     sei.Play();
                 }
             }

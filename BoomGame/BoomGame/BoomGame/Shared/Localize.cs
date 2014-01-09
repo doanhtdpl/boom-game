@@ -32,5 +32,10 @@ namespace BoomGame.Shared
         public const int ID_item_Wheel = 22;
 
         public const int ID_bomber = 23;
+
+        public const int ID_boss_1 = 24;
+        public const int ID_boss_2 = 25;
+        public const int ID_boss_3 = 26;
+        public const int ID_boss_4 = 27;
     }
 }

@@ -36,7 +36,8 @@ namespace BoomGame.Factory
 
         public EnemyEntity create(object info)
         {
-            EnemyEntity enemy = new EnemyEntity(game);
+            EnemyEntity enemy = null;
+
             if (info is EnemyInfo)
             {
                 Vector2 pos = (info as EnemyInfo).Position;
@@ -57,7 +58,9 @@ namespace BoomGame.Factory
                 }
                 if (canLocate)
                 {
-                    enemy = new EnemyEntity(game);
+                    if((info as EnemyInfo).IsBoss)
+                        enemy = new ChasingEnemyEntity(game);
+                    else enemy = new EnemyEntity(game);
                     (enemy.RendererObj as EnemyRenderer).Position = position;
                     (enemy.RendererObj as EnemyRenderer).Velocity = (info as EnemyInfo).Velocity;
                 }

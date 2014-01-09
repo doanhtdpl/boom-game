@@ -71,6 +71,7 @@
     <Compile Include="Debuger\StringDebuger.cs" />
     <Compile Include="Entity\BombEntity.cs" />
     <Compile Include="Entity\BomberEntity.cs" />
+    <Compile Include="Entity\ChasingEnemyEntity.cs" />
     <Compile Include="Entity\Collide\ICollidable.cs" />
     <Compile Include="Entity\EnemyEntity.cs" />
     <Compile Include="Entity\IGameEntity.cs" />
@@ -100,6 +101,7 @@
     </Compile>
     <Compile Include="Entity\ObstacleEntity.cs" />
     <Compile Include="Entity\Renderer\BomberStage\WrapBombStage.cs" />
+    <Compile Include="Entity\Renderer\ChasingEnemyRenderer.cs" />
     <Compile Include="Entity\Renderer\EnemyRenderer.cs" />
     <Compile Include="Entity\Renderer\ItemRenderer.cs" />
     <Compile Include="Entity\Renderer\ObstacleRenderer.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="Factory\ObstacleFactory.cs" />
     <Compile Include="Factory\WaterEffectFactory.cs" />
     <Compile Include="Grid\Cell.cs" />
+    <Compile Include="Grid\CellState.cs" />
     <Compile Include="Grid\Grid.cs" />
     <Compile Include="Layers\DefaultInputLayer.cs" />
     <Compile Include="Manager\CollisionManager.cs" />
@@ -168,6 +171,7 @@
     <Compile Include="Shared\Localize.cs" />
     <Compile Include="Shared\Macros.cs" />
     <Compile Include="Shared\SaveLoadGame.cs" />
+    <Compile Include="Utilities\AStar.cs" />
     <Compile Include="Utilities\Collision.cs" />
     <None Include="Properties\AppManifest.xml">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>

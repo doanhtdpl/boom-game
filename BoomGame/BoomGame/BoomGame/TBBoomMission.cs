@@ -148,6 +148,7 @@ namespace BoomGame
             SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveRight, FramesGenerator.Generate(52, 51, 208, 30));
             SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveUp, FramesGenerator.Generate(57, 53, 228, 32));
             SpriteFramesBank.Instance.Add(Shared.Resources.EnemyMoveDown, FramesGenerator.Generate(54, 53, 216, 32));
+            SpriteFramesBank.Instance.Add(Shared.Resources.Boss_3, FramesGenerator.Generate(150, 150, 150, 1));
 
             SpriteFramesBank.Instance.Add(Shared.Resources.box, FramesGenerator.Generate(50, 50, 50, 1));
 

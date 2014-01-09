@@ -76,7 +76,6 @@ namespace BoomGame.Grid
                 cell.onInit(cellWidth, cellHeight, cellLocation, new Vector2(position.X + cellLocation.Y * cellSize.X, position.Y + cellLocation.X * cellSize.Y));
 
                 cells.Add(cell);
-                Debug.WriteLine(cellLocation.X + ", " + cellLocation.Y);
             }
         }
 
@@ -138,12 +137,22 @@ namespace BoomGame.Grid
         {
             try
             {
+                if (location.X < 0 || location.X >= this.size.X || location.Y < 0 || location.Y >= this.size.Y)
+                    return null;
                 return cells[(int)(location.X * (int)size.Y + location.Y)];
             }
             catch (System.Exception ex)
             {
                 Debug.WriteLine(ex);
                 return null;
+            }
+        }
+
+        public void PathClean()
+        {
+            foreach (Cell cell in cells)
+            {
+                cell.PathClean();
             }
         }
 
@@ -160,7 +169,7 @@ namespace BoomGame.Grid
             this.entities.Clear();
             foreach (Cell cell in cells)
             {
-                cell.Clear();
+                cell.ClearAll();
             }
         }
     }

@@ -70,7 +70,8 @@ namespace SSCEngine.Control
         {
             foreach (var control in this.controls)
             {
-                control.Draw(gameTime);
+                if(control.Visible)
+                    control.Draw(gameTime);
             }
 
             base.Draw(gameTime);

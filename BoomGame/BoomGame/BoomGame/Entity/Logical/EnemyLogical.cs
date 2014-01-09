@@ -18,7 +18,7 @@ namespace BoomGame.Entity.Logical
                 if (bound.Width == 0 && bound.Height == 0)
                 {
                     Rectangle size = (this.Owner.RendererObj as EnemyRenderer).Size;
-                    bound = new Rectangle((int)position.X, (int)position.Y, 50, 50);
+                    bound = new Rectangle((int)position.X, (int)position.Y, size.Width, size.Height);
                 }
                 else
                 {
