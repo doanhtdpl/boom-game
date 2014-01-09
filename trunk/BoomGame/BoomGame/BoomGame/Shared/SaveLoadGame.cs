@@ -9,23 +9,151 @@ namespace BoomGame.Shared
 {
     public static class SaveLoadGame
     {
-        public static void Load_Level(String fileName, out int result)
+        static public String SOUND = "Sound.txt";
+        static public String GAME_SCORE_BASIC = "GAME_SCORE_BASIC.txt";
+        static public String GAME_SCORE_TIME = "GAME_SCORE_TIME.txt";
+        static public String GAME_SCORE_BOMB = "GAME_SCORE_BOMB.txt";
+        static public String GAME_LEVEL = "Level.txt";
+
+        static public void SaveSoundVolume(bool isMute)
         {
-            result = 0;
-            using (IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForApplication())
+#if WINDOWS_PHONE
+            IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForApplication();
+#else
+            IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForDomain();
+#endif
+            if (savegameStorage.FileExists(SOUND))
             {
-                if (savegameStorage.FileExists(fileName))
+                using (IsolatedStorageFileStream fs = savegameStorage.OpenFile(SOUND, System.IO.FileMode.Truncate))
                 {
-                    using (IsolatedStorageFileStream fs = savegameStorage.OpenFile(fileName, System.IO.FileMode.Open))
+                    using (StreamWriter writer = new StreamWriter(fs))
+                    {
+                        writer.WriteLine(isMute);
+                    }
+                }
+            }
+            else
+            {
+                IsolatedStorageFileStream fs = null;
+                using (fs = savegameStorage.CreateFile(SOUND))
+                {
+                    using (StreamWriter writer = new StreamWriter(fs))
+                    {
+                        writer.WriteLine(isMute);
+                    }
+                }
+            }
+        }
+
+        static public bool LoadSoundVolume()
+        {
+#if WINDOWS_PHONE
+            using (IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForApplication())
+#else
+            using (IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForDomain())
+#endif
+            {
+                if (savegameStorage.FileExists(SOUND))
+                {
+                    using (IsolatedStorageFileStream fs = savegameStorage.OpenFile(SOUND, System.IO.FileMode.Open))
                     {
                         if (fs != null)
                         {
-                            // Reload the saved high-score data.
-                            byte[] saveBytes = new byte[4];
-                            int count = fs.Read(saveBytes, 0, 4);
-                            if (count > 0)
+                            using (StreamReader reader = new StreamReader(fs))
                             {
-                                result = System.BitConverter.ToInt32(saveBytes, 0);
+                                bool isMute = Convert.ToBoolean(reader.ReadLine());
+                                return isMute;
+                            }
+                        }
+                    }
+                }
+                else
+                    return false;
+            }
+            return false;
+        }
+
+        static public void SaveGameScore(String gameType, int map, int score)
+        {
+            string currentMap = "Map_" + map;
+            string allText = "";
+#if WINDOWS_PHONE
+            IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForApplication();
+#else
+            IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForDomain();
+#endif
+            if (savegameStorage.FileExists(gameType))
+            {
+                using (IsolatedStorageFileStream fs = savegameStorage.OpenFile(gameType, System.IO.FileMode.Open))
+                {
+                    using (StreamReader reader = new StreamReader(fs))
+                    {
+                        allText = reader.ReadToEnd();
+                    }
+                }
+                using (IsolatedStorageFileStream fs = savegameStorage.OpenFile(gameType, System.IO.FileMode.Truncate))
+                {
+                    using (StreamWriter writer = new StreamWriter(fs))
+                    {
+                        bool hasGameType = false;
+                        string[] lines = allText.Split('\n');
+                        for (int i = 0; i < lines.Length; ++i)
+                        {
+                            if (lines[i].Contains(currentMap))
+                            {
+                                lines[i] = currentMap + ":" + score;
+                                hasGameType = true;
+                            }
+                            writer.WriteLine(lines[i]);
+                        }
+                        if (!hasGameType)
+                        {
+                            writer.WriteLine( currentMap + ":" + score);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                IsolatedStorageFileStream fs = null;
+                using (fs = savegameStorage.CreateFile(gameType))
+                {
+                    using (StreamWriter writer = new StreamWriter(fs))
+                    {
+                        writer.WriteLine(currentMap + ":" + score);
+                    }
+                }
+            }
+        }
+
+        static public void LoadGameScore(String gameType, int map, out int score)
+        {
+            score = 0;
+
+#if WINDOWS_PHONE
+            using (IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForApplication())
+#else
+            using (IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForDomain())
+#endif
+            {
+                if (savegameStorage.FileExists(gameType))
+                {
+                    using (IsolatedStorageFileStream fs = savegameStorage.OpenFile(gameType, System.IO.FileMode.Open))
+                    {
+                        if (fs != null)
+                        {
+                            using (StreamReader reader = new StreamReader(fs))
+                            {
+                                while (!reader.EndOfStream)
+                                {
+                                    String line = reader.ReadLine();
+                                    if (line.Contains("Map_1" + map))
+                                    {
+                                        string[] arr = line.Split(':');
+                                        if(arr.Length >= 2)
+                                        score = Convert.ToInt32(arr[1]);
+                                    }
+                                }
                             }
                         }
                     }
@@ -33,17 +161,87 @@ namespace BoomGame.Shared
             }
         }
 
-        public static void Save_Level(String fileName, int value)
+        public static void LoadLevel(String gameType, out int result)
         {
+            result = 100;
             using (IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                using (IsolatedStorageFileStream fs = savegameStorage.OpenFile(fileName, System.IO.FileMode.Truncate))
+                if (savegameStorage.FileExists(GAME_LEVEL))
                 {
-                    if (fs != null)
+                    using (IsolatedStorageFileStream fs = savegameStorage.OpenFile(GAME_LEVEL, System.IO.FileMode.Open))
                     {
-                        // Saved high-score data.
-                        byte[] saveBytes = System.BitConverter.GetBytes(value);
-                        fs.Write(saveBytes, 0, saveBytes.Length);
+                        if (fs != null)
+                        {
+                            using (StreamReader reader = new StreamReader(fs))
+                            {
+                                while (!reader.EndOfStream)
+                                {
+                                    String line = reader.ReadLine();
+                                    if (line.Contains(gameType))
+                                    {
+                                        string[] arr = line.Split(':');
+                                        if (arr.Length >= 2)
+                                            result = Convert.ToInt32(arr[1]);
+                                    }
+                                }
+
+                                result = 100;
+                                reader.Close();
+                                fs.Close();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void SaveLevel(String gameType, int value)
+        {
+            string allText = "";
+            using (IsolatedStorageFile savegameStorage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                if (savegameStorage.FileExists(GAME_LEVEL))
+                {
+                    using (IsolatedStorageFileStream fs = savegameStorage.OpenFile(GAME_LEVEL, System.IO.FileMode.Open))
+                    {
+                        using (StreamReader reader = new StreamReader(fs))
+                        {
+                            allText = reader.ReadToEnd();
+                        }
+                    }
+                    using (IsolatedStorageFileStream fs = savegameStorage.OpenFile(GAME_LEVEL, System.IO.FileMode.Truncate))
+                    {
+                        using (StreamWriter writer = new StreamWriter(fs))
+                        {
+                            bool hasGameType = false;
+                            string[] lines = allText.Split('\n');
+                            for (int i = 0; i < lines.Length; ++i)
+                            {
+                                if (lines[i].Contains(gameType))
+                                {
+                                    lines[i] = gameType + ":" + value;
+                                    hasGameType = true;
+                                }
+                                writer.WriteLine(lines[i]);
+                            }
+                            if (!hasGameType)
+                            {
+                                writer.WriteLine(gameType + ":" + value);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    IsolatedStorageFileStream fs = null;
+                    using (fs = savegameStorage.CreateFile(GAME_LEVEL))
+                    {
+                        using (StreamWriter writer = new StreamWriter(fs))
+                        {
+                            writer.WriteLine(gameType + ":" + value);
+                            writer.Close();
+                            fs.Close();
+                        }
                     }
                 }
             }

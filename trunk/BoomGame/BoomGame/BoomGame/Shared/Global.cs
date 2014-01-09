@@ -155,6 +155,5 @@ namespace BoomGame.Shared
 
         // Game Play - Mini
         public static int Bomb_Number = 0;
-
     }
 }

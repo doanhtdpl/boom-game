@@ -36,13 +36,14 @@ namespace BoomGame.Extends
         {
         }
 
-        public void onInit(SpriteBatch sprBatch, Texture2D background, Vector2 position, SpriteFont font, String text)
+        public void onInit(SpriteBatch sprBatch, Texture2D background, Vector2 position, SpriteFont font, String text, bool islock)
         {
             this.sprBatch = sprBatch;
             this.background = background;
             this.position = position;
             this.font = font;
             this.Text = text;
+            this.IsLock = islock;
 
             bound = new Rectangle((int)position.X, (int)position.Y, background.Width, background.Height);
 
@@ -59,8 +60,15 @@ namespace BoomGame.Extends
 
         public override void Draw(GameTime gameTime)
         {
-            sprBatch.Draw(background, position, Color.White);
-            sprBatch.DrawString(font, Convert.ToInt32(Text) < 10 ? "0" + Text: Text, fontPosition, Color.Black);
+            if (!IsLock)
+            {
+                sprBatch.Draw(background, position, Color.White);
+                sprBatch.DrawString(font, Convert.ToInt32(Text) < 10 ? "0" + Text : Text, fontPosition, Color.Black);
+            }
+            else
+            {
+                sprBatch.Draw(background, position, Color.Red);
+            }
 
             base.Draw(gameTime);
         }

@@ -24,6 +24,7 @@ namespace BoomGame.Shared
         // Win
         public static String BackgroundWin = "Images/bgWin";
         public static String BackgroundLose = "Images/bgLose";
+        public static String NewHighScore = "Images/highscore";
 
         // About
         public static String BackgroundAbout = "Images/bgAbout";
@@ -160,5 +161,6 @@ namespace BoomGame.Shared
         public static String BtnReplay = "Images/btnReplay";
         public static String BtnMenu = "Images/btnMenu";
         public static String BtnOver = "Images/btnOver";
+        public static String BtnNextGame = "Images/btnNextGame";
     }
 }

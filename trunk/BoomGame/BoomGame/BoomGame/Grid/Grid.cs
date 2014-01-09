@@ -124,9 +124,14 @@ namespace BoomGame.Grid
 
         public Cell GetCellAtPosition(Vector2 position)
         {
-            int posY = (int)((position.X - this.position.X) / cellSize.Y);
-            int posX = (int)((position.Y - this.position.Y) / cellSize.X);
-            if (position.X >= 0 && position.Y >= 0 && posX >= 0 && posY >= 0 && posX < size.X && posY < size.Y)
+            return GetCellAtPosition(position.X, position.Y);
+        }
+
+        public Cell GetCellAtPosition(float pX, float pY)
+        {
+            int posY = (int)((pX - this.position.X) / cellSize.Y);
+            int posX = (int)((pY - this.position.Y) / cellSize.X);
+            if (pX >= 0 && pY >= 0 && posX >= 0 && posY >= 0 && posX < size.X && posY < size.Y)
             {
                 return cells[posX * (int)size.Y + posY];
             }
@@ -135,11 +140,16 @@ namespace BoomGame.Grid
 
         public Cell GetCellAtLocation(Vector2 location)
         {
+            return GetCellAtLocation(location.X, location.Y);
+        }
+
+        public Cell GetCellAtLocation(float lx, float ly)
+        {
             try
             {
-                if (location.X < 0 || location.X >= this.size.X || location.Y < 0 || location.Y >= this.size.Y)
+                if (lx < 0 || lx >= this.size.X || ly < 0 || ly >= this.size.Y)
                     return null;
-                return cells[(int)(location.X * (int)size.Y + location.Y)];
+                return cells[(int)(lx * (int)size.Y + ly)];
             }
             catch (System.Exception ex)
             {

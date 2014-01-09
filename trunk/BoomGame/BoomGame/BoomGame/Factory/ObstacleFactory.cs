@@ -56,14 +56,20 @@ namespace BoomGame.Factory
                     }
                 }
 
-                obstacle = new ObstacleEntity(game);
-                ObstacleInfo obsInfo = (info as ObstacleInfo);
-                ObstacleRenderer renderer = obstacle.RendererObj as ObstacleRenderer;
+                if (canLocate)
+                {
+                    obstacle = new ObstacleEntity(game);
+                    ObstacleInfo obsInfo = (info as ObstacleInfo);
+                    ObstacleRenderer renderer = obstacle.RendererObj as ObstacleRenderer;
 
-                renderer.Position = obsInfo.Position;
-                renderer.State = obsInfo.Type;
-                renderer.Sprite = obsInfo.Image;
-                obstacle.IsStatic = obsInfo.IsStatic;
+                    renderer.Position = obsInfo.Position;
+                    renderer.State = obsInfo.Type;
+                    renderer.Sprite = obsInfo.Image;
+                    obstacle.isWalkable = obsInfo.IsWalkable;
+                    obstacle.IsStatic = obsInfo.IsStatic;
+
+                    Grid.Grid.getInst().AddAtLocation(obstacle, cell.Location);
+                }
             }
 
             return obstacle;

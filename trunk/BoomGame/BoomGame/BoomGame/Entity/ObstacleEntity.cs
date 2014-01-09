@@ -14,6 +14,7 @@ namespace BoomGame.Entity
     {
         protected bool isDead = false;
         protected List<ICollidable> collidableList = new List<ICollidable>();
+        public bool isWalkable = false;
 
         public bool IsStatic
         {
@@ -67,16 +68,19 @@ namespace BoomGame.Entity
 
         public void Collision(ICollidable obj)
         {
-            if (obj is WaterEffectEntity)
+            if (!isWalkable)
             {
-                Rectangle collisionRect = Utilities.Collision.CollisionRange(this.Bound, obj.Bound);
-                if (collisionRect.Width >= Shared.Constants.COLLISION_MIN && collisionRect.Height >= Shared.Constants.COLLISION_MIN)
+                if (obj is WaterEffectEntity)
                 {
-                    collidableList.Add(obj);
+                    Rectangle collisionRect = Utilities.Collision.CollisionRange(this.Bound, obj.Bound);
+                    if (collisionRect.Width >= Shared.Constants.COLLISION_MIN && collisionRect.Height >= Shared.Constants.COLLISION_MIN)
+                    {
+                        collidableList.Add(obj);
+                    }
                 }
+                else if (obj is ObstacleEntity)
+                    collidableList.Add(obj);
             }
-            else if (obj is ObstacleEntity)
-                collidableList.Add(obj);
         }
 
         public void ApplyCollision()

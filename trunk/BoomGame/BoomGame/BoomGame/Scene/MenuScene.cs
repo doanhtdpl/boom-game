@@ -122,6 +122,7 @@ namespace BoomGame.Scene
         void onBackButton_pressed()
         {
             Global.PlaySound_Button_Effect();
+            SaveLoadGame.SaveSoundVolume(Global.isMusicOff);
             Game.Exit();
         }
 

@@ -44,7 +44,15 @@ namespace BoomGame.Grid
 
         public bool IsWalkable
         {
-            get { return contents.Count == 0; }
+            get 
+            { 
+                foreach (IGameEntity entity in contents)
+                {
+                    if(entity is ObstacleEntity)
+                        return false;
+                }
+                return true;
+            }
         }
 
         public CellState CellState

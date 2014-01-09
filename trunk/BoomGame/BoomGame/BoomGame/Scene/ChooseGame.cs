@@ -38,6 +38,8 @@ namespace BoomGame.Scene
 
         public static SCSEngine.Audio.Sound s_background;
 
+        private static int currentLevel = 0;
+
         public ChooseGame(IGameScreenManager manager)
             : base(manager)
         {
@@ -48,6 +50,8 @@ namespace BoomGame.Scene
 
         public void onInit()
         {
+            SaveLoadGame.LoadLevel(Global.CurrentMode, out currentLevel);
+
             // Get the number of map for initialize menu choose level
             Global.GetNumberOfMap();
 
@@ -177,12 +181,13 @@ namespace BoomGame.Scene
                 {
                     if ((Global.CurrentPage * Shared.Constants.NUMBER_RENDER) + i < Global.NumberOfMap)
                     {
+                        bool isLock = (Global.CurrentPage * Shared.Constants.NUMBER_RENDER) + i > currentLevel;
                         ModeItem item = new ModeItem(Game);
                         Vector2 ir = new Vector2();
                         ir.X = 106 + (i % (Shared.Constants.NUMBER_RENDER / 2)) * 123;
                         ir.Y = 38 + (int)i / (Shared.Constants.NUMBER_RENDER / 2) * 146;
                         item.onInit(services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.ItemChooseGame),
-                                                    ir, font, (Global.CurrentPage * Shared.Constants.NUMBER_RENDER + i).ToString());
+                                                    ir, font, (Global.CurrentPage * Shared.Constants.NUMBER_RENDER + i).ToString(), isLock);
                         items.Add(item);
                         dispatcher.AddTarget(item);
                     }
@@ -193,6 +198,7 @@ namespace BoomGame.Scene
                 for (int i = 0; i < Shared.Constants.NUMBER_RENDER; i++)
                 {
                     items[i].Text = (Global.CurrentPage * Shared.Constants.NUMBER_RENDER + i).ToString();
+                    items[i].IsLock = (Global.CurrentPage * Shared.Constants.NUMBER_RENDER) + i > currentLevel;
                 }
             }
 
