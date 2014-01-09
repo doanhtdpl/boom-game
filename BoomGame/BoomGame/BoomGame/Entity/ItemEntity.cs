@@ -106,12 +106,15 @@ namespace BoomGame.Entity
 
                 // Play sound pick up item
                 Global.PlaySoundEffect(Shared.Resources.Sound_Pick_Item);
+
+                Global.Counter_Scores += 50;
             }
         }
 
         private void collisionWithWaterEffect(WaterEffectEntity wef)
         {
             this.isDead = true;
+            Global.Counter_Scores -= 20;
         }
     }
 }

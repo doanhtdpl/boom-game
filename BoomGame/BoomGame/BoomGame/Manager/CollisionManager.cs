@@ -7,6 +7,7 @@ using BoomGame.Interface.Manager;
 using BoomGame.Entity;
 using Microsoft.Xna.Framework;
 using BoomGame.Shared;
+using BoomGame.Grid;
 
 namespace BoomGame.Manager
 {
@@ -67,6 +68,13 @@ namespace BoomGame.Manager
                     else if (Contents[i] is BomberEntity)
                     {
                         Global.Counter_Bomber--;
+                    }
+                    else if (Contents[i] is ObstacleEntity)
+                    {
+                        Grid.Grid.getInst().Remove(Contents[i] as IGameEntity);
+                        Cell cell = Grid.Grid.getInst().GetCellAtPosition((Contents[i] as IGameEntity).RendererObj.Position);
+                        if (cell != null)
+                            cell.Contents.Remove(Contents[i] as IGameEntity);
                     }
                     //...
                     this.Parent.Remove(Contents[i] as IGameEntity);

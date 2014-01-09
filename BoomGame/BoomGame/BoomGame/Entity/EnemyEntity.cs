@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using BoomGame.Entity.Logical;
 using BoomGame.Entity.Renderer;
 using System.Diagnostics;
+using BoomGame.Shared;
 
 namespace BoomGame.Entity
 {
@@ -113,6 +114,7 @@ namespace BoomGame.Entity
         virtual protected void collisionWithWaterEffect(WaterEffectEntity waterEffect)
         {
             this.isDead = true;
+            Global.Counter_Scores += 100;
         }
     }
 }

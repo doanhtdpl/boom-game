@@ -133,6 +133,7 @@ namespace BoomGame.Scene
             Global.GestureManager.RemoveDispatcher(this.controlManager);
 
             services.AudioManager.StopSound(MenuScene.s_background);
+            MenuScene.s_background = null;
         }
 
         public void Unpause()

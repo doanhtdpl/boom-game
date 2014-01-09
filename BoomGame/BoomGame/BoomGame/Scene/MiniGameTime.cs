@@ -101,6 +101,7 @@ namespace BoomGame.Scene
 
             s_background = resourceManager.GetResource<SCSEngine.Audio.Sound>(Global.RandomBackgroundSong());
             services.AudioManager.PlaySound(s_background, true, Global.isMusicOff, Global.isMusicZuneOff);
+            s_background.IsLooped = true;
         }
 
         public override void Update(GameTime gameTime)
