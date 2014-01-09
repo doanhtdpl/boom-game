@@ -22,7 +22,7 @@ namespace BoomGame.Entity
             }
         }
 
-        protected int blood = 20;
+        protected int blood = 50;
 
         public ChasingEnemyEntity(Game game)
             : base(game)

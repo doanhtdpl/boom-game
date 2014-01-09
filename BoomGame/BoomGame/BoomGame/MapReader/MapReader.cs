@@ -143,7 +143,7 @@ namespace BoomGame.MapReader
                     case Localize.ID_boss_2:
                     case Localize.ID_boss_3:
                     case Localize.ID_boss_4:
-                        entity = EnemyFactory.getInst().create(new EnemyInfo(new Vector2(posX, posY), new Vector2(2f, 2f), true));
+                        entity = EnemyFactory.getInst().create(new EnemyInfo(new Vector2(posX, posY), new Vector2(3f, 3f), true));
                         Global.Counter_Enemy++;
                         break;
 

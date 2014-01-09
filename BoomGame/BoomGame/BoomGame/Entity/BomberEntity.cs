@@ -343,7 +343,7 @@ namespace BoomGame.Entity
             EnemyLogical obsLogical = (enemy.LogicalObj as EnemyLogical);
 
             Rectangle rect = Utilities.Collision.CollisionRange(enemy.Bound, this.Bound);
-            if (rect.Width >= 5 && rect.Height >= 5)
+            if (rect.Width >= 7 && rect.Height >= 7)
             {
                 GonnaDie();
             }
