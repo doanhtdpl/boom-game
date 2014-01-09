@@ -160,15 +160,22 @@ namespace BoomGame.Entity.Renderer
 
         public void onSetBomb()
         {
-            if (!(this.stgBomberStage is WrapBombStage) && Shared.Global.Counter_BombCanLocated > 0)
+            try
             {
-                BombEntity bomb = (BombEntity)BombFactory.getInst().create(new BombInfo(this.Position, Range, 2000, 1));
-                if (bomb != null)
+                if (!(this.stgBomberStage is WrapBombStage) && Shared.Global.Counter_BombCanLocated > 0)
                 {
-                    bomb.onInit();
-                    (Global.BoomMissionManager.Current as TBGamePlayScene).GameManager.Add(bomb);
-                    --Shared.Global.Counter_BombCanLocated;
+                    BombEntity bomb = (BombEntity)BombFactory.getInst().create(new BombInfo(this.Position, Range, 2000, 1));
+                    if (bomb != null)
+                    {
+                        bomb.onInit();
+                        (Global.BoomMissionManager.Current as TBGamePlayScene).GameManager.Add(bomb);
+                        --Shared.Global.Counter_BombCanLocated;
+                    }
                 }
+            }
+            catch (System.Exception ex)
+            {
+                Debug.WriteLine("Can not find Game Scene");
             }
         }
 

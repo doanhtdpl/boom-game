@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using BoomGame.Shared;
 using SSCEngine.Control;
 using SSCEngine.GestureHandling;
+using System.Diagnostics;
 
 namespace BoomGame.Scene
 {
@@ -20,6 +21,8 @@ namespace BoomGame.Scene
         private IResourceManager resourceManager;
 
         private Texture2D aboutBackground;
+        private Texture2D newHighScore;
+        private Vector2 newHighScorePos;
 
         private Button btnReplay;
         private Button btnNext;
@@ -63,13 +66,39 @@ namespace BoomGame.Scene
             // Exception for Next button, prevent choice next map when next map not available
             if (Convert.ToInt32(Global.CurrentMap) + 1 < Global.NumberOfMap)
             {
-                btnNext = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnResume), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnOver));
+                btnNext = new Button(Game, services.SpriteBatch, resourceManager.GetResource<Texture2D>(Shared.Resources.BtnNextGame), resourceManager.GetResource<Texture2D>(Shared.Resources.BtnOver));
                 btnNext.Canvas.Bound.Position = new Vector2(370f, 252f);
                 btnNext.FitSizeByImage();
 
                 btnNext.OnPressed += new ButtonEventHandler(btnNext_OnPressed);
                 controlManager.Add(btnNext);
             }
+
+            String gameType = "";
+            if (parent is BasicGameScene)
+            {
+                gameType = SaveLoadGame.GAME_SCORE_BASIC;
+            }
+            else if(parent is MiniGameLimitBomb)
+            {
+                gameType = SaveLoadGame.GAME_SCORE_BOMB;
+            }
+            else
+            {
+                gameType = SaveLoadGame.GAME_SCORE_TIME;
+            }
+
+            int lastScore;
+            SaveLoadGame.LoadGameScore(gameType, Convert.ToInt32(Global.CurrentMap), out lastScore);
+
+            if (lastScore <= Global.Counter_Scores)
+            {
+                SaveLoadGame.SaveGameScore(gameType, Convert.ToInt32(Global.CurrentMap), Global.Counter_Scores);
+                newHighScore = resourceManager.GetResource<Texture2D>(Shared.Resources.NewHighScore);
+                newHighScorePos = new Vector2(486f, 24f);
+            }
+
+            SaveLoadGame.SaveLevel(Global.CurrentMode, Convert.ToInt32(Global.CurrentMap) + 1);
         }
 
         void btnMenu_OnPressed(Button button)
@@ -127,6 +156,9 @@ namespace BoomGame.Scene
         public override void Draw(GameTime gameTime)
         {
             services.SpriteBatch.Draw(aboutBackground, Vector2.Zero, Color.White);
+
+            if(newHighScore != null)
+                services.SpriteBatch.Draw(newHighScore, newHighScorePos, Color.White);
 
             controlManager.Draw(gameTime);
 

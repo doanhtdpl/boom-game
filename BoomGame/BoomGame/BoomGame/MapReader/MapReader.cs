@@ -109,24 +109,24 @@ namespace BoomGame.MapReader
                         break;
 
                     case Localize.ID_barricade_blue:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.barricade_blue), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.barricade_blue), true, false));
                         break;
 
                     case Localize.ID_barricade_green:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.barricade_green), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.barricade_green), true, false));
                         break;
 
                     case Localize.ID_barricade_orange:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.barricade_orange), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.barricade_orange), true, false));
                         break;
 
                     case Localize.ID_barricade_red:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.barricade_red), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.barricade_red), true, false));
                         break;
 
                     case Localize.ID_basic_box:
                         Vector2 boxPos = new Vector2(posX, posY);
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(boxPos, Shared.Constants.OBSTACLE_CANMOVE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.box), false));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(boxPos, Shared.Constants.OBSTACLE_CANMOVE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.box), false, false));
                         (entity.LogicalObj as ObstacleLogical).ItemTypeContained = itemType;
 
                         // Set wall
@@ -135,7 +135,7 @@ namespace BoomGame.MapReader
                         break;
 
                     case Localize.ID_basic_enemy:
-                        entity = EnemyFactory.getInst().create(new EnemyInfo(new Vector2(posX, posY), new Vector2(5f, 5f), false));
+                        entity = EnemyFactory.getInst().create(new EnemyInfo(new Vector2(posX, posY), new Vector2(3f, 3f), false));
                         Global.Counter_Enemy++;
                         break;
 
@@ -148,51 +148,51 @@ namespace BoomGame.MapReader
                         break;
 
                     case Localize.ID_green_shrub:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.green_shrub), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.green_shrub), false, true));
                         break;
 
                     case Localize.ID_green_tree:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.green_tree), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.green_tree), true, false));
                         break;
 
                     case Localize.ID_house_blue:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.house_blue), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.house_blue), true, false));
                         break;
 
                     case Localize.ID_house_orange:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.house_orange), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.house_orange), true, false));
                         break;
 
                     case Localize.ID_house_red:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.house_red), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.house_red), true, false));
                         break;
 
                     case Localize.ID_house_yellow:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.house_yellow), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.house_yellow), true, false));
                         break;
 
                     case Localize.ID_scenery_tree:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.scenery_tree), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.scenery_tree), true, false));
                         break;
 
                     case Localize.ID_wall_blue:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.wall_blue), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.wall_blue), true, false));
                         break;
 
                     case Localize.ID_wall_orange:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.wall_orange), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.wall_orange), true, false));
                         break;
 
                     case Localize.ID_wall_red:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.wall_red), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.wall_red), true, false));
                         break;
 
                     case Localize.ID_wall_violet:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.wall_violet), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.wall_violet), true, false));
                         break;
 
                     case Localize.ID_yellow_flower:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.yellow_flower), true));
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_IDLE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.yellow_flower), true, false));
                         break;
                     // Item
                     case Localize.ID_item_Ball:

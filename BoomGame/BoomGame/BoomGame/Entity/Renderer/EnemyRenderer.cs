@@ -22,6 +22,9 @@ namespace BoomGame.Entity.Renderer
         protected Sprite sprMoveDown;
 
         protected Vector2 velocity;
+
+        protected bool isAutoRandom = true;
+
         public Vector2 Velocity
         {
             get { return this.velocity; }
@@ -40,8 +43,6 @@ namespace BoomGame.Entity.Renderer
 
         public int direction = Shared.Constants.DIRECTION_NONE;
         public int oldDirection = Shared.Constants.DIRECTION_NONE;
-
-        protected bool isAutoRandom = true;
 
         protected Vector2 accelerator;
         public Vector2 Accelerator
@@ -81,7 +82,7 @@ namespace BoomGame.Entity.Renderer
             // Begin with move down
             sprCurrent = sprMoveDown;
 
-            onChangeDirection(Shared.Constants.DIRECTION_RIGHT);
+            randomDirection();
         }
 
         public override void Update(GameTime gameTime)
@@ -133,6 +134,12 @@ namespace BoomGame.Entity.Renderer
                     accelerator.X = 0f;
                     accelerator.Y = velocity.Y;
                     break;
+                default:
+                    sprCurrent = sprMoveDown;
+                    accelerator.X = 0f;
+                    accelerator.Y = 0f;
+                    break;
+
             }
             sprCurrent.Play();
 
@@ -162,13 +169,93 @@ namespace BoomGame.Entity.Renderer
             }
         }
 
+        private bool isValidCell(float x, float y)
+        {
+            BoomGame.Grid.Cell c = Grid.Grid.getInst().GetCellAtLocation(x, y);
+            if (c != null && c.IsWalkable)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public void randomDirection()
         {
-            int dir = this.direction;
-            while (dir == this.direction)
+            //ChangeNegativeDirection(this.direction);
+            //             int dir = this.direction;
+            //             while (dir == this.direction)
+            //             {
+            //                 dir = GRandom.RandomInt(Shared.Constants.DIRECTION_LEFT, Shared.Constants.DIRECTION_DOWN + 1);
+            //             }
+            //             onChangeDirection(dir);
+
+            int dir = Shared.Constants.DIRECTION_NONE;
+            int[] order = { Shared.Constants.DIRECTION_LEFT, Shared.Constants.DIRECTION_RIGHT, Shared.Constants.DIRECTION_UP, Shared.Constants.DIRECTION_DOWN };
+            int[] list = { 0, 0, 0, 0 };
+
+            BoomGame.Grid.Cell cell = Grid.Grid.getInst().GetCellAtPosition(this.position.X + 25, this.position.Y + 25);
+            if (cell != null)
             {
-                dir = GRandom.RandomInt(Shared.Constants.DIRECTION_LEFT, Shared.Constants.DIRECTION_DOWN + 1);
+                // left
+                BoomGame.Grid.Cell cellLeft = Grid.Grid.getInst().GetCellAtLocation(cell.Location.X, cell.Location.Y - 1);
+                if (cellLeft == null || !cellLeft.IsWalkable)
+                {
+                    list[0] = 4;
+                }
+                // right
+                BoomGame.Grid.Cell cellRight = Grid.Grid.getInst().GetCellAtLocation(cell.Location.X, cell.Location.Y + 1);
+                if (cellRight == null || !cellRight.IsWalkable)
+                {
+                    list[1] = 4;
+                }
+                // up
+                BoomGame.Grid.Cell cellUp = Grid.Grid.getInst().GetCellAtLocation(cell.Location.X - 1, cell.Location.Y);
+                if (cellUp == null || !cellUp.IsWalkable)
+                {
+                    list[2] = 4;
+                }
+                // down
+                BoomGame.Grid.Cell cellDown = Grid.Grid.getInst().GetCellAtLocation(cell.Location.X + 1, cell.Location.Y);
+                if (cellDown == null || !cellDown.IsWalkable)
+                {
+                    list[3] = 4;
+                }
+                for (int i = -1; i <= 1; ++i)
+                {
+                    if (i != 0)
+                    {
+                        if (cellLeft != null && !isValidCell(cellLeft.Location.X + i, cellLeft.Location.Y))
+                        {
+                            list[0]++;
+                        }
+                        if (cellRight != null && !isValidCell(cellRight.Location.X + i, cellRight.Location.Y))
+                        {
+                            list[1]++;
+                        }
+                        if (cellUp != null && !isValidCell(cellUp.Location.X, cellUp.Location.Y + i))
+                        {
+                            list[2]++;
+                        }
+                        if (cellDown != null && !isValidCell(cellDown.Location.X, cellDown.Location.Y + i))
+                        {
+                            list[3]++;
+                        }
+                    }
+                }
             }
+
+            if (list.Min() <= 3)
+            {
+                int min = list.Min();
+                List<int> randomDir = new List<int>();
+                for (int i = 0; i < 4; ++i)
+                {
+                    if (list[i] == min)
+                        randomDir.Add(i);
+                }
+                dir = randomDir[GRandom.RandomInt(0, randomDir.Count)] + 1;
+            }
+
             onChangeDirection(dir);
         }
 
@@ -181,10 +268,11 @@ namespace BoomGame.Entity.Renderer
         public void updateMovement()
         {
             // Out of Game Size
-            while(this.isOutScreen())
+            if (this.isOutScreen())
             {
                 // Random direction
-                randomDirection();
+                //randomDirection();
+                ChangeNegativeDirection(this.direction);
             }
 
             this.position.X += this.Accelerator.X;

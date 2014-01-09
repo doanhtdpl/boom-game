@@ -109,12 +109,12 @@ namespace BoomGame.Scene
 
                 InputLayer.Update(gameTime);
 
-//                 if (Global.Counter_Enemy == 0)
-//                 {
-//                     // Win Game
-//                     Global.PlaySoundEffect(Shared.Resources.Sound_Win);
-//                     onWinGame();
-//                 }
+                if (Global.Counter_Enemy == 0)
+                {
+                    // Win Game
+                    Global.PlaySoundEffect(Shared.Resources.Sound_Win);
+                    onWinGame();
+                }
                 if (Global.Counter_Bomber == 0)
                 {
                     // Lose Game

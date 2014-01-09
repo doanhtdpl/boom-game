@@ -80,10 +80,11 @@ namespace BoomGame
             StringDebuger debuger = new StringDebuger(this);
             Components.Add(debuger);
 
+            Global.isMusicOff = SaveLoadGame.LoadSoundVolume();
+
             // Global
             Global.Initialize(this);
             Components.Add(Global.BoomMissionManager);
-            //Global.BoomMissionManager.SaveScreen = true;
 
             // Init Grid
             Grid.Grid.game = this;

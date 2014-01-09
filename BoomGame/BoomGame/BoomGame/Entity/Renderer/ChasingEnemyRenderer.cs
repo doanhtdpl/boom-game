@@ -20,6 +20,7 @@ namespace BoomGame.Entity.Renderer
 
         private bool hasPath = false;
 
+
         private Vector2 currentTarget;
         private double currentTime = 0;
         private List<Vector2> path;

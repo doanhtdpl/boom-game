@@ -92,15 +92,21 @@ namespace BoomGame.Entity
 
         private void collisionWithObstacle(ObstacleEntity obstacle)
         {
-            if (!isChangeDirection)
+            Rectangle collisionRect = Utilities.Collision.CollisionRange(obstacle.Bound, this.Bound);
+            if (collisionRect.Width >= 6 && collisionRect.Height >= 6)
             {
-                (this.RendererObj as EnemyRenderer).ChangeNegativeDirection((this.RendererObj as EnemyRenderer).direction);
-                isChangeDirection = true;
+                if (!isChangeDirection)
+                {
+                    (this.RendererObj as EnemyRenderer).ChangeNegativeDirection((this.RendererObj as EnemyRenderer).direction);
+                    //(this.RendererObj as EnemyRenderer).randomDirection();
+                    isChangeDirection = true;
+                }
             }
         }
 
         private void collisionWithBomb(BombEntity bomb)
         {
+            //(this.RendererObj as EnemyRenderer).randomDirection();
             (this.RendererObj as EnemyRenderer).ChangeNegativeDirection((this.RendererObj as EnemyRenderer).direction);
         }
 
