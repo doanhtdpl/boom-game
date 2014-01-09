@@ -21,6 +21,10 @@ namespace BoomGame.Shared
         public static String BtnMuteOver = "Images/btnMuteOver";
 
 
+        // Win
+        public static String BackgroundWin = "Images/bgWin";
+        public static String BackgroundLose = "Images/bgLose";
+
         // About
         public static String BackgroundAbout = "Images/bgAbout";
 
@@ -66,6 +70,11 @@ namespace BoomGame.Shared
         public static String EnemyMoveRight = "Images/Boxman_right";
         public static String EnemyMoveUp = "Images/Boxman_up";
         public static String EnemyMoveDown = "Images/Boxman_down";
+
+        public static String Boss_1 = "Images/Bos_1";
+        public static String Boss_2 = "Images/Bos_2";
+        public static String Boss_3 = "Images/Bos_3";
+        public static String Boss_4 = "Images/Bos_4";
 
 
         // Character---Bomb

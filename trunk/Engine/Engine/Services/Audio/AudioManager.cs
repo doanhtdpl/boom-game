@@ -22,6 +22,8 @@ namespace SCSEngine.Services.Audio
 
         #region Initialization Methods
 
+        public bool isPlaying = true;
+
         public AudioManager(Game game)
             : base(game)
         {

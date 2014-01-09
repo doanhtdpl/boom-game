@@ -9,20 +9,22 @@ using SCSEngine.Sprite;
 using BoomGame.Entity.Renderer.BomberStage;
 using BoomGame.Entity.Logical;
 using SCSEngine.Mathematics;
+using System.Diagnostics;
 
 namespace BoomGame.Entity.Renderer
 {
     public class EnemyRenderer : DefaultRenderer
     {
-        private Sprite sprCurrent;
-        private Sprite sprMoveLeft;
-        private Sprite sprMoveRight;
-        private Sprite sprMoveUp;
-        private Sprite sprMoveDown;
+        protected Sprite sprCurrent;
+        protected Sprite sprMoveLeft;
+        protected Sprite sprMoveRight;
+        protected Sprite sprMoveUp;
+        protected Sprite sprMoveDown;
 
         protected Vector2 velocity;
         public Vector2 Velocity
         {
+            get { return this.velocity; }
             set { this.velocity = value; }
         }
         public float VelocityX
@@ -38,6 +40,8 @@ namespace BoomGame.Entity.Renderer
 
         public int direction = Shared.Constants.DIRECTION_NONE;
         public int oldDirection = Shared.Constants.DIRECTION_NONE;
+
+        protected bool isAutoRandom = true;
 
         protected Vector2 accelerator;
         public Vector2 Accelerator
@@ -56,6 +60,8 @@ namespace BoomGame.Entity.Renderer
                     return new Rectangle();
             }
         }
+
+        private double timeCounter = 0;
 
         public EnemyRenderer(Game game, IGameEntity owner)
             : base(game, owner)
@@ -80,6 +86,16 @@ namespace BoomGame.Entity.Renderer
 
         public override void Update(GameTime gameTime)
         {
+            if (isAutoRandom)
+            {
+                timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
+                if (timeCounter > 5)
+                {
+                    randomDirection();
+                    timeCounter = 0;
+                }
+            }
+
             updateMovement();
 
             base.Update(gameTime);

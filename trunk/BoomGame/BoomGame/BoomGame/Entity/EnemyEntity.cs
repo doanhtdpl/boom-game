@@ -15,6 +15,8 @@ namespace BoomGame.Entity
         protected bool isDead = false;
         protected List<ICollidable> collidableList = new List<ICollidable>();
 
+        protected bool isChangeDirection = false;
+
         public EnemyEntity(Game game)
         {
             this.LogicalObj = new EnemyLogical(game, this);
@@ -84,12 +86,17 @@ namespace BoomGame.Entity
                     this.collisionWithWaterEffect(collidableList[i] as WaterEffectEntity);
                 }
             }
+            isChangeDirection = false;
             collidableList.Clear();
         }
 
         private void collisionWithObstacle(ObstacleEntity obstacle)
         {
-            (this.RendererObj as EnemyRenderer).ChangeNegativeDirection((this.RendererObj as EnemyRenderer).direction);
+            if (!isChangeDirection)
+            {
+                (this.RendererObj as EnemyRenderer).ChangeNegativeDirection((this.RendererObj as EnemyRenderer).direction);
+                isChangeDirection = true;
+            }
         }
 
         private void collisionWithBomb(BombEntity bomb)
@@ -97,7 +104,7 @@ namespace BoomGame.Entity
             (this.RendererObj as EnemyRenderer).ChangeNegativeDirection((this.RendererObj as EnemyRenderer).direction);
         }
 
-        private void collisionWithWaterEffect(WaterEffectEntity waterEffect)
+        virtual protected void collisionWithWaterEffect(WaterEffectEntity waterEffect)
         {
             this.isDead = true;
         }

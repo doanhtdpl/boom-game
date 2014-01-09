@@ -36,6 +36,8 @@ namespace BoomGame.Scene
 
         private double delayBeginScene = 1000;
 
+        public static SCSEngine.Audio.Sound s_background;
+
         public ChooseGame(IGameScreenManager manager)
             : base(manager)
         {
@@ -88,6 +90,9 @@ namespace BoomGame.Scene
 
             // Init first page
             onChangePage();
+
+            s_background = (SCSEngine.Audio.Sound)resourceManager.GetResource<SCSEngine.Audio.Sound>(Shared.Resources.Sound_Background_5);
+            services.AudioManager.PlaySound(s_background, Global.isMusicOff, Global.isMusicZuneOff);
         }
 
         public override void Update(GameTime gameTime)
@@ -133,7 +138,7 @@ namespace BoomGame.Scene
             Global.GestureManager.RemoveDispatcher(this.controlManager);
             Global.GestureManager.RemoveDispatcher(this.dispatcher);
 
-            services.AudioManager.StopSound(MenuScene.s_background);
+            services.AudioManager.StopSound(s_background);
         }
 
         public void Unpause()

@@ -66,13 +66,13 @@ namespace BoomGame.Scene
                     entities[i].onInit();
                     GameManager.Add(entities[i]);
                 }
-                entities.Clear();
             }
 
             spr = (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.sand_green_road);
 
             backgroundLine = (Texture2D)resourceManager.GetResource<Texture2D>(Shared.Resources.BackgroundGame);
 
+            // Create game info
             infoFont = (SpriteFont)resourceManager.GetResource<SpriteFont>(Shared.Resources.Time_Font);
             numberBomber = new Vector2(26f, 0f);
             numberEnemy = new Vector2(756f, 0f);
@@ -80,12 +80,23 @@ namespace BoomGame.Scene
             scores = new Vector2(400f, -1f);
             gold = new Vector2(596f, -1f);
 
+            // Create bomber
             BomberEntity bomberEntity = new BomberEntity(this.Game);
             bomberEntity.onInit();
             bomberEntity.RendererObj.Position = new Vector2(Global.Bomber_Start_Position_X, Global.Bomber_Start_Position_Y);
             GameManager.Add(bomberEntity);
             InputLayer.Add(bomberEntity);
             Global.Counter_Bomber++;
+
+            // Set target bomber for enemy
+            for (int i = 0; i < entities.Count; ++i)
+            {
+                if (entities[i] is ChasingEnemyEntity)
+                {
+                    (entities[i] as ChasingEnemyEntity).Target = bomberEntity;
+                }
+            }
+            entities.Clear();
 
             Components.Add(InputLayer);
 

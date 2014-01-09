@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework;
 using SSCEngine.GestureHandling;
 using BoomGame.Shared;
 using Microsoft.Xna.Framework.Input;
+using SCSEngine.Services.Audio;
 
 namespace BoomGame.Scene
 {
@@ -84,7 +85,7 @@ namespace BoomGame.Scene
             controlManager.Add(btnHelp);
 
             s_background = (SCSEngine.Audio.Sound)resourceManager.GetResource<SCSEngine.Audio.Sound>(Shared.Resources.Sound_Background_1);
-            services.AudioManager.PlaySound(s_background, true, Shared.Global.isMusicOff, Shared.Global.isMusicZuneOff);
+            updateButtonSound(Global.isMusicOff);
         }
 
         public override void Update(GameTime gameTime)
@@ -152,6 +153,30 @@ namespace BoomGame.Scene
         {
             // Stop/Resume music
             Global.PlaySound_Button_Effect();
+
+            updateButtonSound(!Global.isMusicOff);
+        }
+
+        void updateButtonSound(bool toState)
+        {
+            if (toState)
+            {
+                Global.isMusicOff = toState;
+
+                btnSoundOn.Visible = true;
+                btnSoundOff.Visible = false;
+
+                services.AudioManager.StopSound(s_background);
+            }
+            else
+            {
+                Global.isMusicOff = toState;
+
+                btnSoundOn.Visible = false;
+                btnSoundOff.Visible = true;
+
+                services.AudioManager.PlaySound(s_background, true, Shared.Global.isMusicOff, Shared.Global.isMusicZuneOff);
+            }
         }
 
         void btnPlay_OnPressed(Button button)

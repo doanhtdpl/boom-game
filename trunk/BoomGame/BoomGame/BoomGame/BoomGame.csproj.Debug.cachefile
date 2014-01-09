@@ -95,6 +95,12 @@ Content\Images\btnPlayOver.xnb
 Content\Images\btnSoundOver.xnb
 Content\Images\btnTime.xnb
 Content\Images\btnTimeOver.xnb
+Content\Images\bgLose.xnb
+Content\Images\bgWin.xnb
+Content\Images\Bos_1.xnb
+Content\Images\Bos_2.xnb
+Content\Images\Bos_3.xnb
+Content\Images\Bos_4.xnb
 Map_Resources\Basic\MapList.txt
 Map_Resources\Basic\Map_0.txt
 Map_Resources\Basic\Map_1.txt

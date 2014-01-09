@@ -339,8 +339,8 @@ namespace BoomGame.Entity
             EnemyRenderer obsRenderer = (enemy.RendererObj as EnemyRenderer);
             EnemyLogical obsLogical = (enemy.LogicalObj as EnemyLogical);
 
-            if (((Math.Abs(renderer.Position.X - obsRenderer.Position.X) <= 10 && (renderer.direction == Shared.Constants.DIRECTION_UP || renderer.direction == Shared.Constants.DIRECTION_DOWN))
-                || (Math.Abs(renderer.Position.Y - obsRenderer.Position.Y) <= 10 && (renderer.direction == Shared.Constants.DIRECTION_LEFT || renderer.direction == Shared.Constants.DIRECTION_RIGHT))))
+            Rectangle rect = Utilities.Collision.CollisionRange(enemy.Bound, this.Bound);
+            if (rect.Width >= 5 && rect.Height >= 5)
             {
                 GonnaDie();
             }

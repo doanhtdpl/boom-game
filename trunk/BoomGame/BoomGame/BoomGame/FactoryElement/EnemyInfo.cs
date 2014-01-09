@@ -27,10 +27,17 @@ namespace BoomGame.FactoryElement
             set;
         }
 
-        public EnemyInfo(Vector2 position, Vector2 velocity)
+        public bool IsBoss
+        {
+            get;
+            set;
+        }
+
+        public EnemyInfo(Vector2 position, Vector2 velocity, bool isBoss)
         {
             this.Position = position;
             this.Velocity = velocity;
+            this.IsBoss = isBoss;
         }
     }
 }

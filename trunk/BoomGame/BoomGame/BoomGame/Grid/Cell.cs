@@ -42,6 +42,37 @@ namespace BoomGame.Grid
             get { return this.contents; }
         }
 
+        public bool IsWalkable
+        {
+            get { return contents.Count == 0; }
+        }
+
+        public CellState CellState
+        {
+            get;
+            set;
+        }
+
+        // Path finding
+        public int H
+        {
+            get;
+            set;
+        }
+
+        public int G
+        {
+            get;
+            set;
+        }
+
+        public Cell Parent
+        {
+            get;
+            set;
+        }
+
+
         public Cell()
         {
         }
@@ -64,6 +95,18 @@ namespace BoomGame.Grid
         public bool Remove(IGameEntity entity)
         {
             return this.contents.Remove(entity);
+        }
+
+        public void ClearAll()
+        {
+            this.CellState = CellState.NONE;
+            PathClean();
+            Clear();
+        }
+
+        public void PathClean()
+        {
+            this.Parent = null;
         }
 
         public void Clear()

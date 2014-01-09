@@ -40,7 +40,7 @@ namespace BoomGame.Scene
         {
             this.parent = parent;
 
-            aboutBackground = resourceManager.GetResource<Texture2D>(Shared.Resources.BackgroundPause);
+            aboutBackground = resourceManager.GetResource<Texture2D>(Shared.Resources.BackgroundLose);
 
             controlManager = new UIControlManager(Game, DefaultGestureHandlingFactory.Instance);
             Global.GestureManager.AddDispatcher(controlManager);

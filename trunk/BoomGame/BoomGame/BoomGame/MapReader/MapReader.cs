@@ -14,6 +14,7 @@ using SCSEngine.Sprite.Implements;
 using SCSEngine.ResourceManagement;
 using SCSEngine.Sprite;
 using System.IO.IsolatedStorage;
+using BoomGame.Utilities;
 
 namespace BoomGame.MapReader
 {
@@ -49,6 +50,7 @@ namespace BoomGame.MapReader
                         int colum = Convert.ToInt32(reader.ReadLine());
 
                         Grid.Grid.getInst().onInit(new Vector2(gridX, gridY), row, colum, 50f, 50f);
+                        AStar.getInst().onInit(row, colum, gridX, gridY, 50f, 50f);
 
                         Shared.Constants.GAME_SIZE_X = gridX;
                         Shared.Constants.GAME_SIZE_Y = gridY;
@@ -89,6 +91,11 @@ namespace BoomGame.MapReader
             }
         }
 
+        protected void putWallAt(Vector2 position)
+        {
+            AStar.getInst().SetWall(position);
+        }
+
         protected IGameEntity CreateEntity(int id, float posX, float posY, int itemType)
         {
             IGameEntity entity = null;
@@ -118,12 +125,25 @@ namespace BoomGame.MapReader
                         break;
 
                     case Localize.ID_basic_box:
-                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(new Vector2(posX, posY), Shared.Constants.OBSTACLE_CANMOVE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.box), false));
+                        Vector2 boxPos = new Vector2(posX, posY);
+                        entity = ObstacleFactory.getInst().create(new ObstacleInfo(boxPos, Shared.Constants.OBSTACLE_CANMOVE, (Sprite)resourceManager.GetResource<ISprite>(Shared.Resources.box), false));
                         (entity.LogicalObj as ObstacleLogical).ItemTypeContained = itemType;
+
+                        // Set wall
+                        putWallAt(boxPos);
+
                         break;
 
                     case Localize.ID_basic_enemy:
-                        entity = EnemyFactory.getInst().create(new EnemyInfo(new Vector2(posX, posY), new Vector2(5f, 5f)));
+                        entity = EnemyFactory.getInst().create(new EnemyInfo(new Vector2(posX, posY), new Vector2(5f, 5f), false));
+                        Global.Counter_Enemy++;
+                        break;
+
+                    case Localize.ID_boss_1:
+                    case Localize.ID_boss_2:
+                    case Localize.ID_boss_3:
+                    case Localize.ID_boss_4:
+                        entity = EnemyFactory.getInst().create(new EnemyInfo(new Vector2(posX, posY), new Vector2(2f, 2f), true));
                         Global.Counter_Enemy++;
                         break;
 
